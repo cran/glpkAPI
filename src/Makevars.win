@@ -1,0 +1,3 @@
+PKG_CPPFLAGS=-g -D_R_=1 -DUSE_R=1 -I${GLPK_PATH}/include
+PKG_LIBS=-L${GLPK_PATH}/lib -L${GMP_PATH}/lib -lglpk -lgmp
+#PKG_LIBS=-L${GLPK_PATH}/lib -L${GMP_PATH}/lib -lglpk_4_45 -lgmp

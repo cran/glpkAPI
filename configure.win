@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#mkdir $R_PACKAGE_DIR/libs
+#cp $GLPK_PATH/lib/*.dll $R_PACKAGE_DIR/libs

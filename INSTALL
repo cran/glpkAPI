@@ -1,0 +1,64 @@
+GNU R package glpkAPI: R Interface to C API of GLPK
+
+
+The installation procedure for the glpkAPI package needs to know where to
+find the GLPK include directory and where to find the callable library.
+
+
+# ---------------------------------------------------------------------------- #
+# Linux and MacOS X installation
+# ---------------------------------------------------------------------------- #
+
+There are basically three different ways of installing the glpkAPI package:
+
+1) Use --with-glpk-<ARG>
+
+   --with-glpk-include=PATH     with PATH being the include directory of GLPK
+
+   --with-glpk-lib=PATH         with PATH being the directory containing the
+                                callable library.
+
+   R CMD INSTALL --configure-args=" \
+       --with-glpk-include=/path/to/include/dir \
+       --with-glpk-lib=/path/to/lib/dir" glpkAPI_X.X.X.tar.gz
+
+
+   When using --with-glpk-<ARG>, both arguments must be given.
+
+2) Use of environment variables
+
+   GLPK_INCLUDE                giving the PATH to the include directory of GLPK
+   GLPK_LIB                    giving the PATH to the directory containing the
+                               callable library.
+
+3) Use --prefix
+
+   --prefix=PATH               with path being the installation directory of
+                               GLPK. The include directory is assumed to be
+                               PATH/include and the callable library should be
+                               in PATH/lib.
+
+   If either --with-glpk-<ARG> nor --prefix is given, it is checked wether
+   glpsol is in the PATH. If yes, PATH is used as prefix. If not,
+   /usr/local/include and /usr/local/lib are tested.
+
+
+If one wants to use GNU BIGNUMin order to use glp_exact, use --enable-gmp
+(default is set to yes).
+
+
+# ---------------------------------------------------------------------------- #
+# Windows installation
+# ---------------------------------------------------------------------------- #
+
+For the installation on Windows systems the file Makewars.win in src/ is
+required. The file looks like this:
+
+PKG_CPPFLAGS=-g -D_R_=1 -DUSE_R=1 -I${GLPK_PATH}/include
+PKG_LIBS=-L${GLPK_PATH}/lib -L${GMP_PATH}/lib -lglpk -lgmp
+
+with the environment variable GLPK_PATH being the installation directory
+of GLPK and GMP_PATH being the installation directory of GNU BIGNUM. This
+procedure was tested successfully on 32-bit Windows XP.
+
+

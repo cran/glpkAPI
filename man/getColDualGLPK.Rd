@@ -1,0 +1,48 @@
+\name{getColDualGLPK}
+\alias{getColDualGLPK}
+\alias{glp_get_col_dual}
+
+\title{
+  Retrieve Column Dual Value
+}
+
+\description{
+  Low level interface function to the GLPK function \code{glp_get_col_dual}.
+  Consult the GLPK documentation for more detailed information.
+}
+
+\usage{
+  getColDualGLPK(lp, j)
+}
+
+\arguments{
+  \item{lp}{
+    A pointer to a GLPK problem object.
+  }
+  \item{j}{
+    Column number \code{j}.
+  }
+}
+
+\details{
+  Interface to the C function \code{getColDual} which calls the GLPK
+  function \code{glp_get_col_dual}.
+}
+
+\value{
+  Column dual value
+}
+
+\references{
+  Based on the package \pkg{glpk} by Lopaka Lee.
+    
+  The GNU GLPK home page at \url{http://www.gnu.org/software/glpk/glpk.html}.
+}
+
+\author{
+  Gabriel Gelius-Dietrich
+
+  Maintainer: Gabriel Gelius-Dietrich <geliudie@uni-duesseldorf.de>
+}
+
+\keyword{ optimize }

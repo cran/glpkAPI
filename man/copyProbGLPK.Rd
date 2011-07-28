@@ -1,0 +1,56 @@
+\name{copyProbGLPK}
+\alias{copyProbGLPK}
+\alias{glp_copy_prob}
+
+\title{
+  Copy problem object content
+}
+
+\description{
+  Low level interface function to the GLPK function \code{glp_copy_prob}.
+  Consult the GLPK documentation for more detailed information.
+}
+
+\usage{
+  copyProbGLPK(lp, clp, name = GLP_OFF)
+}
+
+\arguments{
+  \item{lp}{
+    A pointer to a GLPK problem object (source).
+  }
+  \item{clp}{
+    A pointer to a GLPK problem object (destination).
+  }
+  \item{name}{
+    If set to \code{GLP_ON}, the routine copies all symbolic names;
+    otherwise (\code{GLP_OFF}) not.
+  }
+}
+
+\details{
+  Interface to the C function \code{copyProb} which calls the GLPK
+  function \code{glp_copy_prob}.
+}
+
+\value{
+  NULL
+}
+
+\references{
+  Based on the package \pkg{glpk} by Lopaka Lee.
+    
+  The GNU GLPK home page at \url{http://www.gnu.org/software/glpk/glpk.html}.
+}
+
+\author{
+  Gabriel Gelius-Dietrich
+
+  Maintainer: Gabriel Gelius-Dietrich <geliudie@uni-duesseldorf.de>
+}
+
+\seealso{
+  \code{\link{glpkConstants}}
+}
+
+\keyword{ optimize }
