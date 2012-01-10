@@ -1,4 +1,4 @@
-AC_INIT([glpkAPI], [1.1.5], [geliudie@uni-duesseldorf.de])
+AC_INIT([glpkAPI], [1.1.7], [geliudie@uni-duesseldorf.de])
 
 dnl # --------------------------------------------------------------------
 dnl # R compiler and flags
@@ -49,47 +49,84 @@ dnl # --------------------------------------------------------------------
 dnl # include and library directories
 if test [ -n "$GLPK_INCLUDE" -a -n "$GLPK_LIB" ] ; then
 
-    if test [ ! -d "$GLPK_INCLUDE" ] ; then
-        AC_MSG_ERROR([directory $GLPK_INCLUDE does not exist])
-    else
+    if test [ -d "$GLPK_INCLUDE" ] ; then
         GLPK_CPPFLAGS="-I${GLPK_INCLUDE}"
+    else
+        AC_MSG_ERROR([directory $GLPK_INCLUDE does not exist])
     fi
 
-    if test [ ! -d "$GLPK_LIB" ] ; then
-        AC_MSG_ERROR([directory $GLPK_LIB does not exist])
-    else
+    if test [ -d "$GLPK_LIB" ] ; then
         LIBS="-L${GLPK_LIB}"
         # LIBS="-L${GLPK_LIB} -Wl,-rpath ${GLPK_LIB}"
+    else
+        AC_MSG_ERROR([directory $GLPK_LIB does not exist])
     fi
 
 else
 
 dnl # if no arguments are given, try to find the glpsol executable. If is not
-dnl # found, use /usr/local
+dnl # found, use /usr/local and /usr
 
     AC_PREFIX_PROGRAM(glpsol)
 
     if test [ "$prefix" = "NONE" ] ; then
 
-        AC_MSG_NOTICE([No prefix given, trying -I/usr/local/include and -L/usr/local/lib])
+        AC_MSG_NOTICE([No prefix given, trying /usr and /usr/local])
 
-        if test [ -d "/usr/local/include" -a -d "/usr/local/lib" ] ; then
-            GLPK_CPPFLAGS="-I/usr/local/include"
-            LIBS="-L/usr/local/lib"
+        if test [ -d "/usr/include" -o -d "/usr/local/include" ] ; then
+            GLPK_CPPFLAGS="-I/usr/include -I/usr/local/include"
+        else
+            AC_MSG_ERROR([directories /usr/include and /usr/local/include do not exist])
+        fi
+
+        if test [ -d "/usr/local/lib" -o -d "/usr/local/lib64" -o -d "/usr/lib" -o -d "/usr/lib64"] ; then
+            LIBS=""
+            if test [ -d "/usr/local/lib" ] ; then
+                LIBS="$LIBS -L/usr/local/lib"
+            fi
+            if test [ -d "/usr/local/lib64" ] ; then
+                LIBS="$LIBS -L/usr/local/lib64"
+            fi
+            if test [ -d "/usr/lib" ] ; then
+                LIBS="$LIBS -L/usr/lib"
+            fi
+            if test [ -d "/usr/lib64" ] ; then
+                LIBS="$LIBS -L/usr/lib64"
+            fi
             # LIBS="-L/usr/local/lib -Wl,-rpath /usr/local/lib"
         else
-            AC_MSG_ERROR([directories /usr/local/include and /usr/local/lib do not exist])
+            AC_MSG_ERROR([none of the directories /usr/local/lib, /usr/local/lib64, /usr/lib of /usr/lib64 exists])
         fi
 
     else
 
-        if test [ -d "$prefix/include" -a -d "$prefix/lib" ] ; then
+        AC_MSG_NOTICE([found executable glpsol in $prefix])
+        
+        if test [ -d "$prefix/include" ] ; then
             GLPK_CPPFLAGS="-I$prefix/include"
-            LIBS="-L$prefix/lib"
-            # LIBS="-L$prefix/lib -Wl,-rpath $prefix/lib"
         else
-            AC_MSG_ERROR([directories $prefix/include and $prefix/lib do not exist])
+            AC_MSG_ERROR([directory $prefix/include does not exist])
         fi
+
+        if test [ -d "$prefix/lib" -o -d "$prefix/lib64" ] ; then
+            LIBS=""
+            if test [ -d "$prefix/lib" ] ; then
+                LIBS="$LIBS -L$prefix/lib"
+            fi
+            if test [ -d "$prefix/lib64" ] ; then
+                LIBS="$LIBS -L$prefix/lib64"
+            fi
+        else
+            AC_MSG_ERROR([neither $prefix/lib nor $prefix/lib64 exist])
+        fi
+
+dnl #        if test [ -d "$prefix/include" -a -d "$prefix/lib" ] ; then
+dnl #            GLPK_CPPFLAGS="-I$prefix/include"
+dnl #            LIBS="-L$prefix/lib"
+dnl #            # LIBS="-L$prefix/lib -Wl,-rpath $prefix/lib"
+dnl #        else
+dnl #            AC_MSG_ERROR([directories $prefix/include and $prefix/lib do not exist])
+dnl #        fi
 
     fi
 
@@ -97,10 +134,11 @@ fi
 
 CPPFLAGS="${CPPFLAGS} ${GLPK_CPPFLAGS}"
 
-INCL="-lglpk"
-
 if test [ "${GMP}" != "no" ] ; then
-    INCL="$INCL -lgmp"
+    dnl # AC_CHECK_HEADER([gmp.h], INCL="$INCL -lgmp", AC_MSG_NOTICE([Could not link to gmp.]))
+    INCL="-lglpk -lgmp"
+else
+    INCL="-lglpk"
 fi
 
 LIBS="$LIBS $INCL"
@@ -155,7 +193,8 @@ AC_CHECK_HEADER([glpk.h],,
 
 AC_SEARCH_LIBS([glp_create_prob], [glpk], ,
     AC_MSG_ERROR([Could not link to GLPK:
-      use --with-glpk-lib or GLPK_LIB to specify the lib path.]))
+      use --with-glpk-lib or GLPK_LIB to specify the lib path.
+      Maybe you want to set --enable-glpk=no]))
 
 dnl # GLPK version
 AC_CHECK_FUNC([glp_print_ranges], ,

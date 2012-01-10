@@ -17,8 +17,8 @@
     \tabular{ll}{
         Package: \tab glpkAPI \cr
         Type: \tab Package \cr
-        Version: \tab 1.1.5 \cr
-        Date: \tab 2011-07-28 \cr
+        Version: \tab 1.1.6 \cr
+        Date: \tab 2011-07-29 \cr
         Depends: \tab R (>= 2.6.0), methods \cr
         License: \tab GPL-3\cr
         LazyLoad: \tab yes\cr

@@ -40,10 +40,11 @@ There are basically three different ways of installing the glpkAPI package:
 
    If either --with-glpk-<ARG> nor --prefix is given, it is checked wether
    glpsol is in the PATH. If yes, PATH is used as prefix. If not,
-   /usr/local/include and /usr/local/lib are tested.
+   /usr/local/include and /usr/local/lib[64] and /usr/include and /usr/lib[64]
+   are tested.
 
 
-If one wants to use GNU BIGNUMin order to use glp_exact, use --enable-gmp
+If one wants to use GNU BIGNUM in order to use glp_exact, use --enable-gmp
 (default is set to yes).
 
 
@@ -54,11 +55,11 @@ If one wants to use GNU BIGNUMin order to use glp_exact, use --enable-gmp
 For the installation on Windows systems the file Makewars.win in src/ is
 required. The file looks like this:
 
-PKG_CPPFLAGS=-g -D_R_=1 -DUSE_R=1 -I${GLPK_PATH}/include
-PKG_LIBS=-L${GLPK_PATH}/lib -L${GMP_PATH}/lib -lglpk -lgmp
+PKG_CPPFLAGS=-g -D_R_=1 -DUSE_R=1 -I${GLPK_HOME}/include
+PKG_LIBS=-L${GLPK_HOME}/lib -lglpk -lgmp
 
-with the environment variable GLPK_PATH being the installation directory
-of GLPK and GMP_PATH being the installation directory of GNU BIGNUM. This
-procedure was tested successfully on 32-bit Windows XP.
+with the environment variable GLPK_HOME being the installation directory
+of GLPK and GNU BIGNUM.
+This procedure was tested successfully on 32-bit Windows XP.
 
 

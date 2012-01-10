@@ -2,6 +2,25 @@ glpkAPI Version History
 
 
 # ------------------------------------------------------- #
+Version 1.1.7    2012-01-10
+# ------------------------------------------------------- #
+
+- some minor changes in configure.ac
+
+- empty configure.win file and some finetuning in Makevars.win
+
+
+# ------------------------------------------------------- #
+Version 1.1.6    2012-01-09
+# ------------------------------------------------------- #
+
+- some minor changes in configure.ac
+
+- experimental win64 support, not working yet.
+  http://sourceforge.net/projects/winglpk/
+
+
+# ------------------------------------------------------- #
 Version 1.1.5    2011-07-28
 # ------------------------------------------------------- #
 
