@@ -14,36 +14,20 @@
 }
 
 \details{
-    \tabular{ll}{
-        Package: \tab glpkAPI \cr
-        Type: \tab Package \cr
-        Version: \tab 1.1.6 \cr
-        Date: \tab 2011-07-29 \cr
-        Depends: \tab R (>= 2.6.0), methods \cr
-        License: \tab GPL-3\cr
-        LazyLoad: \tab yes\cr
-    }
-
-    Index:
-    \preformatted{
-glpkAPI-package       R Interface to C API of GLPK
-    }
-
-The package \pkg{glpkAPI} provides a low level interface to
-the GNU Linear Programming Kit (GLPK).
-
-}
-
-\author{
-    Gabriel Gelius-Dietrich
-
-    Maintainer: Gabriel Gelius-Dietrich <geliudie@uni-duesseldorf.de>
+  The package \code{glpkAPI} provides access to the callable library
+  of the GNU Linear Programming Kit from within R.
 }
 
 \references{
   Based on the package \pkg{glpk} by Lopaka Lee.
 
   The GNU GLPK home page at \url{http://www.gnu.org/software/glpk/glpk.html}.
+}
+
+\author{
+    Gabriel Gelius-Dietrich
+
+    Maintainer: Gabriel Gelius-Dietrich <geliudie@uni-duesseldorf.de>
 }
 
 \keyword{ package }

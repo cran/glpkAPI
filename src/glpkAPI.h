@@ -464,3 +464,25 @@ SEXP getCbind(SEXP lp, SEXP j);
 
 /* print sensitivity analysis report */
 SEXP printRanges(SEXP lp, SEXP numrc, SEXP rowcol, SEXP fname);
+
+/* allocate translator workspace */
+SEXP mplAllocWksp();
+
+/* free translator workspace */
+SEXP mplFreeWksp(SEXP wksp);
+
+/* read and translate model section */
+SEXP mplReadModel(SEXP wk, SEXP fname, SEXP skip);
+
+/* read and translate data section */
+SEXP mplReadData(SEXP wk, SEXP fname);
+
+/* generate the model */
+SEXP mplGenerate(SEXP wk, SEXP fname);
+
+/* build problem instance from model */
+SEXP mplBuildProb(SEXP wk, SEXP lp);
+
+/* postsolve model */
+SEXP mplPostsolve(SEXP wk, SEXP lp, SEXP sol);
+

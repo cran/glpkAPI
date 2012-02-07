@@ -2,6 +2,20 @@ glpkAPI Version History
 
 
 # ------------------------------------------------------- #
+Version 1.1.8    2012-02-07
+# ------------------------------------------------------- #
+
+- added MathProg support:
+  mplAllocWkspGLPK(),
+  mplBuildProbGLPK(),
+  mplFreeWkspGLPK(),
+  mplGenerateGLPK(),
+  mplPostsolveGLPK(),
+  mplReadDataGLPK(),
+  mplReadModelGLPK()
+
+
+# ------------------------------------------------------- #
 Version 1.1.7    2012-01-10
 # ------------------------------------------------------- #
 
@@ -15,9 +29,6 @@ Version 1.1.6    2012-01-09
 # ------------------------------------------------------- #
 
 - some minor changes in configure.ac
-
-- experimental win64 support, not working yet.
-  http://sourceforge.net/projects/winglpk/
 
 
 # ------------------------------------------------------- #

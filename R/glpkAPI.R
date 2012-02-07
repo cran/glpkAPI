@@ -2083,3 +2083,92 @@ printRangesGLPK <- function(lp, numrc = 0, rowcol = NULL, fname = "sar.txt") {
 
 }
 
+
+#------------------------------------------------------------------------------#
+
+mplAllocWkspGLPK <- function() {
+
+    return(.Call("mplAllocWksp", PACKAGE = "glpkAPI"))
+
+}
+
+
+#------------------------------------------------------------------------------#
+
+mplFreeWkspGLPK <- function(wksp) {
+
+    invisible(.Call("mplFreeWksp", wksp, PACKAGE = "glpkAPI"))
+
+}
+
+
+#------------------------------------------------------------------------------#
+
+mplReadModelGLPK <- function(wk, fname, skip) {
+
+    check <- .Call("mplReadModel", PACKAGE = "glpkAPI",
+              wk,
+              as.character(fname),
+              as.integer(skip)
+        )
+    return(check)
+
+}
+
+
+#------------------------------------------------------------------------------#
+
+mplReadDataGLPK <- function(wk, fname) {
+
+    check <- .Call("mplReadData", PACKAGE = "glpkAPI",
+              wk,
+              as.character(fname)
+        )
+    return(check)
+
+}
+
+
+#------------------------------------------------------------------------------#
+
+mplGenerateGLPK <- function(wk, fname = NULL) {
+
+    if (is.null(fname)) {
+        Cfname <- as.null(fname)
+    }
+    else {
+        Cfname <- as.character(fname)
+    }
+
+    check <- .Call("mplGenerate", PACKAGE = "glpkAPI",
+              wk,
+              Cfname
+        )
+    return(check)
+
+}
+
+
+#------------------------------------------------------------------------------#
+
+mplBuildProbGLPK <- function(wk, lp) {
+
+    invisible(.Call("mplBuildProb", PACKAGE = "glpkAPI", wk, lp))
+
+}
+
+
+#------------------------------------------------------------------------------#
+
+mplPostsolveGLPK <- function(wk, lp, sol) {
+
+    check <- .Call("mplPostsolve", PACKAGE = "glpkAPI",
+              wk,
+              lp,
+              as.integer(sol)
+        )
+    return(check)
+
+}
+
+

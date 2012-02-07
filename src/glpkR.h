@@ -74,3 +74,15 @@
     checkTypeOfParm(p); \
 } while (0)
 
+
+/* -------------------------------------------------------------------------- */
+/* MathProg */
+#define checkTypeOfMathProg(mp) do { \
+    if ( (TYPEOF(mp) != EXTPTRSXP) || (R_ExternalPtrTag(mp) != tagMATHprog) ) \
+        Rf_error("You must pass a pointer to an MathProg translator workspace!"); \
+} while (0)
+
+#define checkMathProg(p) do { \
+    checkIfNil(p); \
+    checkTypeOfMathProg(p); \
+} while (0)
