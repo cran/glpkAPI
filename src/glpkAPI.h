@@ -1,7 +1,7 @@
 /* glpkAPI.h
    R interface to GLPK.
  
-   Copyright (C) 2011 Gabriel Gelius-Dietrich, Department for Bioinformatics,
+   Copyright (C) 2011-2012 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
    Institute for Informatics, Heinrich-Heine-University, Duesseldorf, Germany.
    All right reserved.
    Email: geliudie@uni-duesseldorf.de
@@ -24,6 +24,18 @@
 
 
 #include "glpkR.h"
+
+
+/* -------------------------------------------------------------------------- */
+/* Finalizers                                                                 */
+/* -------------------------------------------------------------------------- */
+
+
+/* finalizer for glpk problem objects */
+static void glpkProbFinalizer (SEXP lp);
+
+/* finalizer for MathProg translator workspace */
+static void mathProgFinalizer (SEXP wk);
 
 
 /* -------------------------------------------------------------------------- */

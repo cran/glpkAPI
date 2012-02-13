@@ -12,7 +12,13 @@
 }
 
 \usage{
-  mplAllocWkspGLPK()
+  mplAllocWkspGLPK(ptrtype = "tr_wksp")
+}
+
+\arguments{
+  \item{ptrtype}{
+    A name for the pointer to a translator workspace.
+  }
 }
 
 \details{
@@ -21,7 +27,7 @@
 }
 
 \value{
-  The function returns an external pointer object (externalptr).
+  An instance of class \code{"\linkS4class{glpkPtr}"}.
 }
 
 \references{
@@ -34,6 +40,10 @@
   Gabriel Gelius-Dietrich
 
   Maintainer: Gabriel Gelius-Dietrich <geliudie@uni-duesseldorf.de>
+}
+
+\seealso{
+  \code{"\linkS4class{glpkPtr}"}.
 }
 
 \keyword{ optimize }

@@ -2,6 +2,20 @@ glpkAPI Version History
 
 
 # ------------------------------------------------------- #
+Version 1.1.9    2012-02-13
+# ------------------------------------------------------- #
+
+- added finalizers for glpk problem objects and MathProg
+  translator workspace objects
+
+- Functions initProbGLPK() and mplAllocWkspGLPK() return
+  instances of class glpkPtr. This class has two data
+  slots:
+  type: a character string giving the pointer type and
+  ptr:  a pointer to a C structure.
+
+
+# ------------------------------------------------------- #
 Version 1.1.8    2012-02-07
 # ------------------------------------------------------- #
 

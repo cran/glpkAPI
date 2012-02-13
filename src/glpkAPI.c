@@ -1,23 +1,23 @@
 /* glpkAPI.c
    R interface to GLPK.
-
-   Copyright (C) 2011 Gabriel Gelius-Dietrich, Department for Bioinformatics,
+ 
+   Copyright (C) 2011-2012 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
    Institute for Informatics, Heinrich-Heine-University, Duesseldorf, Germany.
    All right reserved.
    Email: geliudie@uni-duesseldorf.de
-
+ 
    This file is part of glpkAPI.
-
+ 
    GlpkAPI is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation, either version 3 of the License, or
    (at your option) any later version.
-
+ 
    GlpkAPI is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-
+ 
    You should have received a copy of the GNU General Public License
    along with glpkAPI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -26,7 +26,7 @@
 #include "glpkAPI.h"
 
 
-static SEXP tagGLPK;
+static SEXP tagGLPKprob;
 static SEXP tagGLPKparm;
 static SEXP tagMATHprog;
 
@@ -38,9 +38,31 @@ glp_iocp parmM;
 
 
 /* -------------------------------------------------------------------------- */
+/* finalizer for glpk problem objects */
+static void glpkProbFinalizer (SEXP lp) {
+    if (!R_ExternalPtrAddr(lp)) {
+        return;
+    }
+    else {
+        delProb(lp);
+    }
+}
+
+/* finalizer for MathProg translator workspace */
+static void mathProgFinalizer (SEXP wk) {
+    if (!R_ExternalPtrAddr(wk)) {
+        return;
+    }
+    else {
+        mplFreeWksp(wk);
+    }
+}
+
+
+/* -------------------------------------------------------------------------- */
 /* initialize glpk */
 SEXP initGLPK(void) {
-    tagGLPK     = Rf_install("TYPE_GLPK");
+    tagGLPKprob = Rf_install("TYPE_GLPK_PROB");
     tagGLPKparm = Rf_install("TYPE_GLPK_PARM");
     tagMATHprog = Rf_install("TYPE_MATH_PROG");
     return R_NilValue;
@@ -104,9 +126,11 @@ SEXP copyProb(SEXP lp, SEXP clp, SEXP names) {
 
 /* -------------------------------------------------------------------------- */
 /* create new problem object */
-SEXP initProb() {
+SEXP initProb(SEXP ptrtype) {
 
     SEXP lpext = R_NilValue;
+    SEXP ptr, class;
+
     glp_prob *lp;
 
     /* initialize structure for control parameters */
@@ -114,12 +138,23 @@ SEXP initProb() {
     glp_init_iptcp(&parmI);
     glp_init_iocp(&parmM);
 
+    /* create problem pointer */
+    PROTECT(ptr = Rf_allocVector(STRSXP, 1));
+    SET_STRING_ELT(ptr, 0, STRING_ELT(ptrtype, 0));
+
+    PROTECT(class = Rf_allocVector(STRSXP, 1));
+    SET_STRING_ELT(class, 0, Rf_mkChar("glpk_ptr"));
+
     lp = glp_create_prob();
 
-    lpext = R_MakeExternalPtr(lp, tagGLPK, R_NilValue);
-    /* R_RegisterCFinalizer(lpext, (R_CFinalizer_t) delProb); */
+    lpext = R_MakeExternalPtr(lp, tagGLPKprob, R_NilValue);
+    PROTECT(lpext);
+    R_RegisterCFinalizerEx(lpext, glpkProbFinalizer, TRUE);
+    Rf_setAttrib(ptr, class, lpext);
+    Rf_classgets(ptr, class);
+    UNPROTECT(3);
 
-    return lpext;
+    return ptr;
 }
 
 
@@ -130,14 +165,15 @@ SEXP setProbName(SEXP lp, SEXP pname) {
     SEXP out = R_NilValue;
 
     const char *rpname;
+
+    checkProb(lp);
+
     if (pname == R_NilValue) {
         rpname = NULL;
     }
     else {
         rpname = CHAR(STRING_ELT(pname, 0));
     }
-
-    checkProb(lp);
 
     glp_set_prob_name(R_ExternalPtrAddr(lp), rpname);
 
@@ -1548,7 +1584,7 @@ SEXP checkDup(SEXP m, SEXP n, SEXP ne, SEXP ia, SEXP ja) {
     const int *rja = INTEGER(ja);
 
     dup = glp_check_dup(Rf_asInteger(m), Rf_asInteger(n), Rf_asInteger(ne),
-                    &(ria[-1]), &(rja[-1]));
+                        &(ria[-1]), &(rja[-1]));
 
     out = Rf_ScalarInteger(dup);
 
@@ -3280,16 +3316,30 @@ SEXP printRanges(SEXP lp, SEXP numrc, SEXP rowcol, SEXP fname) {
 
 /* -------------------------------------------------------------------------- */
 /* allocate translator workspace */
-SEXP mplAllocWksp() {
+SEXP mplAllocWksp(SEXP ptrtype) {
 
     SEXP wkext = R_NilValue;
+    SEXP ptr, class;
+    
     glp_tran *wk;
+
+    /* create translator workspace pointer */
+    PROTECT(ptr = Rf_allocVector(STRSXP, 1));
+    SET_STRING_ELT(ptr, 0, STRING_ELT(ptrtype, 0));
+
+    PROTECT(class = Rf_allocVector(STRSXP, 1));
+    SET_STRING_ELT(class, 0, Rf_mkChar("trwks_ptr"));
 
     wk = glp_mpl_alloc_wksp();
 
     wkext = R_MakeExternalPtr(wk, tagMATHprog, R_NilValue);
+    PROTECT(wkext);
+    R_RegisterCFinalizerEx(wkext, mathProgFinalizer, TRUE);
+    Rf_setAttrib(ptr, class, wkext);
+    Rf_classgets(ptr, class);
+    UNPROTECT(3);
 
-    return wkext;
+    return ptr;
 }
 
 

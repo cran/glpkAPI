@@ -1,6 +1,12 @@
 useDynLib(glpkAPI)
 
+exportClass("glpkPtr")
+
 export(
+# methods
+"ptr",
+"type",
+"type<-",
 # function names
 addColsGLPK,
 addRowsGLPK,

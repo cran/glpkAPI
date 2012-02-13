@@ -56,8 +56,8 @@ Lopaka Lee. Available on \textsc{CRAN} \url{http://cran.r-project.org/}}, but
 \pkgname{} relies on a separate installation of \prgname{GLPK}.
 
 \section{Installation}
-The package \pkgname{} depends on a working instalation of \prgname{GLPK}
-(including libraries and header files).
+The package \pkgname{} depends on a working installation of \prgname{GLPK}
+(in particular libraries and header files).
 It is recommended to link \prgname{GLPK} to the GNU Multiple Precision
 Arithmetic Library Library (\prgname{GMP})\footnote{\url{http://gmplib.org/}} in
 order to gain more performance when using the exact simplex algorithm.
@@ -90,7 +90,7 @@ Load the library.
 <<>>=
 library(glpkAPI)
 @
-Create a problem object.
+Create an empty problem object.
 <<>>=
 prob <- initProbGLPK()
 @
@@ -221,5 +221,47 @@ Set the searching time limit to one second.
 setSimplexParmGLPK(TM_LIM, 1000)
 @
 
+\section{Finding function names}
+
+The function names in \pkgname{} are different from the names in \prgname{GLPK},
+e.\,g. the function \texttt{addColsGLPK} in \pkgname{} is called
+\texttt{glp\_add\_cols} in \prgname{GLPK}. The directory \texttt{inst/}
+containes a file \texttt{c2r.map} which maps a \prgname{GLPK} function name to
+the corresponding \pkgname{} function name. Additionally, all man-pages contain
+an alias to the \prgname{GLPK} function name. The call
+<<>>=
+?glp_add_cols
+@
+will bring up the man-page of \texttt{addColsGLPK}. Keep in mind that some of
+the \prgname{GLPK} functions do not work on vectors. For example the function
+\texttt{setColBndGLPK} (which is \texttt{glp\_set\_col\_bnds} in \prgname{GLPK})
+sets the upper and lower bounds for exactly one column. The function
+\texttt{setColsBndsGLPK} in \pkgname{} can handle a vector of column indices.
+
+Assume, we have a problem containing 1000 columns and 600 rows, with all
+variables having a lower bound of zero and an upper bound of 25. The problem
+will be created as follows.
+<<>>=
+prob <- initProbGLPK()
+addColsGLPK(prob, 1000)
+addRowsGLPK(prob, 600)
+@
+Now we can set the column bounds via \texttt{mapply} and \texttt{setColBndGLPK}.
+<<>>=
+system.time(
+   mapply(setColBndGLPK, j = 1:1000,
+   MoreArgs = list(lp = prob, type = GLP_DB, lb = 0, ub = 25))
+)
+@
+Or we use the simpler call to \texttt{setColsBndsGLPK}.
+<<>>=
+system.time(
+   setColsBndsGLPK(prob, j = 1:1000,
+                   type = rep(GLP_DB, 1000),
+                   lb = rep(0, 1000),
+                   ub = rep(0, 1000))
+)
+@
+The latter call is also much faster.
 
 \end{document}

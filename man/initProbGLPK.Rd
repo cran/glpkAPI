@@ -12,7 +12,13 @@
 }
 
 \usage{
-  initProbGLPK()
+  initProbGLPK(ptrtype = "glpk_prob")
+}
+
+\arguments{
+  \item{ptrtype}{
+    A name for the pointer to a GLPK problem object.
+  }
 }
 
 \details{
@@ -21,7 +27,7 @@
 }
 
 \value{
-  The function returns an external pointer object (externalptr).
+  An instance of class \code{"\linkS4class{glpkPtr}"}.
 }
 
 \references{
@@ -34,6 +40,10 @@
   Gabriel Gelius-Dietrich
 
   Maintainer: Gabriel Gelius-Dietrich <geliudie@uni-duesseldorf.de>
+}
+
+\seealso{
+  \code{"\linkS4class{glpkPtr}"}.
 }
 
 \keyword{ optimize }

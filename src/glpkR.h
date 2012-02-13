@@ -1,7 +1,7 @@
 /* glpkR.h
    R interface to GLPK.
  
-   Copyright (C) 2011 Gabriel Gelius-Dietrich, Department for Bioinformatics,
+   Copyright (C) 2011-2012 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
    Institute for Informatics, Heinrich-Heine-University, Duesseldorf, Germany.
    All right reserved.
    Email: geliudie@uni-duesseldorf.de
@@ -52,7 +52,7 @@
 /* -------------------------------------------------------------------------- */
 /* problem */
 #define checkTypeOfProb(cp) do { \
-    if ( (TYPEOF(cp) != EXTPTRSXP) || (R_ExternalPtrTag(cp) != tagGLPK) ) \
+    if ( (TYPEOF(cp) != EXTPTRSXP) || (R_ExternalPtrTag(cp) != tagGLPKprob) ) \
         Rf_error("You must pass a glpk problem structure!"); \
 } while (0)
 

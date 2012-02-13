@@ -12,11 +12,11 @@
 }
 
 \usage{
-  mplFreeWkspGLPK(wksp)
+  mplFreeWkspGLPK(wk)
 }
 
 \arguments{
-  \item{wksp}{
+  \item{wk}{
     A pointer to a GLPK translocator workspace.
   }
 }

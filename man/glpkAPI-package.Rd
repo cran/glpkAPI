@@ -82,6 +82,9 @@ solveSimplexGLPK(lp)
 getSolStatGLPK(lp)
 getObjValGLPK(lp)
 getColsPrimGLPK(lp)
+
+# delete lp problem
+delProbGLPK(lp)
 }
 
 

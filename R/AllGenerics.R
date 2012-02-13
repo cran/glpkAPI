@@ -2,7 +2,7 @@
 #                             R interface to GLPK                              #
 #------------------------------------------------------------------------------#
 
-#  zzz.R
+#  glpk_ptrClass.R
 #  R interface to GLPK.
 #
 #  Copyright (C) 2011-2012 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
@@ -26,9 +26,18 @@
 #  along with glpkAPI  If not, see <http://www.gnu.org/licenses/>.
 
 
-.packageName <- "glpkAPI"
+#------------------------------------------------------------------------------#
+#                                   generics                                   #
+#------------------------------------------------------------------------------#
 
-.onLoad <- function(lib, pkg) {
-    .Call("initGLPK", PACKAGE = "glpkAPI")
-}
+setGeneric(name = "ptr",
+           def  = function(object) { standardGeneric("ptr") }
+)
+
+setGeneric(name = "type",
+           def  = function(object) { standardGeneric("type") }
+)
+setGeneric(name = "type<-",
+           def  = function(object, value) { standardGeneric("type<-") }
+)
 
