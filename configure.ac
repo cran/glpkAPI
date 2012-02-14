@@ -1,4 +1,4 @@
-AC_INIT([glpkAPI], [1.1.9], [geliudie@uni-duesseldorf.de])
+AC_INIT([glpkAPI], [1.2.0], [geliudie@uni-duesseldorf.de])
 
 dnl # --------------------------------------------------------------------
 dnl # R compiler and flags

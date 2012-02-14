@@ -37,6 +37,14 @@
   }
 }
 
+\section{Extends}{
+    Class \code{"\linkS4class{.externalptr}"}, directly.
+    Class \code{"\linkS4class{externalptr}"}, by class ".externalptr",
+    distance 2, with explicit coerce.
+    Class \code{"\linkS4class{refObject}"}, by class ".externalptr",
+    distance 3, with explicit coerce.
+}
+
 \section{Methods}{
   \describe{
     \item{ptr}{\code{signature(object = "glpkPtr")}:
@@ -65,6 +73,10 @@
 
 \seealso{
   \code{\link{mplAllocWkspGLPK}} and \code{\link{initProbGLPK}}.
+}
+
+\examples{
+    showClass("glpkPtr")
 }
 
 \keyword{ optimize }

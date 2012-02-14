@@ -221,7 +221,9 @@ Set the searching time limit to one second.
 setSimplexParmGLPK(TM_LIM, 1000)
 @
 
-\section{Finding function names}
+\section{Function names}
+
+\subsection{Searching}
 
 The function names in \pkgname{} are different from the names in \prgname{GLPK},
 e.\,g. the function \texttt{addColsGLPK} in \pkgname{} is called
@@ -230,7 +232,7 @@ containes a file \texttt{c2r.map} which maps a \prgname{GLPK} function name to
 the corresponding \pkgname{} function name. Additionally, all man-pages contain
 an alias to the \prgname{GLPK} function name. The call
 <<>>=
-?glp_add_cols
+help("glp_add_cols")
 @
 will bring up the man-page of \texttt{addColsGLPK}. Keep in mind that some of
 the \prgname{GLPK} functions do not work on vectors. For example the function
@@ -264,4 +266,26 @@ system.time(
 @
 The latter call is also much faster.
 
+
+\subsection{Mapping}
+
+The file \texttt{c2r.map} in \texttt{inst/} maps the \pkgname{} function names
+to the orininal \prgname{GLPK} function names of its C-API. To use the latter,
+run
+<<>>=
+c2r <- system.file(package = "glpkAPI", "c2r.map")
+source(c2r)
+@
+now either
+<<>>=
+pr1 <- initProbGLPK()
+delProbGLPK(pr1)
+@
+or the original functions
+<<>>=
+pr2 <- glp_create_prob()
+glp_delete_prob(pr2)
+@
+work both. Keep in mind that the mapping only affects the function names not the
+arguments of a function.
 \end{document}

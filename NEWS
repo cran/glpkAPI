@@ -2,6 +2,25 @@ glpkAPI Version History
 
 
 # ------------------------------------------------------- #
+Version 1.2.0    2012-02-14
+# ------------------------------------------------------- #
+
+- exported API-functions are registered
+
+- cless glpkPtr extends externalptr
+
+- file c2r.map in inst/: mapping of filenames between C API
+  and glpkAPI, run
+  
+  c2r <- system.file(package = "glpkAPI", "c2r.map")
+  source(c2r)
+
+  in order to use original function names of the GLPK C API.
+
+- fixed a bug in copyProbFLPK()
+
+
+# ------------------------------------------------------- #
 Version 1.1.9    2012-02-13
 # ------------------------------------------------------- #
 

@@ -62,7 +62,7 @@ copyProbGLPK <- function(lp, clp, name = GLP_OFF) {
     invisible(
         .Call("copyProb", PACKAGE = "glpkAPI",
               ptr(lp),
-              clp,
+              ptr(clp),
               as.integer(name)
         )
     )

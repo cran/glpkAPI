@@ -1,119 +1,124 @@
-GLPK                  glpkAPI
-glp_add_cols          addColsGLPK
-glp_add_rows          addRowsGLPK
-glp_adv_basis         advBasisGLPK
-glp_bf_exists         bfExistsGLPK
-glp_bf_updated        bfUpdatedGLPK
-glp_check_dup         checkDupGLPK
-glp_copy_prob         copyProbGLPK
-glp_cpx_basis         cpxBasisGLPK
-glp_create_index      createIndexGLPK
-glp_create_prob       initProbGLPK
-glp_del_cols          delColsGLPK
-glp_del_rows          delRowsGLPK
-glp_delete_index      deleteIndexGLPK
-glp_delete_prob       delProbGLPK
-glp_erase_prob        eraseProbGLPK
-glp_exact             solveSimplexExactGLPK
-glp_factorize         factorizeGLPK
-glp_find_col          findColGLPK
-glp_find_row          findRowGLPK
-glp_get_bfcp          getBfcpGLPK
-glp_get_bhead         getBheadGLPK
-glp_get_col_bind      getCbindGLPK
-glp_get_col_dual      getColDualGLPK
-glp_get_col_kind      getColKindGLPK
-glp_get_col_lb        getColLowBndGLPK
-glp_get_col_name      getColNameGLPK
-glp_get_col_prim      getColPrimGLPK
-glp_get_col_stat      getColStatGLPK
-glp_get_col_type      getColTypeGLPK
-glp_get_col_ub        getColUppBndGLPK
-glp_get_dual_stat     getDualStatGLPK
-glp_get_mat_col       getMatColGLPK
-glp_get_mat_row       getMatRowGLPK
-glp_get_num_bin       getNumBinGLPK
-glp_get_num_cols      getNumColsGLPK
-glp_get_num_int       getNumIntGLPK
-glp_get_num_nz        getNumNnzGLPK
-glp_get_num_rows      getNumRowsGLPK
-glp_get_obj_coef      getObjCoefGLPK
-glp_get_obj_dir       getObjDirGLPK
-glp_get_obj_name      getObjNameGLPK
-glp_get_obj_val       getObjValGLPK
-glp_get_prim_stat     getPrimStatGLPK
-glp_get_prob_name     getProbNameGLPK
-glp_get_rii           getRiiGLPK
-glp_get_row_bind      getRbindGLPK
-glp_get_row_dual      getRowDualGLPK
-glp_get_row_lb        getRowLowBndGLPK
-glp_get_row_name      getRowNameGLPK
-glp_get_row_prim      getRowPrimGLPK
-glp_get_row_stat      getRowStatGLPK
-glp_get_row_type      getRowTypeGLPK
-glp_get_row_ub        getRowUppBndGLPK
-glp_get_sjj           getSjjGLPK
-glp_get_status        getSolStatGLPK
-glp_get_unbnd_ray     getUnbndRayGLPK
-glp_init_iocp         setDefaultMIPParmGLPK
-glp_init_iptcp        setDefaultIptParmGLPK
-glp_interior          solveInteriorGLPK
-glp_intopt            solveMIPGLPK
-glp_ipt_col_dual      getColDualIptGLPK
-glp_ipt_col_prim      getColPrimIptGLPK
-glp_ipt_obj_val       getObjValIptGLPK
-glp_ipt_row_dual      getRowDualIptGLPK
-glp_ipt_row_prim      getRowPrimIptGLPK
-glp_ipt_status        getSolStatIptGLPK
-glp_load_matrix       loadMatrixGLPK
-glp_mip_col_val       mipColValGLPK
-glp_mip_obj_val       mipObjValGLPK
-glp_mip_row_val       mipRowValGLPK
-glp_mip_status        mipStatusGLPK
-glp_mpl_alloc_wksp    mplAllocWkspGLPK
-glp_mpl_build_prob    mplBuildProbGLPK
-glp_mpl_free_wksp     mplFreeWkspGLPK
-glp_mpl_generate      mplGenerateGLPK
-glp_mpl_postsolve     mplPostsolveGLPK
-glp_mpl_read_data     mplReadDataGLPK
-glp_mpl_read_model    mplReadModelGLPK
-glp_print_ipt         printIptGLPK
-glp_print_mip         printMIPGLPK
-glp_print_ranges      printRangesGLPK
-glp_print_sol         printSolGLPK
-glp_read_ipt          readIptGLPK
-glp_read_lp           readLPGLPK
-glp_read_mip          readMIPGLPK
-glp_read_mps          readMPSGLPK
-glp_read_prob         readProbGLPK
-glp_read_sol          readSolGLPK
-glp_scale_prob        scaleProbGLPK
-glp_set_bfcp          setBfcpGLPK
-glp_set_col_bnds      setColBndGLPK
-glp_set_col_kind      setColKindGLPK
-glp_set_col_name      setColNameGLPK
-glp_set_col_stat      setColStatGLPK
-glp_set_mat_col       setMatColGLPK
-glp_set_mat_row       setMatRowGLPK
-glp_set_obj_coef      setObjCoefGLPK
-glp_set_obj_dir       setObjDirGLPK
-glp_set_obj_name      setObjNameGLPK
-glp_set_prob_name     setProbNameGLPK
-glp_set_rii           setRiiGLPK
-glp_set_row_bnds      setRowBndGLPK
-glp_set_row_name      setRowNameGLPK
-glp_set_row_stat      setRowStatGLPK
-glp_set_sjj           setSjjGLPK
-glp_simplex           solveSimplexGLPK
-glp_sort_matrix       sortMatrixGLPK
-glp_std_basis         stdBasisGLPK
-glp_term_out          termOutGLPK
-glp_unscale_prob      unscaleProbGLPK
-glp_version           versionGLPK
-glp_warm_up           warmUpGLPK
-glp_write_ipt         writeIptGLPK
-glp_write_lp          writeLPGLPK
-glp_write_mip         writeMIPGLPK
-glp_write_mps         writeMPSGLPK
-glp_write_prob        writeProbGLPK
-glp_write_sol         writeSolGLPK
+#------------------------------------------------------------------------------#
+#             map GLPK function names to glpkAPI function names                #
+#------------------------------------------------------------------------------#
+
+# GLPK                # glpkAPI
+
+glp_add_cols       <- addColsGLPK
+glp_add_rows       <- addRowsGLPK
+glp_adv_basis      <- advBasisGLPK
+glp_bf_exists      <- bfExistsGLPK
+glp_bf_updated     <- bfUpdatedGLPK
+glp_check_dup      <- checkDupGLPK
+glp_copy_prob      <- copyProbGLPK
+glp_cpx_basis      <- cpxBasisGLPK
+glp_create_index   <- createIndexGLPK
+glp_create_prob    <- initProbGLPK
+glp_del_cols       <- delColsGLPK
+glp_del_rows       <- delRowsGLPK
+glp_delete_index   <- deleteIndexGLPK
+glp_delete_prob    <- delProbGLPK
+glp_erase_prob     <- eraseProbGLPK
+glp_exact          <- solveSimplexExactGLPK
+glp_factorize      <- factorizeGLPK
+glp_find_col       <- findColGLPK
+glp_find_row       <- findRowGLPK
+glp_get_bfcp       <- getBfcpGLPK
+glp_get_bhead      <- getBheadGLPK
+glp_get_col_bind   <- getCbindGLPK
+glp_get_col_dual   <- getColDualGLPK
+glp_get_col_kind   <- getColKindGLPK
+glp_get_col_lb     <- getColLowBndGLPK
+glp_get_col_name   <- getColNameGLPK
+glp_get_col_prim   <- getColPrimGLPK
+glp_get_col_stat   <- getColStatGLPK
+glp_get_col_type   <- getColTypeGLPK
+glp_get_col_ub     <- getColUppBndGLPK
+glp_get_dual_stat  <- getDualStatGLPK
+glp_get_mat_col    <- getMatColGLPK
+glp_get_mat_row    <- getMatRowGLPK
+glp_get_num_bin    <- getNumBinGLPK
+glp_get_num_cols   <- getNumColsGLPK
+glp_get_num_int    <- getNumIntGLPK
+glp_get_num_nz     <- getNumNnzGLPK
+glp_get_num_rows   <- getNumRowsGLPK
+glp_get_obj_coef   <- getObjCoefGLPK
+glp_get_obj_dir    <- getObjDirGLPK
+glp_get_obj_name   <- getObjNameGLPK
+glp_get_obj_val    <- getObjValGLPK
+glp_get_prim_stat  <- getPrimStatGLPK
+glp_get_prob_name  <- getProbNameGLPK
+glp_get_rii        <- getRiiGLPK
+glp_get_row_bind   <- getRbindGLPK
+glp_get_row_dual   <- getRowDualGLPK
+glp_get_row_lb     <- getRowLowBndGLPK
+glp_get_row_name   <- getRowNameGLPK
+glp_get_row_prim   <- getRowPrimGLPK
+glp_get_row_stat   <- getRowStatGLPK
+glp_get_row_type   <- getRowTypeGLPK
+glp_get_row_ub     <- getRowUppBndGLPK
+glp_get_sjj        <- getSjjGLPK
+glp_get_status     <- getSolStatGLPK
+glp_get_unbnd_ray  <- getUnbndRayGLPK
+glp_init_iocp      <- setDefaultMIPParmGLPK
+glp_init_iptcp     <- setDefaultIptParmGLPK
+glp_interior       <- solveInteriorGLPK
+glp_intopt         <- solveMIPGLPK
+glp_ipt_col_dual   <- getColDualIptGLPK
+glp_ipt_col_prim   <- getColPrimIptGLPK
+glp_ipt_obj_val    <- getObjValIptGLPK
+glp_ipt_row_dual   <- getRowDualIptGLPK
+glp_ipt_row_prim   <- getRowPrimIptGLPK
+glp_ipt_status     <- getSolStatIptGLPK
+glp_load_matrix    <- loadMatrixGLPK
+glp_mip_col_val    <- mipColValGLPK
+glp_mip_obj_val    <- mipObjValGLPK
+glp_mip_row_val    <- mipRowValGLPK
+glp_mip_status     <- mipStatusGLPK
+glp_mpl_alloc_wksp <- mplAllocWkspGLPK
+glp_mpl_build_prob <- mplBuildProbGLPK
+glp_mpl_free_wksp  <- mplFreeWkspGLPK
+glp_mpl_generate   <- mplGenerateGLPK
+glp_mpl_postsolve  <- mplPostsolveGLPK
+glp_mpl_read_data  <- mplReadDataGLPK
+glp_mpl_read_model <- mplReadModelGLPK
+glp_print_ipt      <- printIptGLPK
+glp_print_mip      <- printMIPGLPK
+glp_print_ranges   <- printRangesGLPK
+glp_print_sol      <- printSolGLPK
+glp_read_ipt       <- readIptGLPK
+glp_read_lp        <- readLPGLPK
+glp_read_mip       <- readMIPGLPK
+glp_read_mps       <- readMPSGLPK
+glp_read_prob      <- readProbGLPK
+glp_read_sol       <- readSolGLPK
+glp_scale_prob     <- scaleProbGLPK
+glp_set_bfcp       <- setBfcpGLPK
+glp_set_col_bnds   <- setColBndGLPK
+glp_set_col_kind   <- setColKindGLPK
+glp_set_col_name   <- setColNameGLPK
+glp_set_col_stat   <- setColStatGLPK
+glp_set_mat_col    <- setMatColGLPK
+glp_set_mat_row    <- setMatRowGLPK
+glp_set_obj_coef   <- setObjCoefGLPK
+glp_set_obj_dir    <- setObjDirGLPK
+glp_set_obj_name   <- setObjNameGLPK
+glp_set_prob_name  <- setProbNameGLPK
+glp_set_rii        <- setRiiGLPK
+glp_set_row_bnds   <- setRowBndGLPK
+glp_set_row_name   <- setRowNameGLPK
+glp_set_row_stat   <- setRowStatGLPK
+glp_set_sjj        <- setSjjGLPK
+glp_simplex        <- solveSimplexGLPK
+glp_sort_matrix    <- sortMatrixGLPK
+glp_std_basis      <- stdBasisGLPK
+glp_term_out       <- termOutGLPK
+glp_unscale_prob   <- unscaleProbGLPK
+glp_version        <- versionGLPK
+glp_warm_up        <- warmUpGLPK
+glp_write_ipt      <- writeIptGLPK
+glp_write_lp       <- writeLPGLPK
+glp_write_mip      <- writeMIPGLPK
+glp_write_mps      <- writeMPSGLPK
+glp_write_prob     <- writeProbGLPK
+glp_write_sol      <- writeSolGLPK

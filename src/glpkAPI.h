@@ -27,18 +27,6 @@
 
 
 /* -------------------------------------------------------------------------- */
-/* Finalizers                                                                 */
-/* -------------------------------------------------------------------------- */
-
-
-/* finalizer for glpk problem objects */
-static void glpkProbFinalizer (SEXP lp);
-
-/* finalizer for MathProg translator workspace */
-static void mathProgFinalizer (SEXP wk);
-
-
-/* -------------------------------------------------------------------------- */
 /* API functions                                                              */
 /* -------------------------------------------------------------------------- */
 
@@ -56,7 +44,7 @@ SEXP eraseProb(SEXP lp);
 SEXP copyProb(SEXP lp, SEXP clp, SEXP names);
 
 /* create new problem object */
-SEXP initProb();
+SEXP initProb(SEXP ptrtype);
 
 /* set problem name */
 SEXP setProbName(SEXP lp, SEXP pname);

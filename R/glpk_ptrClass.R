@@ -36,7 +36,8 @@ setClass(Class = "glpkPtr",
          representation(
               type = "character",
               ptr  = "externalptr"
-         )
+         ),
+         contains = "externalptr"
 )
 
 
