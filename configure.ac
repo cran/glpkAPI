@@ -1,4 +1,4 @@
-AC_INIT([glpkAPI], [1.2.0], [geliudie@uni-duesseldorf.de])
+AC_INIT([glpkAPI], [1.2.1], [geliudie@uni-duesseldorf.de])
 
 dnl # --------------------------------------------------------------------
 dnl # R compiler and flags
@@ -15,6 +15,13 @@ CC=`"${R_HOME}/bin/R" CMD config CC`
 CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
 CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
 AC_PROG_CC
+
+
+dnl # --------------------------------------------------------------------
+dnl # template config.h.in
+dnl # --------------------------------------------------------------------
+
+AC_CONFIG_HEADERS([src/config.h])
 
 
 dnl # --------------------------------------------------------------------
@@ -40,6 +47,12 @@ AC_ARG_ENABLE(gmp,
                              [link to GNU bignum library libgmp [[yes]]]
                             ),
               [GMP=$enableval], [GMP="yes"])
+
+AC_ARG_ENABLE(chkargs,
+              AC_HELP_STRING([--enable-chkargs[=yes|no]],
+                             [check arguments to GLPK [[yes]]]
+                            ),
+              [CHKARGS=$enableval], [CHKARGS="yes"])
 
 
 dnl # --------------------------------------------------------------------
@@ -142,6 +155,14 @@ else
 fi
 
 LIBS="$LIBS $INCL"
+
+
+dnl # check arguments to CPLEX
+if test [ "${CHKARGS}" != "no" ] ; then
+    AC_DEFINE([CHECK_GLPK_ARGS], [1], [defined, if check arguments to GLPK])
+    GLPK_CPPFLAGS="-DHAVE_CONFIG_H ${GLPK_CPPFLAGS}"
+fi
+
 
 
 dnl # --------------------------------------------------------------------

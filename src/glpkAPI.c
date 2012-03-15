@@ -23,6 +23,7 @@
 */
 
 
+#include <setjmp.h>
 #include "glpkAPI.h"
 
 
@@ -35,6 +36,29 @@ static SEXP tagMATHprog;
 glp_smcp parmS;
 glp_iptcp parmI;
 glp_iocp parmM;
+
+
+/* BEGIN code by Ulrich Wittelsbuerger */
+struct glpkError {
+    int e;
+};
+
+static struct glpkError ge;
+jmp_buf jenv;
+
+void cleanGLPKerror( struct glpkError * ptr ) {
+    if( ptr != 0 ) {
+        /* Rprintf("GLPK error: %d\n",ptr->e); */
+        Rprintf("GLPK error\n");
+    }
+    else {
+        Rprintf("NULL pointer!\n");
+    }
+    longjmp(jenv, 1);
+}
+
+typedef void (*func)(void *info);
+/* END code by Ulrich Wittelsbuerger */
 
 
 /* -------------------------------------------------------------------------- */
@@ -60,6 +84,59 @@ static void mathProgFinalizer (SEXP wk) {
     else {
         mplFreeWksp(wk);
     }
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* help functions                                                             */
+/* -------------------------------------------------------------------------- */
+
+/* check for pointer to glpk */
+SEXP isGLPKptr(SEXP ptr) {
+
+    SEXP out = R_NilValue;
+
+    if ( (TYPEOF(ptr) == EXTPTRSXP) &&
+         (R_ExternalPtrTag(ptr) == tagGLPKprob) ) {
+        out = Rf_ScalarLogical(1);
+    }
+    else {
+        out = Rf_ScalarLogical(0);
+    }
+
+    return out;
+}
+
+/* check for pointer to translator workspace */
+SEXP isTRWKSptr(SEXP ptr) {
+
+    SEXP out = R_NilValue;
+
+    if ( (TYPEOF(ptr) == EXTPTRSXP) &&
+         (R_ExternalPtrTag(ptr) == tagMATHprog) ) {
+        out = Rf_ScalarLogical(1);
+    }
+    else {
+        out = Rf_ScalarLogical(0);
+    }
+
+    return out;
+}
+
+/* check for NULL pointer */
+SEXP isNULLptr(SEXP ptr) {
+
+    SEXP out = R_NilValue;
+
+    if ( (TYPEOF(ptr) == EXTPTRSXP) &&
+         (R_ExternalPtrAddr(ptr) == NULL) ) {
+        out = Rf_ScalarLogical(1);
+    }
+    else {
+        out = Rf_ScalarLogical(0);
+    }
+
+    return out;
 }
 
 
@@ -349,7 +426,7 @@ SEXP setSimplexParm(SEXP npari, SEXP pari, SEXP vali,
         rvali = INTEGER(vali);
 
         for (i = 0; i < Rf_asInteger(npari); i++) {
-            /* printf("par: %i  val: %i\n", rpari[i], rvali[i]); */
+            /* Rprintf("par: %i  val: %i\n", rpari[i], rvali[i]); */
             switch (rpari[i]) {
                 case 101:
                     parmS.msg_lev = rvali[i];
@@ -392,7 +469,7 @@ SEXP setSimplexParm(SEXP npari, SEXP pari, SEXP vali,
         rvald = REAL(vald);
 
         for (d = 0; d < Rf_asInteger(npard); d++) {
-            /* printf("par: %i  val: %i\n", rpard[d], rvald[d]); */
+            /* Rprintf("par: %i  val: %i\n", rpard[d], rvald[d]); */
             switch (rpard[d]) {
                 case 201:
                     parmS.tol_bnd = rvald[d];
@@ -790,6 +867,7 @@ SEXP setRowName(SEXP lp, SEXP i, SEXP rname) {
     }
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     glp_set_row_name(R_ExternalPtrAddr(lp), Rf_asInteger(i), rrname);
 
@@ -807,6 +885,7 @@ SEXP getRowName(SEXP lp, SEXP i) {
     const char *rrname;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     rrname = glp_get_row_name(R_ExternalPtrAddr(lp), Rf_asInteger(i));
 
@@ -830,7 +909,17 @@ SEXP findRow(SEXP lp, SEXP rname) {
 
     checkProb(lp);
 
+    if ( setjmp(jenv) ) {
+        glp_error_hook( NULL, NULL );
+        return out;
+    }
+
+    ge.e = 100;
+    glp_error_hook( (func) &cleanGLPKerror, &ge );
+
     rind = glp_find_row(R_ExternalPtrAddr(lp), rrname);
+
+    glp_error_hook( NULL, NULL );
 
     out = Rf_ScalarInteger(rind);
 
@@ -871,6 +960,7 @@ SEXP setColName(SEXP lp, SEXP j, SEXP cname) {
     }
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     glp_set_col_name(R_ExternalPtrAddr(lp), Rf_asInteger(j), rcname);
 
@@ -888,6 +978,7 @@ SEXP getColName(SEXP lp, SEXP j) {
     const char *rcname;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     rcname = glp_get_col_name(R_ExternalPtrAddr(lp), Rf_asInteger(j));
 
@@ -911,7 +1002,17 @@ SEXP findCol(SEXP lp, SEXP cname) {
 
     checkProb(lp);
 
+    if ( setjmp(jenv) ) {
+        glp_error_hook( NULL, NULL );
+        return out;
+    }
+
+    ge.e = 100;
+    glp_error_hook( (func) &cleanGLPKerror, &ge );
+
     cind = glp_find_col(R_ExternalPtrAddr(lp), rcname);
+
+    glp_error_hook( NULL, NULL );
 
     out = Rf_ScalarInteger(cind);
 
@@ -1063,6 +1164,7 @@ SEXP setColBnd(SEXP lp, SEXP j, SEXP type, SEXP lb, SEXP ub) {
     SEXP out = R_NilValue;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     glp_set_col_bnds(R_ExternalPtrAddr(lp), Rf_asInteger(j), Rf_asInteger(type),
                      Rf_asReal(lb), Rf_asReal(ub)
@@ -1106,6 +1208,7 @@ SEXP getColLowBnd(SEXP lp, SEXP j) {
     double lowbnd = 0;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     lowbnd = glp_get_col_lb(R_ExternalPtrAddr(lp), Rf_asInteger(j));
 
@@ -1149,6 +1252,7 @@ SEXP getColUppBnd(SEXP lp, SEXP j) {
     double uppbnd = 0;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     uppbnd = glp_get_col_ub(R_ExternalPtrAddr(lp), Rf_asInteger(j));
 
@@ -1165,6 +1269,7 @@ SEXP setColKind(SEXP lp, SEXP j, SEXP kind) {
     SEXP out = R_NilValue;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     glp_set_col_kind(R_ExternalPtrAddr(lp),
                      Rf_asInteger(j), Rf_asInteger(kind));
@@ -1203,6 +1308,7 @@ SEXP getColKind(SEXP lp, SEXP j) {
     int kind = 0;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     kind = glp_get_col_kind(R_ExternalPtrAddr(lp), Rf_asInteger(j));
 
@@ -1351,6 +1457,7 @@ SEXP setRowBnd(SEXP lp, SEXP i, SEXP type, SEXP lb, SEXP ub) {
     SEXP out = R_NilValue;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     glp_set_row_bnds(R_ExternalPtrAddr(lp), Rf_asInteger(i),
                      Rf_asInteger(type), Rf_asReal(lb), Rf_asReal(ub)
@@ -1394,6 +1501,7 @@ SEXP getRowLowBnd(SEXP lp, SEXP i) {
     double lowbnd = 0;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     lowbnd = glp_get_row_lb(R_ExternalPtrAddr(lp), Rf_asInteger(i));
 
@@ -1437,6 +1545,7 @@ SEXP getRowUppBnd(SEXP lp, SEXP i) {
     double uppbnd = 0;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     uppbnd = glp_get_row_ub(R_ExternalPtrAddr(lp), Rf_asInteger(i));
 
@@ -1454,6 +1563,7 @@ SEXP getRowType(SEXP lp, SEXP i) {
     int type = 0;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     type = glp_get_row_type(R_ExternalPtrAddr(lp), Rf_asInteger(i));
 
@@ -1471,6 +1581,7 @@ SEXP getColType(SEXP lp, SEXP j) {
     int type = 0;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     type = glp_get_col_type(R_ExternalPtrAddr(lp), Rf_asInteger(j));
 
@@ -1509,6 +1620,7 @@ SEXP setObjCoef(SEXP lp, SEXP j, SEXP obj_coef) {
     SEXP out = R_NilValue;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     glp_set_obj_coef(R_ExternalPtrAddr(lp),
                      Rf_asInteger(j), Rf_asReal(obj_coef)
@@ -1553,6 +1665,7 @@ SEXP getObjCoef(SEXP lp, SEXP j) {
     double obj_coef = 0;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     obj_coef = glp_get_obj_coef(R_ExternalPtrAddr(lp), Rf_asInteger(j));
 
@@ -1653,6 +1766,7 @@ SEXP setRii(SEXP lp, SEXP i, SEXP rii) {
     SEXP out = R_NilValue;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     glp_set_rii(R_ExternalPtrAddr(lp), Rf_asInteger(i), Rf_asReal(rii));
 
@@ -1667,6 +1781,7 @@ SEXP setSjj(SEXP lp, SEXP j, SEXP sjj) {
     SEXP out = R_NilValue;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     glp_set_sjj(R_ExternalPtrAddr(lp), Rf_asInteger(j), Rf_asReal(sjj));
 
@@ -1682,6 +1797,7 @@ SEXP getRii(SEXP lp, SEXP i) {
     double rii = 0;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     rii = glp_get_rii(R_ExternalPtrAddr(lp), Rf_asInteger(i));
 
@@ -1699,6 +1815,7 @@ SEXP getSjj(SEXP lp, SEXP j) {
     double sjj = 0;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     sjj = glp_get_sjj(R_ExternalPtrAddr(lp), Rf_asInteger(j));
 
@@ -1743,6 +1860,7 @@ SEXP setRowStat(SEXP lp, SEXP i, SEXP stat) {
     SEXP out = R_NilValue;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     glp_set_row_stat(R_ExternalPtrAddr(lp),
                      Rf_asInteger(i), Rf_asInteger(stat)
@@ -1759,6 +1877,7 @@ SEXP setColStat(SEXP lp, SEXP j, SEXP stat) {
     SEXP out = R_NilValue;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     glp_set_col_stat(R_ExternalPtrAddr(lp),
                      Rf_asInteger(j), Rf_asInteger(stat)
@@ -1951,6 +2070,7 @@ SEXP getColPrim(SEXP lp, SEXP j) {
     double col_prim = 0;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     col_prim = glp_get_col_prim(R_ExternalPtrAddr(lp), Rf_asInteger(j));
 
@@ -2002,6 +2122,7 @@ SEXP getRowStat(SEXP lp, SEXP i) {
     int row_stat = 0;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     row_stat = glp_get_row_stat(R_ExternalPtrAddr(lp), Rf_asInteger(i));
 
@@ -2043,6 +2164,7 @@ SEXP getRowPrim(SEXP lp, SEXP i) {
     double row_prim;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     row_prim = glp_get_row_prim(R_ExternalPtrAddr(lp), Rf_asInteger(i));
 
@@ -2084,6 +2206,7 @@ SEXP getRowDual(SEXP lp, SEXP i) {
     double row_dual;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     row_dual = glp_get_row_dual(R_ExternalPtrAddr(lp), Rf_asInteger(i));
 
@@ -2125,6 +2248,7 @@ SEXP getColStat(SEXP lp, SEXP j) {
     int col_stat = 0;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     col_stat = glp_get_col_stat(R_ExternalPtrAddr(lp), Rf_asInteger(j));
 
@@ -2166,6 +2290,7 @@ SEXP getColDual(SEXP lp, SEXP j) {
     double col_dual = 0;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     col_dual = glp_get_col_dual(R_ExternalPtrAddr(lp), Rf_asInteger(j));
 
@@ -2300,6 +2425,7 @@ SEXP getColPrimIpt(SEXP lp, SEXP j) {
     double col_prim = 0;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     col_prim = glp_ipt_col_prim(R_ExternalPtrAddr(lp), Rf_asInteger(j));
 
@@ -2317,6 +2443,7 @@ SEXP getRowPrimIpt(SEXP lp, SEXP i) {
     double row_prim = 0;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     row_prim = glp_ipt_row_prim(R_ExternalPtrAddr(lp), Rf_asInteger(i));
 
@@ -2358,6 +2485,7 @@ SEXP getRowDualIpt(SEXP lp, SEXP i) {
     double row_dual = 0;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     row_dual = glp_ipt_row_dual(R_ExternalPtrAddr(lp), Rf_asInteger(i));
 
@@ -2399,6 +2527,7 @@ SEXP getColDualIpt(SEXP lp, SEXP j) {
     double col_dual = 0;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     col_dual = glp_ipt_col_dual(R_ExternalPtrAddr(lp), Rf_asInteger(j));
 
@@ -2491,6 +2620,7 @@ SEXP mipRowVal(SEXP lp, SEXP i) {
     double row = 0;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     row = glp_mip_row_val(R_ExternalPtrAddr(lp), Rf_asInteger(i));
 
@@ -2532,6 +2662,7 @@ SEXP mipColVal(SEXP lp, SEXP j) {
     double col = 0;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     col = glp_mip_col_val(R_ExternalPtrAddr(lp), Rf_asInteger(j));
 
@@ -2595,6 +2726,7 @@ SEXP getMatRow(SEXP lp, SEXP i) {
     int nnzr = 0;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     nnzr = glp_get_mat_row(R_ExternalPtrAddr(lp), Rf_asInteger(i), NULL, NULL);
 
@@ -2651,6 +2783,7 @@ SEXP setMatRow(SEXP lp, SEXP i, SEXP len, SEXP ind, SEXP val) {
     }
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     glp_set_mat_row(R_ExternalPtrAddr(lp), Rf_asInteger(i),
                     Rf_asInteger(len), rind, rval
@@ -2672,6 +2805,7 @@ SEXP getMatCol(SEXP lp, SEXP j) {
     int nnzc = 0;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     nnzc = glp_get_mat_col(R_ExternalPtrAddr(lp), Rf_asInteger(j), NULL, NULL);
 
@@ -2728,6 +2862,7 @@ SEXP setMatCol(SEXP lp, SEXP j, SEXP len, SEXP ind, SEXP val) {
     }
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     glp_set_mat_col(R_ExternalPtrAddr(lp), Rf_asInteger(j),
                     Rf_asInteger(len), rind, rval
@@ -3110,7 +3245,7 @@ SEXP setBfcp(SEXP lp, SEXP npari, SEXP pari, SEXP vali,
         rvali = INTEGER(vali);
 
         for (i = 0; i < Rf_asInteger(npari); i++) {
-            /* printf("par: %i  val: %i\n", rpari[i], rvali[i]); */
+            /* Rprintf("par: %i  val: %i\n", rpari[i], rvali[i]); */
             switch (rpari[i]) {
                 case 401:
                     parmB.type = rvali[i];
@@ -3147,7 +3282,7 @@ SEXP setBfcp(SEXP lp, SEXP npari, SEXP pari, SEXP vali,
         rvald = REAL(vald);
 
         for (d = 0; d < Rf_asInteger(npard); d++) {
-            /* printf("par: %i  val: %i\n", rpard[d], rvald[d]); */
+            /* Rprintf("par: %i  val: %i\n", rpard[d], rvald[d]); */
             switch (rpard[d]) {
                 case 501:
                     parmB.piv_tol = rvald[d];
@@ -3266,6 +3401,7 @@ SEXP getRbind(SEXP lp, SEXP i) {
     int rh;
 
     checkProb(lp);
+    checkRowIndex(lp, i);
 
     rh = glp_get_row_bind(R_ExternalPtrAddr(lp), Rf_asInteger(i));
 
@@ -3283,6 +3419,7 @@ SEXP getCbind(SEXP lp, SEXP j) {
     int ch;
 
     checkProb(lp);
+    checkColIndex(lp, j);
 
     ch = glp_get_row_bind(R_ExternalPtrAddr(lp), Rf_asInteger(j));
 
@@ -3379,9 +3516,19 @@ SEXP mplReadModel(SEXP wk, SEXP fname, SEXP skip) {
 
     checkMathProg(wk);
 
+    if ( setjmp(jenv) ) {
+        glp_error_hook( NULL, NULL );
+        return out;
+    }
+
+    ge.e = 100;
+    glp_error_hook( (func) &cleanGLPKerror, &ge );
+
     check = glp_mpl_read_model(R_ExternalPtrAddr(wk),
                                rfname, Rf_asInteger(skip));
 
+    glp_error_hook( NULL, NULL );
+    
     if (check != 0) {
         out = Rf_ScalarInteger(check);
     }
@@ -3400,7 +3547,17 @@ SEXP mplReadData(SEXP wk, SEXP fname) {
 
     checkMathProg(wk);
 
+    if ( setjmp(jenv) ) {
+        glp_error_hook( NULL, NULL );
+        return out;
+    }
+
+    ge.e = 100;
+    glp_error_hook( (func) &cleanGLPKerror, &ge );
+
     check = glp_mpl_read_data(R_ExternalPtrAddr(wk), rfname);
+
+    glp_error_hook( NULL, NULL );
 
     if (check != 0) {
         out = Rf_ScalarInteger(check);
@@ -3427,7 +3584,17 @@ SEXP mplGenerate(SEXP wk, SEXP fname) {
         rfname = CHAR(STRING_ELT(fname, 0));
     }
 
+    if ( setjmp(jenv) ) {
+        glp_error_hook( NULL, NULL );
+        return out;
+    }
+
+    ge.e = 100;
+    glp_error_hook( (func) &cleanGLPKerror, &ge );
+
     check = glp_mpl_generate(R_ExternalPtrAddr(wk), rfname);
+
+    glp_error_hook( NULL, NULL );
 
     if (check != 0) {
         out = Rf_ScalarInteger(check);
@@ -3462,9 +3629,14 @@ SEXP mplPostsolve(SEXP wk, SEXP lp, SEXP sol) {
     checkMathProg(wk);
     checkProb(lp);
 
+    ge.e = 100;
+    glp_error_hook( (func) &cleanGLPKerror, &ge );
+
     check = glp_mpl_postsolve(R_ExternalPtrAddr(wk),
                               R_ExternalPtrAddr(lp),
                               Rf_asInteger(sol));
+
+    glp_error_hook( NULL, NULL );
 
     if (check != 0) {
         out = Rf_ScalarInteger(check);

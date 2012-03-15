@@ -40,6 +40,29 @@
 #include <R.h>
 #include <Rinternals.h>
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif /* HAVE_CONFIG_H */
+
+
+/* -------------------------------------------------------------------------- */
+/* check arguments to GLPK */
+#ifdef CHECK_GLPK_ARGS
+#define checkRowIndex(p, r) do { \
+    if ( (Rf_asInteger(r) > glp_get_num_rows(R_ExternalPtrAddr(p))) || \
+         (Rf_asInteger(r) < 1) ) \
+        Rf_error("Row index out of range!"); \
+} while (0)
+#define checkColIndex(p, c) do { \
+    if ( (Rf_asInteger(c) > glp_get_num_cols(R_ExternalPtrAddr(p))) || \
+         (Rf_asInteger(c) < 1) ) \
+        Rf_error("Column index out of range!"); \
+} while (0)
+#else
+#define checkRowIndex(p, r)
+#define checkColIndex(p, c)
+#endif
+
 
 /* -------------------------------------------------------------------------- */
 /* NULL */

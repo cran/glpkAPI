@@ -2,12 +2,35 @@ glpkAPI Version History
 
 
 # ------------------------------------------------------- #
+Version 1.2.1    2012-03-15
+# ------------------------------------------------------- #
+
+- class glpkPtr does not extend externalptr (not allowed
+  in R <= 2.14)
+
+- method show for objects of class glpkPtr
+
+- fixed a bug in init.c: number of arguments to mplAllocWksp
+  was wrong
+
+- added methods isGLPKpointer, isNULLpointer and isTRWKSpointer
+  for objects of class glpkPtr
+
+- make use of glp_error_hook in glpkAPI.c in order to prevent
+  GLPK exiting abnormal and so terminating the running R session
+
+- check arguments for row and column indices (i and j) if they
+  fit to the given problem object (again: prevent GLPK from
+  terminating the running R session)
+
+
+# ------------------------------------------------------- #
 Version 1.2.0    2012-02-14
 # ------------------------------------------------------- #
 
 - exported API-functions are registered
 
-- cless glpkPtr extends externalptr
+- class glpkPtr extends externalptr
 
 - file c2r.map in inst/: mapping of filenames between C API
   and glpkAPI, run
@@ -30,8 +53,8 @@ Version 1.1.9    2012-02-13
 - Functions initProbGLPK() and mplAllocWkspGLPK() return
   instances of class glpkPtr. This class has two data
   slots:
-  type: a character string giving the pointer type and
-  ptr:  a pointer to a C structure.
+  pType: a character string giving the pointer type and
+  ptr:   a pointer to a C structure.
 
 
 # ------------------------------------------------------- #

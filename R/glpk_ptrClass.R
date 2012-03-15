@@ -34,10 +34,10 @@
 # representation of class glpkPtr
 setClass(Class = "glpkPtr",
          representation(
-              type = "character",
-              ptr  = "externalptr"
-         ),
-         contains = "externalptr"
+              pType = "character",
+              ptr   = "externalptr"
+         )
+         #, contains = "externalptr"
 )
 
 
@@ -48,8 +48,8 @@ setMethod(f = "initialize",
           signature = "glpkPtr",
           definition = function(.Object, p, w) {
 
-              .Object@ptr  <- attr(p, which = w, exact = TRUE)
-              .Object@type <- as.character(p)
+              .Object@ptr   <- attr(p, which = w, exact = TRUE)
+              .Object@pType <- as.character(p)
               
               return(.Object)
           
@@ -60,38 +60,124 @@ setMethod(f = "initialize",
 # contructor for pointers to glpk problem structures
 glpk_Pointer <- function(pointer) {
 
-    stopifnot(is(pointer, "glpk_ptr"))
-    new("glpkPtr", p = pointer, w = as.character("glpk_ptr"))
+    if (is(pointer, "glpk_ptr")) {
+        pObj <- new("glpkPtr",
+                    p = pointer,
+                    w = as.character("glpk_ptr"))
+    }
+    else {
+        pObj <- pointer
+    }
+
+    return(pObj)
 }
 
 # contructor for pointers to translator workspace
 trwks_Pointer <- function(pointer) {
 
-    stopifnot(is(pointer, "trwks_ptr"))
-    new("glpkPtr", p = pointer, w = as.character("trwks_ptr"))
+    if (is(pointer, "trwks_ptr")) {
+        pObj <- new("glpkPtr",
+                    p = pointer,
+                    w = as.character("trwks_ptr"))
+    }
+    else {
+        pObj <- pointer
+    }
+
+    return(pObj)
 }
 
 
 #------------------------------------------------------------------------------#
 
-# type
-setMethod("type", signature(object = "glpkPtr"),
+# pType
+setMethod("pType", signature(object = "glpkPtr"),
           function(object) {
-              return(object@type)
+              return(object@pType)
           }
 )
 
-setReplaceMethod("type", signature = (object = "glpkPtr"),
+setReplaceMethod("pType", signature = (object = "glpkPtr"),
                  function(object, value) {
-                     object@type <- value
+                     object@pType <- value
                      return(object)
                  }
 )
 
 
-# matchrev
+# ptr
 setMethod("ptr", signature(object = "glpkPtr"),
           function(object) {
               return(object@ptr)
           }
+)
+
+
+#------------------------------------------------------------------------------#
+
+setMethod("isNULLpointer", signature(object = "glpkPtr"),
+    function(object) {
+        return(.Call("isNULLptr", PACKAGE = "glpkAPI", ptr(object)))
+    }
+)
+
+setMethod("isGLPKpointer", signature(object = "glpkPtr"),
+    function(object) {
+        return(.Call("isGLPKptr", PACKAGE = "glpkAPI", ptr(object)))
+    }
+)
+
+setMethod("isTRWKSpointer", signature(object = "glpkPtr"),
+    function(object) {
+        return(.Call("isTRWKSptr", PACKAGE = "glpkAPI", ptr(object)))
+    }
+)
+
+
+#------------------------------------------------------------------------------#
+
+setMethod("show", signature(object = "glpkPtr"),
+    function(object) {
+    
+        nc <- NA
+        
+        if (isNULLpointer(object)) {
+            ptrtype <- "NULL"
+        }
+        else {
+            if (isGLPKpointer(object)) {
+                ptrtype <- "GLPK problem object"
+                nc <- getNumColsGLPK(object)
+            }
+            else if (isTRWKSpointer(object)) {
+                ptrtype <- "MathProg translator workspace"
+            }
+            else {
+                ptrtype <- "unknown"
+            }
+        }
+
+        cat("object of class ", dQuote("glpkPtr"),
+            ": pointer to ", ptrtype, ".\n", sep = "")
+
+        if (!is.na(nc)) {
+            if ( (nc < 1) || (nc > 10) ) {
+                cat(paste("Number of variables:  ",
+                          getNumColsGLPK(object), "\n"))
+                cat(paste("Number of constraints:",
+                          getNumRowsGLPK(object), "\n"))
+            }
+            else {
+                # make a more illustrative method here
+                cat(paste("Number of variables:  ",
+                          getNumColsGLPK(object), "\n"))
+                cat(paste("Number of constraints:",
+                          getNumRowsGLPK(object), "\n"))
+            }
+        }
+        
+        cat(paste("Slot ", dQuote("pType"), ": ", pType(object), "\n", sep = ""))
+        cat(paste("Slot ", dQuote("ptr"), ":   ", sep = ""))
+        print(slot(object, "ptr"), sep = "")
+    }
 )

@@ -5,8 +5,11 @@ exportClass("glpkPtr")
 export(
 # methods
 "ptr",
-"type",
-"type<-",
+"pType",
+"pType<-",
+"isNULLpointer",
+"isGLPKpointer",
+"isTRWKSpointer",
 # function names
 addColsGLPK,
 addRowsGLPK,

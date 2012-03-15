@@ -27,9 +27,22 @@
 
 
 /* -------------------------------------------------------------------------- */
-/* API functions                                                              */
+/* help functions                                                             */
 /* -------------------------------------------------------------------------- */
 
+/* check for pointer to glpk */
+SEXP isGLPKptr(SEXP ptr);
+
+/* check for pointer to translator workspace */
+SEXP isTRWKSptr(SEXP ptr);
+
+/* check for NULL pointer */
+SEXP isNULLptr(SEXP ptr);
+
+
+/* -------------------------------------------------------------------------- */
+/* API functions                                                              */
+/* -------------------------------------------------------------------------- */
 
 /* initialize glpk */
 SEXP initGLPK(void);

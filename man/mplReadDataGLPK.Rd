@@ -17,7 +17,9 @@
 
 \arguments{
   \item{wk}{
-    A pointer to a GLPK translocator workspace.
+    An object of class \code{"\linkS4class{glpkPtr}"} as returned by
+    \code{\link{mplAllocWkspGLPK}}. This is basically a pointer to a GLPK
+    translocator workspace.
   }
   \item{fname}{
     The name of the data file to be read in.

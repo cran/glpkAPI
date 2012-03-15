@@ -30,6 +30,9 @@
 #include <R_ext/Rdynload.h>
 
 static const R_CallMethodDef callMethods[] = {
+    {"isGLPKptr",           (DL_FUNC) &isGLPKptr,           1},
+    {"isTRWKSptr",          (DL_FUNC) &isTRWKSptr,          1},
+    {"isNULLptr",           (DL_FUNC) &isNULLptr,           1},
     {"initGLPK",            (DL_FUNC) &initGLPK,            0},
     {"delProb",             (DL_FUNC) &delProb,             1},
     {"eraseProb",           (DL_FUNC) &eraseProb,           1},
@@ -173,7 +176,7 @@ static const R_CallMethodDef callMethods[] = {
     {"getRbind",            (DL_FUNC) &getRbind,            2},
     {"getCbind",            (DL_FUNC) &getCbind,            2},
     {"printRanges",         (DL_FUNC) &printRanges,         4},
-    {"mplAllocWksp",        (DL_FUNC) &mplAllocWksp,        0},
+    {"mplAllocWksp",        (DL_FUNC) &mplAllocWksp,        1},
     {"mplFreeWksp",         (DL_FUNC) &mplFreeWksp,         1},
     {"mplReadModel",        (DL_FUNC) &mplReadModel,        3},
     {"mplReadData",         (DL_FUNC) &mplReadData,         2},

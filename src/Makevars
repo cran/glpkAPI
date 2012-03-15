@@ -1,0 +1,3 @@
+PKG_CFLAGS = -Wall -ansi -Wextra -Wunknown-pragmas -Wconversion -Wwrite-strings -Wcast-qual -pedantic
+PKG_CPPFLAGS = -DHAVE_CONFIG_H -I/Users/gabriel/include
+PKG_LIBS =  -L/Users/gabriel/lib -lglpk -lgmp

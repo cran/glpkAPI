@@ -47,6 +47,15 @@ There are basically three different ways of installing the glpkAPI package:
 If one wants to use GNU BIGNUM in order to use glp_exact, use --enable-gmp
 (default is set to yes).
 
+The argument --enable-chkargs enables a mechanism checking column and row
+indices given as arguments to glpkAPI functions. If e.g. a desired column
+index does not exist, glpk will terminate abnormally, which also will close
+the running R session. The --enable-chkarg options will cause an overhead
+to the functions needing an index, because it checks if that index is valid.
+This option is enabled by default.
+Functions using a vector of column/row indices, like setRowsBndsGLPK(), do
+NOT use the check function! Make sure, that you will only use valid indices.
+
 
 # ---------------------------------------------------------------------------- #
 # Windows installation
@@ -60,6 +69,5 @@ PKG_LIBS=-L${GLPK_HOME}/lib -lglpk -lgmp
 
 with the environment variable GLPK_HOME being the installation directory
 of GLPK and GNU BIGNUM.
-This procedure was tested successfully on 32-bit Windows XP.
 
 

@@ -1,0 +1,7 @@
+/* config.h.in (glpkAPI configuration template file) */
+
+#undef CHECK_GLPK_ARGS
+/* defined, if arguments to GLPK should be checked */
+
+
+/* eof */

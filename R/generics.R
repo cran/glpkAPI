@@ -2,7 +2,7 @@
 #                             R interface to GLPK                              #
 #------------------------------------------------------------------------------#
 
-#  glpk_ptrClass.R
+#  generics.R
 #  R interface to GLPK.
 #
 #  Copyright (C) 2011-2012 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
@@ -34,10 +34,21 @@ setGeneric(name = "ptr",
            def  = function(object) { standardGeneric("ptr") }
 )
 
-setGeneric(name = "type",
-           def  = function(object) { standardGeneric("type") }
+setGeneric(name = "pType",
+           def  = function(object) { standardGeneric("pType") }
 )
-setGeneric(name = "type<-",
-           def  = function(object, value) { standardGeneric("type<-") }
+setGeneric(name = "pType<-",
+           def  = function(object, value) { standardGeneric("pType<-") }
 )
 
+setGeneric(name = "isNULLpointer",
+           def  = function(object) { standardGeneric("isNULLpointer") }
+)
+
+setGeneric(name = "isGLPKpointer",
+           def  = function(object) { standardGeneric("isGLPKpointer") }
+)
+
+setGeneric(name = "isTRWKSpointer",
+           def  = function(object) { standardGeneric("isTRWKSpointer") }
+)

@@ -17,7 +17,9 @@
 
 \arguments{
   \item{lp}{
-    A pointer to a GLPK problem object.
+    An object of class \code{"\linkS4class{glpkPtr}"} as returned by
+    \code{\link{initProbGLPK}}. This is basically a pointer to a GLPK problem
+    object.
   }
   \item{lpdir}{
     Optimization direction flag.

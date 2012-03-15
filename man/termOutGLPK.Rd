@@ -17,8 +17,8 @@
 
 \arguments{
   \item{flag}{
-    GLPK enable/disable flag
-}
+    GLPK enable/disable flag (\code{GLP_ON} or \code{GLP_OFF})
+  }
 }
 
 \details{

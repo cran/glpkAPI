@@ -5,12 +5,18 @@
 
 \alias{glpkPtr-class}
 \alias{glpkPtr}
+\alias{isGLPKpointer,glpkPtr-method}
+\alias{isNULLpointer,glpkPtr-method}
+\alias{isTRWKSpointer,glpkPtr-method}
 \alias{ptr,glpkPtr-method}
-\alias{type,glpkPtr-method}
-\alias{type<-,glpkPtr-method}
+\alias{pType,glpkPtr-method}
+\alias{pType<-,glpkPtr-method}
+\alias{isGLPKpointer}
+\alias{isNULLpointer}
+\alias{isTRWKSpointer}
 \alias{ptr}
-\alias{type}
-\alias{type<-}
+\alias{pType}
+\alias{pType<-}
 
 \title{Class \code{"glpkPtr"}}
 
@@ -27,8 +33,8 @@
 
 \section{Slots}{
   \describe{
-    \item{\code{type}:}{
-        Object of class \code{"character"} giving the pointer type
+    \item{\code{pType}:}{
+        Object of class \code{"character"} giving the pointer type.
     }
     \item{\code{ptr}:}{
         Object of class \code{"externalptr"} containig the pointer to a
@@ -37,24 +43,28 @@
   }
 }
 
-\section{Extends}{
-    Class \code{"\linkS4class{.externalptr}"}, directly.
-    Class \code{"\linkS4class{externalptr}"}, by class ".externalptr",
-    distance 2, with explicit coerce.
-    Class \code{"\linkS4class{refObject}"}, by class ".externalptr",
-    distance 3, with explicit coerce.
-}
-
 \section{Methods}{
   \describe{
+    \item{isGLPKpointer}{\code{signature(object = "glpkPtr")}:
+        returns \code{TRUE} if \code{ptr(object)} is a pointer to a
+        GLPK problem object, otherwise \code{FALSE}.
+    }
+    \item{isNULLpointer}{\code{signature(object = "glpkPtr")}:
+        returns \code{TRUE} if \code{ptr(object)} is a NULL pointer,
+        otherwise \code{FALSE}.
+    }
+    \item{isTRWKSpointer}{\code{signature(object = "glpkPtr")}:
+        returns \code{TRUE} if \code{ptr(object)} is a pointer to a
+        MathProg translator workspace, otherwise \code{FALSE}.
+    }
     \item{ptr}{\code{signature(object = "glpkPtr")}:
         gets the \code{ptr} slot.
     }
-    \item{type}{\code{signature(object = "glpkPtr")}:
-        gets the \code{type} slot.
+    \item{pType}{\code{signature(object = "glpkPtr")}:
+        gets the \code{pType} slot.
     }
-    \item{type<-}{\code{signature(object = "glpkPtr")}:
-        sets the \code{type} slot.
+    \item{pType<-}{\code{signature(object = "glpkPtr")}:
+        sets the \code{pType} slot.
     }
   }
 }
