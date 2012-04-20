@@ -3421,7 +3421,7 @@ SEXP getCbind(SEXP lp, SEXP j) {
     checkProb(lp);
     checkColIndex(lp, j);
 
-    ch = glp_get_row_bind(R_ExternalPtrAddr(lp), Rf_asInteger(j));
+    ch = glp_get_col_bind(R_ExternalPtrAddr(lp), Rf_asInteger(j));
 
     out = Rf_ScalarInteger(ch);
 

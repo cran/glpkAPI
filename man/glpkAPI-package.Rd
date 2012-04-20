@@ -83,7 +83,7 @@ getSolStatGLPK(lp)
 getObjValGLPK(lp)
 getColsPrimGLPK(lp)
 
-# delete lp problem
+# remove problem object
 delProbGLPK(lp)
 }
 

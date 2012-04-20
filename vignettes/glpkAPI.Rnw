@@ -52,7 +52,8 @@ The package \pkgname{} provides a low level interface to the C~API of
 Version~4.42 (or higher) \url{http://www.gnu.org/software/glpk/glpk.html}},
 the GNU Linear Programming Kit.
 It is similar in purpose to the package \pkg{glpk}\footnote{Maintained by
-Lopaka Lee. Available on \textsc{CRAN} \url{http://cran.r-project.org/}}, but
+Lopaka Lee, available on \textsc{CRAN}
+\url{http://cran.r-project.org/package=glpk}}, but
 \pkgname{} relies on a separate installation of \prgname{GLPK}.
 
 \section{Installation}
@@ -62,7 +63,9 @@ It is recommended to link \prgname{GLPK} to the GNU Multiple Precision
 Arithmetic Library Library (\prgname{GMP})\footnote{\url{http://gmplib.org/}} in
 order to gain more performance when using the exact simplex algorithm.
 See \Comp{INSTALL} for installation instructions and platform specific details.
-
+\textsc{CRAN}\footnote{\url{http://cran.r-project.org/}} provides binary
+versions of \pkgname{} for Windows and MacOS X, no other software is required
+here.
 
 \section{Usage}
 

@@ -6,17 +6,17 @@
 \alias{glpkPtr-class}
 \alias{glpkPtr}
 \alias{isGLPKpointer,glpkPtr-method}
-\alias{isNULLpointer,glpkPtr-method}
+\alias{isNULLpointerGLPK,glpkPtr-method}
 \alias{isTRWKSpointer,glpkPtr-method}
-\alias{ptr,glpkPtr-method}
-\alias{pType,glpkPtr-method}
-\alias{pType<-,glpkPtr-method}
+\alias{glpkPointer,glpkPtr-method}
+\alias{glpkPtrType,glpkPtr-method}
+\alias{glpkPtrType<-,glpkPtr-method}
 \alias{isGLPKpointer}
-\alias{isNULLpointer}
+\alias{isNULLpointerGLPK}
 \alias{isTRWKSpointer}
-\alias{ptr}
-\alias{pType}
-\alias{pType<-}
+\alias{glpkPointer}
+\alias{glpkPtrType}
+\alias{glpkPtrType<-}
 
 \title{Class \code{"glpkPtr"}}
 
@@ -28,15 +28,15 @@
 \section{Objects from the Class}{
     Objects can be created by calls of the form\cr
     \code{test <- initProbGLPK()} or\cr
-    \code{test <- mplAllocWkspGLPK())}.
+    \code{test <- mplAllocWkspGLPK()}.
 }
 
 \section{Slots}{
   \describe{
-    \item{\code{pType}:}{
+    \item{\code{glpkPtrType}:}{
         Object of class \code{"character"} giving the pointer type.
     }
-    \item{\code{ptr}:}{
+    \item{\code{glpkPointer}:}{
         Object of class \code{"externalptr"} containig the pointer to a
         C structure.
     }
@@ -46,25 +46,25 @@
 \section{Methods}{
   \describe{
     \item{isGLPKpointer}{\code{signature(object = "glpkPtr")}:
-        returns \code{TRUE} if \code{ptr(object)} is a pointer to a
+        returns \code{TRUE} if \code{glpkPointer(object)} is a pointer to a
         GLPK problem object, otherwise \code{FALSE}.
     }
-    \item{isNULLpointer}{\code{signature(object = "glpkPtr")}:
-        returns \code{TRUE} if \code{ptr(object)} is a NULL pointer,
+    \item{isNULLpointerGLPK}{\code{signature(object = "glpkPtr")}:
+        returns \code{TRUE} if \code{glpkPointer(object)} is a NULL pointer,
         otherwise \code{FALSE}.
     }
     \item{isTRWKSpointer}{\code{signature(object = "glpkPtr")}:
-        returns \code{TRUE} if \code{ptr(object)} is a pointer to a
+        returns \code{TRUE} if \code{glpkPointer(object)} is a pointer to a
         MathProg translator workspace, otherwise \code{FALSE}.
     }
-    \item{ptr}{\code{signature(object = "glpkPtr")}:
-        gets the \code{ptr} slot.
+    \item{glpkPointer}{\code{signature(object = "glpkPtr")}:
+        gets the \code{glpkPointer} slot.
     }
-    \item{pType}{\code{signature(object = "glpkPtr")}:
-        gets the \code{pType} slot.
+    \item{glpkPtrType}{\code{signature(object = "glpkPtr")}:
+        gets the \code{glpkPtrType} slot.
     }
-    \item{pType<-}{\code{signature(object = "glpkPtr")}:
-        sets the \code{pType} slot.
+    \item{glpkPtrType<-}{\code{signature(object = "glpkPtr")}:
+        sets the \code{glpkPtrType} slot.
     }
   }
 }

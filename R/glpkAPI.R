@@ -35,7 +35,7 @@ delProbGLPK <- function(lp) {
 
     invisible(
         .Call("delProb", PACKAGE = "glpkAPI",
-              ptr(lp)
+              glpkPointer(lp)
         )
     )
 
@@ -48,7 +48,7 @@ eraseProbGLPK <- function(lp) {
 
     invisible(
         .Call("eraseProb", PACKAGE = "glpkAPI",
-              ptr(lp)
+              glpkPointer(lp)
         )
     )
 
@@ -61,8 +61,8 @@ copyProbGLPK <- function(lp, clp, name = GLP_OFF) {
 
     invisible(
         .Call("copyProb", PACKAGE = "glpkAPI",
-              ptr(lp),
-              ptr(clp),
+              glpkPointer(lp),
+              glpkPointer(clp),
               as.integer(name)
         )
     )
@@ -97,7 +97,7 @@ setProbNameGLPK <- function(lp, pname = NULL) {
 
     invisible(
         .Call("setProbName", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               Cpname
         )
     )
@@ -110,7 +110,7 @@ setProbNameGLPK <- function(lp, pname = NULL) {
 getProbNameGLPK <- function(lp) {
 
     pname <- .Call("getProbName", PACKAGE = "glpkAPI",
-                   ptr(lp)
+                   glpkPointer(lp)
              )
 
     return(pname)
@@ -131,7 +131,7 @@ setObjNameGLPK <- function(lp, oname = NULL) {
 
     invisible(
         .Call("setObjName", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               Coname
         )
     )
@@ -144,7 +144,7 @@ setObjNameGLPK <- function(lp, oname = NULL) {
 getObjNameGLPK <- function(lp) {
 
     oname <- .Call("getObjName", PACKAGE = "glpkAPI",
-                   ptr(lp)
+                   glpkPointer(lp)
              )
 
     return(oname)
@@ -158,7 +158,7 @@ createIndexGLPK <- function(lp) {
 
     invisible(
         .Call("createIndex", PACKAGE = "glpkAPI",
-              ptr(lp)
+              glpkPointer(lp)
         )
     )
 
@@ -171,7 +171,7 @@ deleteIndexGLPK <- function(lp) {
 
     invisible(
         .Call("deleteIndex", PACKAGE = "glpkAPI",
-              ptr(lp)
+              glpkPointer(lp)
         )
     )
 
@@ -357,7 +357,7 @@ setObjDirGLPK <- function(lp, lpdir) {
 
     invisible(
         .Call("setObjDir", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(lpdir)
         )
     )
@@ -370,7 +370,7 @@ setObjDirGLPK <- function(lp, lpdir) {
 getObjDirGLPK <- function(lp) {
 
     lpdir <- .Call("getObjDir", PACKAGE = "glpkAPI",
-                   ptr(lp)
+                   glpkPointer(lp)
                   )
     return(lpdir)
 
@@ -382,7 +382,7 @@ getObjDirGLPK <- function(lp) {
 addRowsGLPK <- function(lp, nrows) {
 
     frow <- .Call("addRows", PACKAGE = "glpkAPI",
-                  ptr(lp),
+                  glpkPointer(lp),
                   as.integer(nrows)
              )
     return(frow)
@@ -403,7 +403,7 @@ setRowNameGLPK <- function(lp, i, rname = NULL) {
 
     invisible(
         .Call("setRowName", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               i,
               Crname
         )
@@ -417,7 +417,7 @@ setRowNameGLPK <- function(lp, i, rname = NULL) {
 getRowNameGLPK <- function(lp, i) {
 
     rname <- .Call("getRowName", PACKAGE = "glpkAPI",
-                   ptr(lp),
+                   glpkPointer(lp),
                    i
              )
 
@@ -431,7 +431,7 @@ getRowNameGLPK <- function(lp, i) {
 findRowGLPK <- function(lp, rname) {
 
     rind <- .Call("findRow", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.character(rname)
         )
 
@@ -445,7 +445,7 @@ findRowGLPK <- function(lp, rname) {
 addColsGLPK <- function(lp, ncols) {
 
     fcol <- .Call("addCols", PACKAGE = "glpkAPI",
-                  ptr(lp),
+                  glpkPointer(lp),
                   as.integer(ncols)
              )
 
@@ -467,7 +467,7 @@ setColNameGLPK <- function(lp, j, cname = NULL) {
 
     invisible(
         .Call("setColName", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               j,
               Ccname
         )
@@ -481,7 +481,7 @@ setColNameGLPK <- function(lp, j, cname = NULL) {
 getColNameGLPK <- function(lp, j) {
 
     cname <- .Call("getColName", PACKAGE = "glpkAPI",
-                   ptr(lp),
+                   glpkPointer(lp),
                    j
              )
 
@@ -495,7 +495,7 @@ getColNameGLPK <- function(lp, j) {
 findColGLPK <- function(lp, cname) {
 
     cind <- .Call("findCol", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.character(cname)
         )
 
@@ -509,7 +509,7 @@ findColGLPK <- function(lp, cname) {
 getNumRowsGLPK <- function(lp) {
 
     nrows <- .Call("getNumRows", PACKAGE = "glpkAPI",
-                   ptr(lp)
+                   glpkPointer(lp)
              )
     return(nrows)
 
@@ -521,7 +521,7 @@ getNumRowsGLPK <- function(lp) {
 getNumColsGLPK <- function(lp) {
 
     ncols <- .Call("getNumCols", PACKAGE = "glpkAPI",
-                   ptr(lp)
+                   glpkPointer(lp)
                   )
     return(ncols)
 
@@ -541,7 +541,7 @@ setColsBndsGLPK <- function(lp, j, lb, ub, type = NULL) {
 
     invisible(
         .Call("setColsBnds", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j),
               Ctype,
               as.numeric(lb),
@@ -566,7 +566,7 @@ setColsBndsObjCoefsGLPK <- function(lp, j, lb, ub, obj_coef, type = NULL) {
 
     invisible(
         .Call("setColsBndsObjCoefs", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j),
               Ctype,
               as.numeric(lb),
@@ -583,7 +583,7 @@ setColBndGLPK <- function(lp, j, type, lb, ub) {
 
     invisible(
         .Call("setColBnd", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j),
               as.integer(type),
               as.numeric(lb),
@@ -598,7 +598,7 @@ setColBndGLPK <- function(lp, j, type, lb, ub) {
 getColsLowBndsGLPK <- function(lp, j) {
 
     lowbnd <- .Call("getColsLowBnds", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j)
         )
 
@@ -612,7 +612,7 @@ getColsLowBndsGLPK <- function(lp, j) {
 getColLowBndGLPK <- function(lp, j) {
 
     lowbnd <- .Call("getColLowBnd", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j)
         )
     return(lowbnd)
@@ -625,7 +625,7 @@ getColLowBndGLPK <- function(lp, j) {
 getColsUppBndsGLPK <- function(lp, j) {
 
     uppbnd <- .Call("getColsUppBnds", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j)
         )
 
@@ -639,7 +639,7 @@ getColsUppBndsGLPK <- function(lp, j) {
 getColUppBndGLPK <- function(lp, j) {
 
     uppbnd <- .Call("getColUppBnd", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j)
         )
 
@@ -654,7 +654,7 @@ setColKindGLPK <- function(lp, j, kind) {
 
     invisible(
         .Call("setColKind", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j),
               as.integer(kind)
         )
@@ -669,7 +669,7 @@ setColsKindGLPK <- function(lp, j, kind) {
 
     invisible(
         .Call("setColsKind", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j),
               as.integer(kind)
         )
@@ -683,7 +683,7 @@ setColsKindGLPK <- function(lp, j, kind) {
 getColKindGLPK <- function(lp, j) {
 
     kind <- .Call("getColKind", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j)
         )
 
@@ -697,7 +697,7 @@ getColKindGLPK <- function(lp, j) {
 getColsKindGLPK <- function(lp, j) {
 
     kind <- .Call("getColsKind", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j)
         )
 
@@ -711,7 +711,7 @@ getColsKindGLPK <- function(lp, j) {
 getNumIntGLPK <- function(lp) {
 
     num <- .Call("getNumInt", PACKAGE = "glpkAPI",
-                 ptr(lp)
+                 glpkPointer(lp)
             )
 
     return(num)
@@ -724,7 +724,7 @@ getNumIntGLPK <- function(lp) {
 getNumBinGLPK <- function(lp) {
 
     num <- .Call("getNumBin", PACKAGE = "glpkAPI",
-                 ptr(lp)
+                 glpkPointer(lp)
             )
 
     return(num)
@@ -745,7 +745,7 @@ setRowsBndsGLPK <- function(lp, i, lb, ub, type = NULL) {
 
     invisible(
         .Call("setRowsBnds", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(i),
               Ctype,
               as.numeric(lb),
@@ -762,7 +762,7 @@ setRhsZeroGLPK <- function(lp) {
 
     invisible(
         .Call("setRhsZero", PACKAGE = "glpkAPI",
-              ptr(lp)
+              glpkPointer(lp)
         )
     )
 
@@ -775,7 +775,7 @@ setRowBndGLPK <- function(lp, i, type, lb, ub) {
 
     invisible(
         .Call("setRowBnd", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(i),
               as.integer(type),
               as.numeric(lb),
@@ -790,7 +790,7 @@ setRowBndGLPK <- function(lp, i, type, lb, ub) {
 getRowsLowBndsGLPK <- function(lp, i) {
 
     lowbnd <- .Call("getRowsLowBnds", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(i)
         )
 
@@ -804,7 +804,7 @@ getRowsLowBndsGLPK <- function(lp, i) {
 getRowLowBndGLPK <- function(lp, i) {
 
     lowbnd <- .Call("getRowLowBnd", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(i)
         )
     return(lowbnd)
@@ -817,7 +817,7 @@ getRowLowBndGLPK <- function(lp, i) {
 getRowsUppBndsGLPK <- function(lp, i) {
 
     uppbnd <- .Call("getRowsUppBnds", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(i)
         )
 
@@ -831,7 +831,7 @@ getRowsUppBndsGLPK <- function(lp, i) {
 getRowUppBndGLPK <- function(lp, i) {
 
     uppbnd <- .Call("getRowUppBnd", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(i)
         )
     return(uppbnd)
@@ -844,7 +844,7 @@ getRowUppBndGLPK <- function(lp, i) {
 getRowTypeGLPK <- function(lp, i) {
 
     type <- .Call("getRowType", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(i)
         )
 
@@ -858,7 +858,7 @@ getRowTypeGLPK <- function(lp, i) {
 getColTypeGLPK <- function(lp, j) {
 
     type <- .Call("getColType", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j)
         )
 
@@ -873,7 +873,7 @@ setObjCoefsGLPK <- function(lp, j, obj_coef) {
 
     invisible(
         .Call("setObjCoefs", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j),
               as.numeric(obj_coef)
         )
@@ -888,7 +888,7 @@ setObjCoefGLPK <- function(lp, j, obj_coef) {
 
     invisible(
         .Call("setObjCoef", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j),
               as.numeric(obj_coef)
         )
@@ -902,7 +902,7 @@ setObjCoefGLPK <- function(lp, j, obj_coef) {
 getObjCoefsGLPK <- function(lp, j) {
 
     obj_coef <- .Call("getObjCoefs", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j)
         )
 
@@ -916,7 +916,7 @@ getObjCoefsGLPK <- function(lp, j) {
 getObjCoefGLPK <- function(lp, j) {
 
     obj_coef <- .Call("getObjCoef", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j)
         )
     return(obj_coef)
@@ -930,7 +930,7 @@ loadMatrixGLPK <- function(lp, ne, ia, ja, ra) {
 
     invisible(
         .Call("loadMatrix", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(ne),
               as.integer(ia),
               as.integer(ja),
@@ -964,7 +964,7 @@ sortMatrixGLPK <- function(lp) {
 
     invisible(
         .Call("sortMatrix", PACKAGE = "glpkAPI",
-              ptr(lp)
+              glpkPointer(lp)
         )
     )
 
@@ -977,7 +977,7 @@ delRowsGLPK <- function(lp, nrows, i) {
 
     invisible(
         .Call("delRows", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(nrows),
               as.integer(i)
         )
@@ -992,7 +992,7 @@ delColsGLPK <- function(lp, ncols, j) {
 
     invisible(
         .Call("delCols", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(ncols),
               as.integer(j)
         )
@@ -1007,7 +1007,7 @@ setRiiGLPK <- function(lp, i, rii) {
 
     invisible(
         .Call("setRii", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(i),
               as.numeric(rii)
         )
@@ -1022,7 +1022,7 @@ setSjjGLPK <- function(lp, j, sjj) {
 
     invisible(
         .Call("setSjj", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j),
               as.numeric(sjj)
         )
@@ -1036,7 +1036,7 @@ setSjjGLPK <- function(lp, j, sjj) {
 getRiiGLPK <- function(lp, i) {
 
     rii <- .Call("getRii", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(i)
         )
     return(rii)
@@ -1049,7 +1049,7 @@ getRiiGLPK <- function(lp, i) {
 getSjjGLPK <- function(lp, j) {
 
     sjj <- .Call("getSjj", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j)
         )
     return(sjj)
@@ -1063,7 +1063,7 @@ scaleProbGLPK <- function(lp, opt) {
 
     invisible(
         .Call("scaleProb", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(opt)
         )
     )
@@ -1077,7 +1077,7 @@ unscaleProbGLPK <- function(lp) {
 
     invisible(
         .Call("unscaleProb", PACKAGE = "glpkAPI",
-            ptr(lp)
+            glpkPointer(lp)
         )
     )
 
@@ -1090,7 +1090,7 @@ setRowStatGLPK <- function(lp, i, stat) {
 
     invisible(
         .Call("setRowStat", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(i),
               as.integer(stat)
         )
@@ -1105,7 +1105,7 @@ setColStatGLPK <- function(lp, j, stat) {
 
     invisible(
         .Call("setColStat", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j),
               as.integer(stat)
         )
@@ -1120,7 +1120,7 @@ stdBasisGLPK <- function(lp) {
 
     invisible(
         .Call("stdBasis", PACKAGE = "glpkAPI",
-              ptr(lp)
+              glpkPointer(lp)
         )
     )
 
@@ -1133,7 +1133,7 @@ advBasisGLPK <- function(lp) {
 
     invisible(
         .Call("advBasis", PACKAGE = "glpkAPI",
-              ptr(lp)
+              glpkPointer(lp)
         )
     )
 }
@@ -1145,7 +1145,7 @@ cpxBasisGLPK <- function(lp) {
 
     invisible(
         .Call("cpxBasis", PACKAGE = "glpkAPI",
-              ptr(lp)
+              glpkPointer(lp)
         )
     )
 }
@@ -1156,7 +1156,7 @@ cpxBasisGLPK <- function(lp) {
 warmUpGLPK <- function(lp) {
 
     wup <- .Call("warmUp", PACKAGE = "glpkAPI",
-                 ptr(lp)
+                 glpkPointer(lp)
     )
 
     return(wup)
@@ -1180,7 +1180,7 @@ termOutGLPK <- function(flag) {
 solveSimplexGLPK <- function(lp) {
 
     ret <- .Call("solveSimplex", PACKAGE = "glpkAPI",
-              ptr(lp)
+              glpkPointer(lp)
            )
 
     return(ret)
@@ -1192,7 +1192,7 @@ solveSimplexGLPK <- function(lp) {
 solveSimplexExactGLPK <- function(lp) {
 
     ret <- .Call("solveSimplexExact", PACKAGE = "glpkAPI",
-              ptr(lp)
+              glpkPointer(lp)
            )
 
     return(ret)
@@ -1204,7 +1204,7 @@ solveSimplexExactGLPK <- function(lp) {
 getObjValGLPK <- function(lp) {
 
     obj <- .Call("getObjVal", PACKAGE = "glpkAPI",
-              ptr(lp)
+              glpkPointer(lp)
            )
 
     return(obj)
@@ -1216,7 +1216,7 @@ getObjValGLPK <- function(lp) {
 getSolStatGLPK <- function(lp) {
 
     stat <- .Call("getSolStat", PACKAGE = "glpkAPI",
-              ptr(lp)
+              glpkPointer(lp)
             )
 
     return(stat)
@@ -1228,7 +1228,7 @@ getSolStatGLPK <- function(lp) {
 getColsPrimGLPK <- function(lp) {
 
     col_prim <- .Call("getColsPrim", PACKAGE = "glpkAPI",
-                      ptr(lp)
+                      glpkPointer(lp)
                 )
 
     return(col_prim)
@@ -1240,7 +1240,7 @@ getColsPrimGLPK <- function(lp) {
 getColPrimGLPK <- function(lp, j) {
 
     col_prim <- .Call("getColPrim", PACKAGE = "glpkAPI",
-                      ptr(lp),
+                      glpkPointer(lp),
                       as.integer(j)
                 )
 
@@ -1253,7 +1253,7 @@ getColPrimGLPK <- function(lp, j) {
 getPrimStatGLPK <- function(lp) {
 
     prim_stat <- .Call("getPrimStat", PACKAGE = "glpkAPI",
-                       ptr(lp)
+                       glpkPointer(lp)
                   )
 
     return(prim_stat)
@@ -1265,7 +1265,7 @@ getPrimStatGLPK <- function(lp) {
 getDualStatGLPK <- function(lp) {
 
     dual_stat <- .Call("getDualStat", PACKAGE = "glpkAPI",
-                       ptr(lp)
+                       glpkPointer(lp)
                  )
 
     return(dual_stat)
@@ -1277,7 +1277,7 @@ getDualStatGLPK <- function(lp) {
 getRowStatGLPK <- function(lp, i) {
 
     row_stat <- .Call("getRowStat", PACKAGE = "glpkAPI",
-                      ptr(lp),
+                      glpkPointer(lp),
                       as.integer(i)
                 )
 
@@ -1290,7 +1290,7 @@ getRowStatGLPK <- function(lp, i) {
 getRowsStatGLPK <- function(lp) {
 
     rows_stat <- .Call("getRowsStat", PACKAGE = "glpkAPI",
-                       ptr(lp)
+                       glpkPointer(lp)
                  )
 
     return(rows_stat)
@@ -1302,7 +1302,7 @@ getRowsStatGLPK <- function(lp) {
 getRowPrimGLPK <- function(lp, i) {
 
     row_prim <- .Call("getRowPrim", PACKAGE = "glpkAPI",
-                      ptr(lp),
+                      glpkPointer(lp),
                       as.integer(i)
                 )
 
@@ -1315,7 +1315,7 @@ getRowPrimGLPK <- function(lp, i) {
 getRowsPrimGLPK <- function(lp) {
 
     rows_prim <- .Call("getRowsPrim", PACKAGE = "glpkAPI",
-                       ptr(lp)
+                       glpkPointer(lp)
                  )
 
     return(rows_prim)
@@ -1328,7 +1328,7 @@ getRowsPrimGLPK <- function(lp) {
 getRowDualGLPK <- function(lp, i) {
 
     row_dual <- .Call("getRowDual", PACKAGE = "glpkAPI",
-                      ptr(lp),
+                      glpkPointer(lp),
                       as.integer(i)
                 )
 
@@ -1352,7 +1352,7 @@ getRowsDualGLPK <- function(lp) {
 getColStatGLPK <- function(lp, j) {
 
     col_stat <- .Call("getColStat", PACKAGE = "glpkAPI",
-                      ptr(lp),
+                      glpkPointer(lp),
                       as.integer(j)
                 )
 
@@ -1365,7 +1365,7 @@ getColStatGLPK <- function(lp, j) {
 getColsStatGLPK <- function(lp) {
 
     cols_stat <- .Call("getColsStat", PACKAGE = "glpkAPI",
-                      ptr(lp) 
+                      glpkPointer(lp) 
                  )
 
     return(cols_stat)
@@ -1377,7 +1377,7 @@ getColsStatGLPK <- function(lp) {
 getColDualGLPK <- function(lp, j) {
 
     col_dual <- .Call("getColDual", PACKAGE = "glpkAPI",
-                      ptr(lp),
+                      glpkPointer(lp),
                       as.integer(j)
                 )
 
@@ -1391,7 +1391,7 @@ getColDualGLPK <- function(lp, j) {
 getColsDualGLPK <- function(lp) {
 
     cols_dual <- .Call("getColsDual", PACKAGE = "glpkAPI",
-                       ptr(lp)
+                       glpkPointer(lp)
                  )
 
     return(cols_dual)
@@ -1402,7 +1402,7 @@ getColsDualGLPK <- function(lp) {
 getUnbndRayGLPK <- function(lp) {
 
     unbnd <- .Call("getUnbndRay", PACKAGE = "glpkAPI",
-                   ptr(lp)
+                   glpkPointer(lp)
              )
 
     return(unbnd)
@@ -1414,7 +1414,7 @@ getUnbndRayGLPK <- function(lp) {
 solveInteriorGLPK <- function(lp) {
 
     ret <- .Call("solveInterior", PACKAGE = "glpkAPI",
-              ptr(lp)
+              glpkPointer(lp)
            )
 
     return(ret)
@@ -1426,7 +1426,7 @@ solveInteriorGLPK <- function(lp) {
 getObjValIptGLPK <- function(lp) {
 
     obj <- .Call("getObjValIpt", PACKAGE = "glpkAPI",
-                 ptr(lp)
+                 glpkPointer(lp)
            )
 
     return(obj)
@@ -1438,7 +1438,7 @@ getObjValIptGLPK <- function(lp) {
 getSolStatIptGLPK <- function(lp) {
 
     stat <- .Call("getSolStatIpt", PACKAGE = "glpkAPI",
-                  ptr(lp)
+                  glpkPointer(lp)
             )
 
     return(stat)
@@ -1450,7 +1450,7 @@ getSolStatIptGLPK <- function(lp) {
 getColsPrimIptGLPK <- function(lp) {
 
     cols_prim <- .Call("getColsPrimIpt", PACKAGE = "glpkAPI",
-                       ptr(lp)
+                       glpkPointer(lp)
                  )
 
     return(cols_prim)
@@ -1462,7 +1462,7 @@ getColsPrimIptGLPK <- function(lp) {
 getColPrimIptGLPK <- function(lp, j) {
 
     col_prim <- .Call("getColPrimIpt", PACKAGE = "glpkAPI",
-                       ptr(lp),
+                       glpkPointer(lp),
                        as.integer(j)
                  )
 
@@ -1475,7 +1475,7 @@ getColPrimIptGLPK <- function(lp, j) {
 getRowPrimIptGLPK <- function(lp, i) {
 
     row_prim <- .Call("getRowPrimIpt", PACKAGE = "glpkAPI",
-                      ptr(lp),
+                      glpkPointer(lp),
                       as.integer(i)
                 )
 
@@ -1489,7 +1489,7 @@ getRowPrimIptGLPK <- function(lp, i) {
 getRowsPrimIptGLPK <- function(lp) {
 
     rows_prim <- .Call("getRowsPrimIpt", PACKAGE = "glpkAPI",
-                       ptr(lp)
+                       glpkPointer(lp)
                  )
 
     return(rows_prim)
@@ -1501,7 +1501,7 @@ getRowsPrimIptGLPK <- function(lp) {
 getRowDualIptGLPK <- function(lp, i) {
 
     row_dual <- .Call("getRowDualIpt", PACKAGE = "glpkAPI",
-                      ptr(lp),
+                      glpkPointer(lp),
                       as.integer(i)
                 )
 
@@ -1515,7 +1515,7 @@ getRowDualIptGLPK <- function(lp, i) {
 getRowsDualIptGLPK <- function(lp) {
 
     rows_dual <- .Call("getRowsDualIpt", PACKAGE = "glpkAPI",
-                       ptr(lp)
+                       glpkPointer(lp)
                  )
 
     return(rows_dual)
@@ -1528,7 +1528,7 @@ getRowsDualIptGLPK <- function(lp) {
 getColDualIptGLPK <- function(lp, j) {
 
     col_dual <- .Call("getColDualIpt", PACKAGE = "glpkAPI",
-                      ptr(lp),
+                      glpkPointer(lp),
                       as.integer(j)
                 )
 
@@ -1541,7 +1541,7 @@ getColDualIptGLPK <- function(lp, j) {
 getColsDualIptGLPK <- function(lp) {
 
     cols_dual <- .Call("getColsDualIpt", PACKAGE = "glpkAPI",
-                       ptr(lp)
+                       glpkPointer(lp)
                  )
 
     return(cols_dual)
@@ -1553,7 +1553,7 @@ getColsDualIptGLPK <- function(lp) {
 solveMIPGLPK <- function(lp) {
 
     ret <- .Call("solveMIP", PACKAGE = "glpkAPI",
-                 ptr(lp)
+                 glpkPointer(lp)
            )
 
     return(ret)
@@ -1565,7 +1565,7 @@ solveMIPGLPK <- function(lp) {
 mipStatusGLPK <- function(lp) {
 
     stat <- .Call("mipStatus", PACKAGE = "glpkAPI",
-                  ptr(lp)
+                  glpkPointer(lp)
             )
 
     return(stat)
@@ -1577,7 +1577,7 @@ mipStatusGLPK <- function(lp) {
 mipObjValGLPK <- function(lp) {
 
     obj_val <- .Call("mipObjVal", PACKAGE = "glpkAPI",
-                     ptr(lp)
+                     glpkPointer(lp)
                )
 
     return(obj_val)
@@ -1589,7 +1589,7 @@ mipObjValGLPK <- function(lp) {
 mipRowValGLPK <- function(lp, i) {
 
     row_val <- .Call("mipRowVal", PACKAGE = "glpkAPI",
-                      ptr(lp),
+                      glpkPointer(lp),
                       as.integer(i)
                 )
 
@@ -1602,7 +1602,7 @@ mipRowValGLPK <- function(lp, i) {
 mipRowsValGLPK <- function(lp) {
 
     row_val <- .Call("mipRowsVal", PACKAGE = "glpkAPI",
-                     ptr(lp)
+                     glpkPointer(lp)
                )
 
     return(row_val)
@@ -1614,7 +1614,7 @@ mipRowsValGLPK <- function(lp) {
 mipColValGLPK <- function(lp, j) {
 
     col_val <- .Call("mipColVal", PACKAGE = "glpkAPI",
-                      ptr(lp),
+                      glpkPointer(lp),
                       as.integer(j)
                 )
 
@@ -1627,7 +1627,7 @@ mipColValGLPK <- function(lp, j) {
 mipColsValGLPK <- function(lp) {
 
     col_val <- .Call("mipColsVal", PACKAGE = "glpkAPI",
-                     ptr(lp)
+                     glpkPointer(lp)
                )
 
     return(col_val)
@@ -1639,7 +1639,7 @@ mipColsValGLPK <- function(lp) {
 getNumNnzGLPK <- function(lp) {
 
     nnz <- .Call("getNumNnz", PACKAGE = "glpkAPI",
-                 ptr(lp)
+                 glpkPointer(lp)
            )
 
     return(nnz)
@@ -1651,7 +1651,7 @@ getNumNnzGLPK <- function(lp) {
 getMatRowGLPK <- function(lp, i) {
 
     row_val <- .Call("getMatRow", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(i)
         )
 
@@ -1678,7 +1678,7 @@ setMatRowGLPK <- function(lp, i, len, ind, val) {
     }
 
     check <- .Call("setMatRow", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(i),
               as.integer(len),
               Cind,
@@ -1694,7 +1694,7 @@ setMatRowGLPK <- function(lp, i, len, ind, val) {
 getMatColGLPK <- function(lp, j) {
 
     row_val <- .Call("getMatCol", PACKAGE = "glpkAPI",
-                     ptr(lp),
+                     glpkPointer(lp),
                      as.integer(j)
                )
 
@@ -1721,7 +1721,7 @@ setMatColGLPK <- function(lp, j, len, ind, val) {
     }
 
     check <- .Call("setMatCol", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(j),
               as.integer(len),
               Cind,
@@ -1738,7 +1738,7 @@ setMatColGLPK <- function(lp, j, len, ind, val) {
 readMPSGLPK <- function(lp, fmt, fname) {
 
     check <- .Call("readMPS", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(fmt),
               as.character(fname)
         )
@@ -1752,7 +1752,7 @@ readMPSGLPK <- function(lp, fmt, fname) {
 readLPGLPK <- function(lp, fname) {
 
     check <- .Call("readLP", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.character(fname)
         )
     return(check)
@@ -1765,7 +1765,7 @@ readLPGLPK <- function(lp, fname) {
 readProbGLPK <- function(lp, fname) {
 
     check <- .Call("readProb", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.character(fname)
         )
     return(check)
@@ -1778,7 +1778,7 @@ readProbGLPK <- function(lp, fname) {
 writeMPSGLPK <- function(lp, fmt, fname) {
 
     check <- .Call("writeMPS", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(fmt),
               as.character(fname)
         )
@@ -1792,7 +1792,7 @@ writeMPSGLPK <- function(lp, fmt, fname) {
 writeLPGLPK <- function(lp, fname) {
 
     check <- .Call("writeLP", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.character(fname)
         )
     return(check)
@@ -1805,7 +1805,7 @@ writeLPGLPK <- function(lp, fname) {
 writeProbGLPK <- function(lp, fname) {
 
     check <- .Call("writeProb", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.character(fname)
         )
     return(check)
@@ -1818,7 +1818,7 @@ writeProbGLPK <- function(lp, fname) {
 printSolGLPK <- function(lp, fname) {
 
     check <- .Call("printSol", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.character(fname)
         )
     return(check)
@@ -1831,7 +1831,7 @@ printSolGLPK <- function(lp, fname) {
 readSolGLPK <- function(lp, fname) {
 
     check <- .Call("readSol", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.character(fname)
         )
     return(check)
@@ -1844,7 +1844,7 @@ readSolGLPK <- function(lp, fname) {
 writeSolGLPK <- function(lp, fname) {
 
     check <- .Call("writeSol", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.character(fname)
         )
     return(check)
@@ -1857,7 +1857,7 @@ writeSolGLPK <- function(lp, fname) {
 printIptGLPK <- function(lp, fname) {
 
     check <- .Call("printIpt", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.character(fname)
         )
     return(check)
@@ -1870,7 +1870,7 @@ printIptGLPK <- function(lp, fname) {
 readIptGLPK <- function(lp, fname) {
 
     check <- .Call("readIpt", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.character(fname)
         )
     return(check)
@@ -1883,7 +1883,7 @@ readIptGLPK <- function(lp, fname) {
 writeIptGLPK <- function(lp, fname) {
 
     check <- .Call("writeIpt", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.character(fname)
         )
     return(check)
@@ -1896,7 +1896,7 @@ writeIptGLPK <- function(lp, fname) {
 printMIPGLPK <- function(lp, fname) {
 
     check <- .Call("printMIP", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.character(fname)
         )
     return(check)
@@ -1909,7 +1909,7 @@ printMIPGLPK <- function(lp, fname) {
 readMIPGLPK <- function(lp, fname) {
 
     check <- .Call("readMIP", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.character(fname)
         )
     return(check)
@@ -1922,7 +1922,7 @@ readMIPGLPK <- function(lp, fname) {
 writeMIPGLPK <- function(lp, fname) {
 
     check <- .Call("writeMIP", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.character(fname)
         )
     return(check)
@@ -1945,7 +1945,7 @@ versionGLPK <- function() {
 bfExistsGLPK <- function(lp) {
 
     check <- .Call("bfExists", PACKAGE = "glpkAPI",
-                   ptr(lp)
+                   glpkPointer(lp)
              )
 
     return(check)
@@ -1957,7 +1957,7 @@ bfExistsGLPK <- function(lp) {
 factorizeGLPK <- function(lp) {
 
     check <- .Call("factorize", PACKAGE = "glpkAPI",
-                   ptr(lp)    
+                   glpkPointer(lp)    
              )
 
     return(check)
@@ -1969,7 +1969,7 @@ factorizeGLPK <- function(lp) {
 bfUpdatedGLPK <- function(lp) {
 
     check <- .Call("bfUpdated", PACKAGE = "glpkAPI",
-                   ptr(lp)    
+                   glpkPointer(lp)    
              )
 
     return(check)
@@ -2010,7 +2010,7 @@ setBfcpGLPK <- function(lp, parm, val) {
 
     invisible(
         .Call("setBfcp", PACKAGE = "glpkAPI",
-              ptr(lp),
+              glpkPointer(lp),
               as.integer(npari),
               parmi,
               vali,
@@ -2027,7 +2027,7 @@ setBfcpGLPK <- function(lp, parm, val) {
 getBfcpGLPK <- function(lp) {
 
     parmB <- .Call("getBfcp", PACKAGE = "glpkAPI",
-                   ptr(lp)
+                   glpkPointer(lp)
              )
 
     return(parmB)
@@ -2039,7 +2039,7 @@ getBfcpGLPK <- function(lp) {
 getBheadGLPK <- function(lp, k) {
 
     bh <- .Call("getBhead", PACKAGE = "glpkAPI",
-                ptr(lp),
+                glpkPointer(lp),
                 as.integer(k)
     )
 
@@ -2052,7 +2052,7 @@ getBheadGLPK <- function(lp, k) {
 getRbindGLPK <- function(lp, i) {
 
     rh <- .Call("getRbind", PACKAGE = "glpkAPI",
-                ptr(lp),
+                glpkPointer(lp),
                 as.integer(i)
     )
 
@@ -2065,7 +2065,7 @@ getRbindGLPK <- function(lp, i) {
 getCbindGLPK <- function(lp, j) {
 
     ch <- .Call("getCbind", PACKAGE = "glpkAPI",
-                ptr(lp),
+                glpkPointer(lp),
                 as.integer(j)
     )
 
@@ -2085,7 +2085,7 @@ printRangesGLPK <- function(lp, numrc = 0, rowcol = NULL, fname = "sar.txt") {
     }
 
     sensit <- .Call("printRanges", PACKAGE = "glpkAPI",
-                    ptr(lp),
+                    glpkPointer(lp),
                     as.integer(numrc),
                     Crowcol,
                     as.character(fname)
@@ -2115,7 +2115,7 @@ mplFreeWkspGLPK <- function(wk) {
 
     invisible(
         .Call("mplFreeWksp", PACKAGE = "glpkAPI",
-              ptr(wk)
+              glpkPointer(wk)
         )
     )
 
@@ -2127,7 +2127,7 @@ mplFreeWkspGLPK <- function(wk) {
 mplReadModelGLPK <- function(wk, fname, skip) {
 
     check <- .Call("mplReadModel", PACKAGE = "glpkAPI",
-              ptr(wk),
+              glpkPointer(wk),
               as.character(fname),
               as.integer(skip)
         )
@@ -2141,7 +2141,7 @@ mplReadModelGLPK <- function(wk, fname, skip) {
 mplReadDataGLPK <- function(wk, fname) {
 
     check <- .Call("mplReadData", PACKAGE = "glpkAPI",
-              ptr(wk),
+              glpkPointer(wk),
               as.character(fname)
         )
 
@@ -2161,7 +2161,7 @@ mplGenerateGLPK <- function(wk, fname = NULL) {
     }
 
     check <- .Call("mplGenerate", PACKAGE = "glpkAPI",
-              ptr(wk),
+              glpkPointer(wk),
               Cfname
         )
 
@@ -2175,8 +2175,8 @@ mplBuildProbGLPK <- function(wk, lp) {
 
     invisible(
         .Call("mplBuildProb", PACKAGE = "glpkAPI",
-              ptr(wk),
-              ptr(lp)
+              glpkPointer(wk),
+              glpkPointer(lp)
         )
     )
 }
@@ -2187,8 +2187,8 @@ mplBuildProbGLPK <- function(wk, lp) {
 mplPostsolveGLPK <- function(wk, lp, sol) {
 
     check <- .Call("mplPostsolve", PACKAGE = "glpkAPI",
-              ptr(wk),
-              ptr(lp),
+              glpkPointer(wk),
+              glpkPointer(lp),
               as.integer(sol)
         )
 

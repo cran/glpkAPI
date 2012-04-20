@@ -4,10 +4,10 @@ exportClass("glpkPtr")
 
 export(
 # methods
-"ptr",
-"pType",
-"pType<-",
-"isNULLpointer",
+"glpkPointer",
+"glpkPtrType",
+"glpkPtrType<-",
+"isNULLpointerGLPK",
 "isGLPKpointer",
 "isTRWKSpointer",
 # function names

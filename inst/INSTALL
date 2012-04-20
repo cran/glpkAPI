@@ -27,9 +27,9 @@ There are basically three different ways of installing the glpkAPI package:
 
 2) Use of environment variables
 
-   GLPK_INCLUDE                giving the PATH to the include directory of GLPK
-   GLPK_LIB                    giving the PATH to the directory containing the
-                               callable library.
+   PKG_CPPFLAGS                giving the PATH to the include directory of GLPK
+   PKG_LIBS                    giving the PATH to the directory containing the
+                               callable library and the libraries to link to.
 
 3) Use --prefix
 

@@ -30,19 +30,19 @@
 #                                   generics                                   #
 #------------------------------------------------------------------------------#
 
-setGeneric(name = "ptr",
-           def  = function(object) { standardGeneric("ptr") }
+setGeneric(name = "glpkPointer",
+           def  = function(object) { standardGeneric("glpkPointer") }
 )
 
-setGeneric(name = "pType",
-           def  = function(object) { standardGeneric("pType") }
+setGeneric(name = "glpkPtrType",
+           def  = function(object) { standardGeneric("glpkPtrType") }
 )
-setGeneric(name = "pType<-",
-           def  = function(object, value) { standardGeneric("pType<-") }
+setGeneric(name = "glpkPtrType<-",
+           def  = function(object, value) { standardGeneric("glpkPtrType<-") }
 )
 
-setGeneric(name = "isNULLpointer",
-           def  = function(object) { standardGeneric("isNULLpointer") }
+setGeneric(name = "isNULLpointerGLPK",
+           def  = function(object) { standardGeneric("isNULLpointerGLPK") }
 )
 
 setGeneric(name = "isGLPKpointer",

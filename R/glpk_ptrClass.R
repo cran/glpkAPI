@@ -34,8 +34,8 @@
 # representation of class glpkPtr
 setClass(Class = "glpkPtr",
          representation(
-              pType = "character",
-              ptr   = "externalptr"
+              glpkPtrType = "character",
+              glpkPointer = "externalptr"
          )
          #, contains = "externalptr"
 )
@@ -48,8 +48,8 @@ setMethod(f = "initialize",
           signature = "glpkPtr",
           definition = function(.Object, p, w) {
 
-              .Object@ptr   <- attr(p, which = w, exact = TRUE)
-              .Object@pType <- as.character(p)
+              .Object@glpkPointer <- attr(p, which = w, exact = TRUE)
+              .Object@glpkPtrType <- as.character(p)
               
               return(.Object)
           
@@ -90,46 +90,46 @@ trwks_Pointer <- function(pointer) {
 
 #------------------------------------------------------------------------------#
 
-# pType
-setMethod("pType", signature(object = "glpkPtr"),
+# glpkPtrType
+setMethod("glpkPtrType", signature(object = "glpkPtr"),
           function(object) {
-              return(object@pType)
+              return(object@glpkPtrType)
           }
 )
 
-setReplaceMethod("pType", signature = (object = "glpkPtr"),
+setReplaceMethod("glpkPtrType", signature = (object = "glpkPtr"),
                  function(object, value) {
-                     object@pType <- value
+                     object@glpkPtrType <- value
                      return(object)
                  }
 )
 
 
-# ptr
-setMethod("ptr", signature(object = "glpkPtr"),
+# glpkPointer
+setMethod("glpkPointer", signature(object = "glpkPtr"),
           function(object) {
-              return(object@ptr)
+              return(object@glpkPointer)
           }
 )
 
 
 #------------------------------------------------------------------------------#
 
-setMethod("isNULLpointer", signature(object = "glpkPtr"),
+setMethod("isNULLpointerGLPK", signature(object = "glpkPtr"),
     function(object) {
-        return(.Call("isNULLptr", PACKAGE = "glpkAPI", ptr(object)))
+        return(.Call("isNULLptr", PACKAGE = "glpkAPI", glpkPointer(object)))
     }
 )
 
 setMethod("isGLPKpointer", signature(object = "glpkPtr"),
     function(object) {
-        return(.Call("isGLPKptr", PACKAGE = "glpkAPI", ptr(object)))
+        return(.Call("isGLPKptr", PACKAGE = "glpkAPI", glpkPointer(object)))
     }
 )
 
 setMethod("isTRWKSpointer", signature(object = "glpkPtr"),
     function(object) {
-        return(.Call("isTRWKSptr", PACKAGE = "glpkAPI", ptr(object)))
+        return(.Call("isTRWKSptr", PACKAGE = "glpkAPI", glpkPointer(object)))
     }
 )
 
@@ -141,7 +141,7 @@ setMethod("show", signature(object = "glpkPtr"),
     
         nc <- NA
         
-        if (isNULLpointer(object)) {
+        if (isNULLpointerGLPK(object)) {
             ptrtype <- "NULL"
         }
         else {
@@ -176,8 +176,10 @@ setMethod("show", signature(object = "glpkPtr"),
             }
         }
         
-        cat(paste("Slot ", dQuote("pType"), ": ", pType(object), "\n", sep = ""))
-        cat(paste("Slot ", dQuote("ptr"), ":   ", sep = ""))
-        print(slot(object, "ptr"), sep = "")
+        cat(paste("Slot ",
+                  dQuote("glpkPtrType"), ": ",
+                  glpkPtrType(object), "\n", sep = ""))
+        cat(paste("Slot ", dQuote("glpkPointer"), ": ", sep = ""))
+        print(slot(object, "glpkPointer"), sep = "")
     }
 )
