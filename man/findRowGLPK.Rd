@@ -35,6 +35,12 @@
   Returns the ordinal number of a row, which is assigned the specified rname.
 }
 
+\note{
+  Before calling \code{findRowGLPK} for the first time on a problem object
+  \code{lp}, an index has to created via a call to
+  \code{\link{createIndexGLPK}}.
+}
+
 \references{
   Based on the package \pkg{glpk} by Lopaka Lee.
     

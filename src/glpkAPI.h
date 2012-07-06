@@ -222,7 +222,7 @@ SEXP getObjCoefs(SEXP lp, SEXP j);
 SEXP getObjCoef(SEXP lp, SEXP j);
 
 /* load the whole constraint matrix */
-SEXP loadMatrix(SEXP lp, SEXP ne, SEXP ia, SEXP ja, SEXP ra);
+SEXP loadMatrix(SEXP lp, SEXP ne, SEXP ia, SEXP ja, SEXP ra, SEXP check);
 
 /* check for duplicate elements in sparse matrix */
 SEXP checkDup(SEXP m, SEXP n, SEXP ne, SEXP ia, SEXP ja);

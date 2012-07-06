@@ -1677,7 +1677,7 @@ SEXP getObjCoef(SEXP lp, SEXP j) {
 
 /* -------------------------------------------------------------------------- */
 /* load the whole constraint matrix */
-SEXP loadMatrix(SEXP lp, SEXP ne, SEXP ia, SEXP ja, SEXP ra) {
+SEXP loadMatrix(SEXP lp, SEXP ne, SEXP ia, SEXP ja, SEXP ra, SEXP check) {
 
     SEXP out = R_NilValue;
 
@@ -1686,9 +1686,26 @@ SEXP loadMatrix(SEXP lp, SEXP ne, SEXP ia, SEXP ja, SEXP ra) {
     const double *rra = REAL(ra);
 
     checkProb(lp);
+    if (Rf_asInteger(check) == 1) {
+        checkVecLen(ne, ia);
+        checkVecLen(ne, ja);
+        checkVecLen(ne, ra);
+        checkRowIndices(lp, ia);
+        checkColIndices(lp, ja);
+    }
+
+    if ( setjmp(jenv) ) {
+        glp_error_hook( NULL, NULL );
+        return out;
+    }
+
+    ge.e = 100;
+    glp_error_hook( (func) &cleanGLPKerror, &ge );
 
     glp_load_matrix(R_ExternalPtrAddr(lp), Rf_asInteger(ne),
                     &(ria[-1]), &(rja[-1]), &(rra[-1]));
+
+    glp_error_hook( NULL, NULL );
 
     return out;
 }
@@ -2740,6 +2757,7 @@ SEXP getMatRow(SEXP lp, SEXP i) {
 
         /* maybe this is ugly */
         REAL(val)[0] = 0;
+        INTEGER(ind)[0] = 0;
 
         PROTECT(out = Rf_allocVector(VECSXP, 3));
         SET_VECTOR_ELT(out, 0, Rf_ScalarInteger(nnzr));
@@ -2819,6 +2837,7 @@ SEXP getMatCol(SEXP lp, SEXP j) {
 
         /* maybe this is ugly */
         REAL(val)[0] = 0;
+        INTEGER(ind)[0] = 0;
 
         PROTECT(out = Rf_allocVector(VECSXP, 3));
         SET_VECTOR_ELT(out, 0, Rf_ScalarInteger(nnzc));

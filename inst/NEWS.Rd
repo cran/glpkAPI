@@ -6,6 +6,23 @@
 
 
 % ---------------------------------------------------------------------------- %
+\section{Changes in version 1.2.4 2012-07-06}{
+  \itemize{
+    \item inconsistent inputs to \code{loadMatrixGLPK} will not longer stop
+          the running R session
+    \item new argument \code{check} to function \code{loadMatrixGLPK}:
+          if set to \code{TRUE} (and \pkg{glpkAPI} compiled with
+          --enable-chkargs [which is the default]), other arguments to
+          \code{loadMatrixGLPK} will be reviewed in terms of vector length and
+          valid row and column indices, before changing the problem object
+    \item functions \code{setMatRowGLPK} and \code{getMatRowGLPK} can use
+          vectors returned by \code{getMatRowGLPK} and \code{getMatColGLPK}
+          respectively
+  }
+}
+
+
+% ---------------------------------------------------------------------------- %
 \section{Changes in version 1.2.3 2012-04-20}{
   \itemize{
     \item bugfix in \file{configure.ac} when compiling with \command{R32}

@@ -91,7 +91,7 @@ static const R_CallMethodDef callMethods[] = {
     {"setObjCoef",          (DL_FUNC) &setObjCoef,          3},
     {"getObjCoefs",         (DL_FUNC) &getObjCoefs,         2},
     {"getObjCoef",          (DL_FUNC) &getObjCoef,          2},
-    {"loadMatrix",          (DL_FUNC) &loadMatrix,          5},
+    {"loadMatrix",          (DL_FUNC) &loadMatrix,          6},
     {"checkDup",            (DL_FUNC) &checkDup,            5},
     {"sortMatrix",          (DL_FUNC) &sortMatrix,          1},
     {"delRows",             (DL_FUNC) &delRows,             3},

@@ -35,6 +35,12 @@
   Returns the ordinal number of a column, which is assigned the specified cname.
 }
 
+\note{
+  Before calling \code{findColGLPK} for the first time on a problem object
+  \code{lp}, an index has to created via a call to
+  \code{\link{createIndexGLPK}}.
+}
+
 \references{
   Based on the package \pkg{glpk} by Lopaka Lee.
     

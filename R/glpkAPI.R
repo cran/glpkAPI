@@ -926,7 +926,7 @@ getObjCoefGLPK <- function(lp, j) {
 
 #------------------------------------------------------------------------------#
 
-loadMatrixGLPK <- function(lp, ne, ia, ja, ra) {
+loadMatrixGLPK <- function(lp, ne, ia, ja, ra, check = FALSE) {
 
     invisible(
         .Call("loadMatrix", PACKAGE = "glpkAPI",
@@ -934,7 +934,8 @@ loadMatrixGLPK <- function(lp, ne, ia, ja, ra) {
               as.integer(ne),
               as.integer(ia),
               as.integer(ja),
-              as.numeric(ra)
+              as.numeric(ra),
+              as.integer(check)
         )
     )
 
@@ -1667,14 +1668,24 @@ setMatRowGLPK <- function(lp, i, len, ind, val) {
         Cind <- as.null(ind)
     }
     else {
-        Cind <- as.integer(c(0, ind))
+        if (ind[1] != 0) {
+            Cind <- as.integer(append(ind, 0, 0))
+        }
+        else {
+            Cind <- as.integer(ind)
+        }
     }
 
     if ( (len == 0) && (is.null(val)) ) {
         Cval <- as.null(val)
     }
     else {
-        Cval <- as.numeric(c(0, val))
+        if (val[1] != 0) {
+            Cval <- as.numeric(append(val, 0, 0))
+        }
+        else {
+            Cval <- as.numeric(val)
+        }
     }
 
     check <- .Call("setMatRow", PACKAGE = "glpkAPI",
@@ -1710,14 +1721,24 @@ setMatColGLPK <- function(lp, j, len, ind, val) {
         Cind <- as.null(ind)
     }
     else {
-        Cind <- as.integer(c(0, ind))
+        if (ind[1] != 0) {
+            Cind <- as.integer(append(ind, 0, 0))
+        }
+        else {
+            Cind <- as.integer(ind)
+        }
     }
 
     if ( (len == 0) && (is.null(val)) ) {
         Cval <- as.null(val)
     }
     else {
-        Cval <- as.numeric(c(0, val))
+        if (val[1] != 0) {
+            Cval <- as.numeric(append(val, 0, 0))
+        }
+        else {
+            Cval <- as.numeric(val)
+        }
     }
 
     check <- .Call("setMatCol", PACKAGE = "glpkAPI",

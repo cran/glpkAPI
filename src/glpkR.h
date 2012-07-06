@@ -58,9 +58,39 @@
          (Rf_asInteger(c) < 1) ) \
         Rf_error("Column index out of range!"); \
 } while (0)
+#define checkRowIndices(p, r) do { \
+    int i = 0; \
+    int nr = glp_get_num_rows(R_ExternalPtrAddr(p)); \
+    const int *rr = INTEGER(r); \
+    while (i < Rf_length(r)) { \
+        if ( ((rr[i]) > nr) || ((rr[i]) < 1) ) { \
+            Rf_error("Row index i[%i] = %i out of range!", (i+1), rr[i]); \
+        } \
+        i++; \
+    } \
+} while (0)
+#define checkColIndices(p, c) do { \
+    int j = 0; \
+    int nc = glp_get_num_cols(R_ExternalPtrAddr(p)); \
+    const int *rc = INTEGER(c); \
+    while (j < Rf_length(c)) { \
+        if ( ((rc[j]) > nc) || ((rc[j]) < 1) ) { \
+            Rf_error("Column index j[%i] = %i out of range!", (j+1), rc[j]); \
+        } \
+        j++; \
+    } \
+} while (0)
+#define checkVecLen(l, v) do { \
+    if ( Rf_length(v) != Rf_asInteger(l) ) { \
+        Rf_error("Vector does not have length %i!", Rf_asInteger(l)); \
+    } \
+} while (0)
 #else
 #define checkRowIndex(p, r)
 #define checkColIndex(p, c)
+#define checkRowIndices(p, r)
+#define checkColIndices(p, c)
+#define checkVecLen(l, v)
 #endif
 
 
