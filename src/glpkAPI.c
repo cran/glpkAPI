@@ -25,6 +25,7 @@
 
 #include <setjmp.h>
 #include "glpkAPI.h"
+#include "glpkCallback.h"
 
 
 static SEXP tagGLPKprob;
@@ -36,7 +37,6 @@ static SEXP tagMATHprog;
 glp_smcp parmS;
 glp_iptcp parmI;
 glp_iocp parmM;
-
 
 /* BEGIN code by Ulrich Wittelsbuerger */
 struct glpkError {
@@ -150,6 +150,7 @@ SEXP initGLPK(void) {
     tagGLPKprob = Rf_install("TYPE_GLPK_PROB");
     tagGLPKparm = Rf_install("TYPE_GLPK_PARM");
     tagMATHprog = Rf_install("TYPE_MATH_PROG");
+    tagGLPKparm = Rf_install("TYPE_GLPK_PARM");
     return R_NilValue;
 }
 
@@ -237,10 +238,73 @@ SEXP initProb(SEXP ptrtype) {
     R_RegisterCFinalizerEx(lpext, glpkProbFinalizer, TRUE);
     Rf_setAttrib(ptr, class, lpext);
     Rf_classgets(ptr, class);
+
     UNPROTECT(3);
 
     return ptr;
 }
+
+/* -------------------------------------------------------------------------- */
+/* create new problem object */
+/*
+SEXP initProb(SEXP ptrtype) {
+
+    SEXP lpext = R_NilValue;
+    SEXP ptr, class;
+
+    glp_prob *lp;
+
+glp_smcp parmSa;
+glp_iptcp parmIa;
+glp_iocp parmMa;
+SEXP psn, pin, pmn, psp, pip, pmp;
+
+
+
+
+
+    glp_init_smcp(&parmSa);
+    glp_init_iptcp(&parmIa);
+    glp_init_iocp(&parmMa);
+
+    PROTECT(ptr = Rf_allocVector(STRSXP, 1));
+    SET_STRING_ELT(ptr, 0, STRING_ELT(ptrtype, 0));
+
+PROTECT(psn = Rf_allocVector(STRSXP, 1));
+SET_STRING_ELT(psn, 0, Rf_mkChar("simplex"));
+PROTECT(pin = Rf_allocVector(STRSXP, 1));
+SET_STRING_ELT(pin, 0, Rf_mkChar("interior"));
+PROTECT(pmn = Rf_allocVector(STRSXP, 1));
+SET_STRING_ELT(pmn, 0, Rf_mkChar("mip"));
+
+psp = R_MakeExternalPtr(&parmSa, tagGLPKparm, R_NilValue);
+pip = R_MakeExternalPtr(&parmIa, tagGLPKparm, R_NilValue);
+pmp = R_MakeExternalPtr(&parmMa, tagGLPKparm, R_NilValue);
+PROTECT(psp);
+PROTECT(pip);
+PROTECT(pmp);
+
+    PROTECT(class = Rf_allocVector(STRSXP, 1));
+    SET_STRING_ELT(class, 0, Rf_mkChar("glpk_ptr"));
+
+    lp = glp_create_prob();
+
+    lpext = R_MakeExternalPtr(lp, tagGLPKprob, R_NilValue);
+    PROTECT(lpext);
+    R_RegisterCFinalizerEx(lpext, glpkProbFinalizer, TRUE);
+    Rf_setAttrib(ptr, class, lpext);
+    Rf_classgets(ptr, class);
+
+Rf_setAttrib(ptr, psn, psp);
+Rf_setAttrib(ptr, pin, pip);
+Rf_setAttrib(ptr, pmn, pmp);
+
+
+    UNPROTECT(9);
+
+    return ptr;
+}
+*/
 
 
 /* -------------------------------------------------------------------------- */
@@ -590,6 +654,14 @@ SEXP setMIPParm(SEXP npari, SEXP pari, SEXP vali,
                 case 610:
                     parmM.binarize = rvali[i];
                     break;
+                case 651:
+                    if (rvali[i] == 0) {
+                        parmM.cb_func = NULL;
+                    }
+                    else {
+                        parmM.cb_func = glpkCallback;                   
+                    }
+                    break;
             }
         }
 
@@ -739,7 +811,7 @@ SEXP getMIPParm() {
     SEXP pint  = R_NilValue;
     SEXP pdb   = R_NilValue;
 
-    PROTECT(pint = Rf_allocVector(INTSXP, 15));
+    PROTECT(pint = Rf_allocVector(INTSXP, 16));
     PROTECT(pdb  = Rf_allocVector(REALSXP, 3));
 
     INTEGER(pint)[0]  = parmM.msg_lev;
@@ -757,12 +829,18 @@ SEXP getMIPParm() {
     INTEGER(pint)[12] = parmM.cb_size;
     INTEGER(pint)[13] = parmM.presolve;
     INTEGER(pint)[14] = parmM.binarize;
+    if (parmM.cb_func) {
+        INTEGER(pint)[15] = 1;
+    }
+    else {
+        INTEGER(pint)[15] = 0;
+    }
 
     REAL(pdb)[0] = parmM.tol_int;
     REAL(pdb)[1] = parmM.tol_obj;
     REAL(pdb)[2] = parmM.mip_gap;
 
-    PROTECT(intids = Rf_allocVector(STRSXP, 15));
+    PROTECT(intids = Rf_allocVector(STRSXP, 16));
     SET_STRING_ELT(intids, 0,  Rf_mkChar("msg_lev"));
     SET_STRING_ELT(intids, 1,  Rf_mkChar("br_tech"));
     SET_STRING_ELT(intids, 2,  Rf_mkChar("bt_tech"));
@@ -778,6 +856,7 @@ SEXP getMIPParm() {
     SET_STRING_ELT(intids, 12, Rf_mkChar("cb_size"));
     SET_STRING_ELT(intids, 13, Rf_mkChar("presolve"));
     SET_STRING_ELT(intids, 14, Rf_mkChar("binarize"));
+    SET_STRING_ELT(intids, 15, Rf_mkChar("cb_func"));
 
     PROTECT(dbids = Rf_allocVector(STRSXP, 3));
     SET_STRING_ELT(dbids, 0, Rf_mkChar("tol_int"));

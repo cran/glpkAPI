@@ -6,6 +6,7 @@
 \alias{BINARIZE}
 \alias{BR_TECH}
 \alias{BT_TECH}
+\alias{CB_FUNC}
 \alias{CB_SIZE}
 \alias{CLQ_CUTS}
 \alias{COV_CUTS}
@@ -204,6 +205,7 @@
     \code{CLQ_CUTS <- 608} \tab Clique cut option (default: \code{GLP_OFF}). \cr
     \code{CB_SIZE  <- 609} \tab The number of extra (up to 256) bytes allocated for each node of the branch-and-bound tree to store application-specific data. On creating a node these bytes are initialized by binary zeros (default: \code{0}). \cr
     \code{BINARIZE <- 610} \tab LP presolver option (default: \code{GLP_OFF}). \cr
+    \code{CB_FUNC  <- 651} \tab Use a user defined callback routine \code{glpkCallback} which is written in the file \file{glpkCallback.c}. This file should be edited according to the users requirements. If set to \code{GLP_ON}, the callback routine defined there is used (default: \code{NULL}). \cr
     \code{TOL_INT  <- 701} \tab Absolute tolerance used to check if optimal solution to the current LP relaxation is integer feasible (default: \code{1e-5}). \cr
     \code{TOL_OBJ  <- 702} \tab Relative tolerance used to check if the objective value in optimal solution to the current LP relaxation is not better than in the best known inte- ger feasible solution (default: \code{1e-7}). \cr
     \code{MIP_GAP  <- 703} \tab The relative mip gap tolerance. If the relative mip gap for currently known best integer feasible solution falls below this tolerance, the solver terminates the search. This allows obtainig suboptimal integer feasible solutions if solving the problem to optimality takes too long time (default: \code{0.0}). \cr

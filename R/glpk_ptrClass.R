@@ -36,6 +36,10 @@ setClass(Class = "glpkPtr",
          representation(
               glpkPtrType = "character",
               glpkPointer = "externalptr"
+#              ,
+#              glpkParmSim = "externalptr",
+#              glpkParmInt = "externalptr",
+#              glpkParmMip = "externalptr"
          )
          #, contains = "externalptr"
 )
@@ -50,6 +54,11 @@ setMethod(f = "initialize",
 
               .Object@glpkPointer <- attr(p, which = w, exact = TRUE)
               .Object@glpkPtrType <- as.character(p)
+
+#              .Object@glpkParm    <- "parameter"
+#              .Object@glpkParmSim <- attr(p, which = "simplex", exact = TRUE)
+#              .Object@glpkParmInt <- attr(p, which = "interior", exact = TRUE)
+#              .Object@glpkParmMip <- attr(p, which = "mip", exact = TRUE)
               
               return(.Object)
           

@@ -84,6 +84,9 @@ TOL_INT  <- 701
 TOL_OBJ  <- 702
 MIP_GAP  <- 703
 
+# use callback routine glpkCallback in MIP
+CB_FUNC  <- 651
+
 
 #------------------------------------------------------------------------------#
 

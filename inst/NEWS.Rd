@@ -6,6 +6,14 @@
 
 
 % ---------------------------------------------------------------------------- %
+\section{Changes in version 1.2.5 2012-11-14}{
+  \itemize{
+    \item very basic support for the GLPK callback routine
+  }
+}
+
+
+% ---------------------------------------------------------------------------- %
 \section{Changes in version 1.2.4 2012-07-06}{
   \itemize{
     \item inconsistent inputs to \code{loadMatrixGLPK} will not longer stop
