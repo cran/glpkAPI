@@ -6,6 +6,18 @@
 
 
 % ---------------------------------------------------------------------------- %
+\section{Changes in version 1.2.6 2013-02-12}{
+  \itemize{
+    \item prints the version number of GLPK on startup
+    \item removed argument \code{check} from function \code{loadMatrixGLPK}
+    \item if compiled with --enable-chkargs [which is the default]), arguments
+          to GLPK API functions containing GLPK constants or row and column
+          indices are checked more carefully
+  }
+}
+
+
+% ---------------------------------------------------------------------------- %
 \section{Changes in version 1.2.5 2012-11-14}{
   \itemize{
     \item very basic support for the GLPK callback routine

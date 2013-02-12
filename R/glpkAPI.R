@@ -5,7 +5,7 @@
 #  glpkAPI.R
 #  R interface to GLPK.
 #
-#  Copyright (C) 2011-2012 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
+#  Copyright (C) 2011-2013 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
 #  Institute for Informatics, Heinrich-Heine-University, Duesseldorf, Germany.
 #  All right reserved.
 #  Email: geliudie@uni-duesseldorf.de
@@ -926,7 +926,7 @@ getObjCoefGLPK <- function(lp, j) {
 
 #------------------------------------------------------------------------------#
 
-loadMatrixGLPK <- function(lp, ne, ia, ja, ra, check = FALSE) {
+loadMatrixGLPK <- function(lp, ne, ia, ja, ra) {
 
     invisible(
         .Call("loadMatrix", PACKAGE = "glpkAPI",
@@ -934,8 +934,7 @@ loadMatrixGLPK <- function(lp, ne, ia, ja, ra, check = FALSE) {
               as.integer(ne),
               as.integer(ia),
               as.integer(ja),
-              as.numeric(ra),
-              as.integer(check)
+              as.numeric(ra)
         )
     )
 
@@ -1168,11 +1167,11 @@ warmUpGLPK <- function(lp) {
 
 termOutGLPK <- function(flag) {
 
-    invisible(
-        .Call("termOut", PACKAGE = "glpkAPI",
-              as.integer(flag)
-        )
+    fl <- .Call("termOut", PACKAGE = "glpkAPI",
+                as.integer(flag)
     )
+
+    return(fl)
 }
 
 

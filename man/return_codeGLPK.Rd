@@ -36,7 +36,7 @@
 }
 
 \seealso{
-  \code{\link{glpkConstants}}
+  \code{\link{glpkConstants}}, section \sQuote{return codes}.
 }
 
 \keyword{ optimize }

@@ -49,7 +49,7 @@
 }
 
 \seealso{
-  \code{\link{glpkConstants}}
+  \code{\link{glpkConstants}}, section \sQuote{Control Parameters}.
 }
 
 \keyword{ optimize }

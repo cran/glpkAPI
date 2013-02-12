@@ -25,7 +25,9 @@
     A pointer to a GLPK problem object.
   }
   \item{sol}{
-    Type of solution to be copied to the translator workspace.
+    Type of solution to be copied to the translator workspace, for possible
+    values, see \code{\link{glpkConstants}}, section
+    \sQuote{LP/MIP problem object}.
   }
 }
 

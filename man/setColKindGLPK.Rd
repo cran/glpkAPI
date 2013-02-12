@@ -25,7 +25,8 @@
     Column number \code{j}.
   }
   \item{kind}{
-    Kind of column number \code{j}.
+    Kind of column number \code{j}, for possible values see
+    \code{\link{glpkConstants}}, section \sQuote{LP/MIP problem object}.
   }
 }
 

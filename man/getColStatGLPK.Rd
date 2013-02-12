@@ -47,7 +47,7 @@
 }
 
 \seealso{
-  \code{\link{glpkConstants}}
+  \code{\link{glpkConstants}}, section \sQuote{LP/MIP problem object}.
 }
 
 \keyword{ optimize }

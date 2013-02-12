@@ -1,7 +1,7 @@
 /* init.c
    R interface to GLPK.
  
-   Copyright (C) 2011-2012 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
+   Copyright (C) 2011-2013 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
    Institute for Informatics, Heinrich-Heine-University, Duesseldorf, Germany.
    All right reserved.
    Email: geliudie@uni-duesseldorf.de
@@ -91,7 +91,7 @@ static const R_CallMethodDef callMethods[] = {
     {"setObjCoef",          (DL_FUNC) &setObjCoef,          3},
     {"getObjCoefs",         (DL_FUNC) &getObjCoefs,         2},
     {"getObjCoef",          (DL_FUNC) &getObjCoef,          2},
-    {"loadMatrix",          (DL_FUNC) &loadMatrix,          6},
+    {"loadMatrix",          (DL_FUNC) &loadMatrix,          5},
     {"checkDup",            (DL_FUNC) &checkDup,            5},
     {"sortMatrix",          (DL_FUNC) &sortMatrix,          1},
     {"delRows",             (DL_FUNC) &delRows,             3},

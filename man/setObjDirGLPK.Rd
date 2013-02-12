@@ -22,7 +22,8 @@
     object.
   }
   \item{lpdir}{
-    Optimization direction flag.
+    Optimization direction flag, which can be \code{GLP_MIN} (default) or
+    \code{GLP_MAX}.
   }
 }
 
@@ -48,7 +49,7 @@
 }
 
 \seealso{
-  \code{\link{glpkConstants}}
+  \code{\link{glpkConstants}}, section \sQuote{LP/MIP problem object}.
 }
 
 \keyword{ optimize }

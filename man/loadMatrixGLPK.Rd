@@ -12,7 +12,7 @@
 }
 
 \usage{
-  loadMatrixGLPK(lp, ne, ia, ja, ra, check = FALSE)
+  loadMatrixGLPK(lp, ne, ia, ja, ra)
 }
 
 \arguments{
@@ -32,12 +32,6 @@
   }
   \item{ra}{
     The numeric values of the constraint coefficients.
-  }
-  \item{check}{
-    Boolean. If set to \code{TRUE} (and \pkg{glpkAPI} is compiled with
-    --enable-chkargs [which is the default]), other arguments to
-    \code{loadMatrixGLPK} will be reviewed in terms of vector length and
-    valid row and column indices, before changing the problem object.
   }
 }
 

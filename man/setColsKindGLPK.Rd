@@ -22,7 +22,8 @@
     An integer vector of column indices.
   }
   \item{kind}{
-    An integer vector of column kinds.
+    An integer vector of column kinds, for possible values see
+    \code{\link{glpkConstants}}, section \sQuote{LP/MIP problem object}.
   }
 }
 

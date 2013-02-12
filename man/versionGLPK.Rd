@@ -3,7 +3,7 @@
 \alias{glp_version}
 
 \title{
-  Determine Library Version
+  Determine GLPK Callable Library Version
 }
 
 \description{
@@ -21,7 +21,7 @@
 }
 
 \value{
-  Returns NULL and prints the version number to stdout.
+  Returns a single character value containing the GLPK version number.
 }
 
 \references{

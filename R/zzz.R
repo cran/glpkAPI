@@ -5,7 +5,7 @@
 #  zzz.R
 #  R interface to GLPK.
 #
-#  Copyright (C) 2011-2012 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
+#  Copyright (C) 2011-2013 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
 #  Institute for Informatics, Heinrich-Heine-University, Duesseldorf, Germany.
 #  All right reserved.
 #  Email: geliudie@uni-duesseldorf.de
@@ -28,7 +28,10 @@
 
 .packageName <- "glpkAPI"
 
-.onLoad <- function(lib, pkg) {
+.onLoad <- function(libname, pkgname) {
     .Call("initGLPK", PACKAGE = "glpkAPI")
 }
 
+.onAttach <- function(libname, pkgname) {
+    packageStartupMessage("using GLPK version ", versionGLPK())
+}

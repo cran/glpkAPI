@@ -25,13 +25,13 @@
     Row number i.
   }
   \item{stat}{
-    A status parameter.
+    A status parameter, see \code{\link{glpkConstants}} for possible values.
   }
 }
 
 \details{
   Interface to the C function \code{setRowStat} which calls the GLPK
-  function \code{glp_set_row_stat}.
+  function \code{glp_set_row_stat}, section \sQuote{LP/MIP problem object}.
 }
 
 \value{

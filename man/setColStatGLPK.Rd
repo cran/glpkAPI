@@ -25,7 +25,8 @@
     Column number j.
   }
   \item{stat}{
-    A status parameter.
+    A status parameter, see \code{\link{glpkConstants}}, section
+    \sQuote{LP/MIP problem object} for possible values.
   }
 }
 

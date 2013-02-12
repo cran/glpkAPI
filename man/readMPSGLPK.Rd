@@ -22,7 +22,7 @@
     object.
   }
   \item{fmt}{
-    MPS format. See \code{\link{glpkConstants}} section
+    MPS format. See \code{\link{glpkConstants}}, section
     \sQuote{MPS file formats}.
   }
   \item{fname}{

@@ -18,7 +18,8 @@
   \item{parm}{
     A vector containing integer values or symbolic names
     of the control parameters to be changed
-    (see \code{\link{glpkConstants}}).
+    (see \code{\link{glpkConstants}}, section \sQuote{Control Parameters} and
+    \sQuote{simplex method control parameters}).
   }
   \item{val}{
     A vector containing the new values for the corresponding

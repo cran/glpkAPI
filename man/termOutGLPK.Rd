@@ -17,7 +17,7 @@
 
 \arguments{
   \item{flag}{
-    GLPK enable/disable flag (\code{GLP_ON} or \code{GLP_OFF})
+    GLPK enable/disable flag: \code{GLP_ON} or \code{GLP_OFF}.
   }
 }
 
@@ -27,7 +27,7 @@
 }
 
 \value{
-  NULL
+  Returns the previous value of the terminal output flag.
 }
 
 \references{
@@ -43,7 +43,7 @@
 }
 
 \seealso{
-  \code{\link{glpkConstants}}
+  \code{\link{glpkConstants}}, section \sQuote{enable/disable flag}.
 }
 
 \keyword{ optimize }

@@ -25,7 +25,8 @@
     Row number i.
   }
   \item{type}{
-    Row type.
+    Row type. For possible values, see \code{\link{glpkConstants}}, section
+    \sQuote{LP/MIP problem object}.
   }
   \item{lb}{
     Lower bound.

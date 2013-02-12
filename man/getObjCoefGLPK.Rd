@@ -50,9 +50,5 @@
   Maintainer: Gabriel Gelius-Dietrich <geliudie@uni-duesseldorf.de>
 }
 
-\seealso{
-  \code{\link{glpkConstants}}
-}
-
 \keyword{ optimize }
 

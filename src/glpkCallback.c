@@ -1,7 +1,7 @@
 /* glpkCallback.c
    R interface to GLPK.
  
-   Copyright (C) 2011-2012 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
+   Copyright (C) 2011-2013 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
    Institute for Informatics, Heinrich-Heine-University, Duesseldorf, Germany.
    All right reserved.
    Email: geliudie@uni-duesseldorf.de
@@ -24,9 +24,19 @@
 
 #include "glpkR.h"
 
+/* for the user callback routine */
+/*
+struct cbInfo {
+    int b;
+};
+cbInfo.b = 42;
+*/
+
 /* this is from the GLPK manual, fit according to your needs */
 void glpkCallback(glp_tree *tree, void *info) {
     switch (glp_ios_reason(tree)) { 
+
+        /* Rprintf("transit pointer: %i", info.b); */
 
         case GLP_ISELECT:
             Rprintf("request for subproblem selection\n");

@@ -52,7 +52,7 @@
 }
 
 \seealso{
-  \code{\link{glpkConstants}}
+  \code{\link{glpkConstants}}, section \sQuote{enable/disable flag}.
 }
 
 \keyword{ optimize }

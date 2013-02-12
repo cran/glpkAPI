@@ -1,7 +1,7 @@
 /* glpkR.h
    R interface to GLPK.
  
-   Copyright (C) 2011-2012 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
+   Copyright (C) 2011-2013 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
    Institute for Informatics, Heinrich-Heine-University, Duesseldorf, Germany.
    All right reserved.
    Email: geliudie@uni-duesseldorf.de
@@ -51,33 +51,83 @@
 #define checkRowIndex(p, r) do { \
     if ( (Rf_asInteger(r) > glp_get_num_rows(R_ExternalPtrAddr(p))) || \
          (Rf_asInteger(r) < 1) ) \
-        Rf_error("Row index out of range!"); \
+        Rf_error("Row index '%i' is out of range!", Rf_asInteger(r)); \
 } while (0)
 #define checkColIndex(p, c) do { \
     if ( (Rf_asInteger(c) > glp_get_num_cols(R_ExternalPtrAddr(p))) || \
          (Rf_asInteger(c) < 1) ) \
-        Rf_error("Column index out of range!"); \
+        Rf_error("Column index '%i' is out of range!", Rf_asInteger(c)); \
+} while (0)
+#define checkVarType(v) do { \
+    if ( (Rf_asInteger(v) > GLP_FX) || (Rf_asInteger(v) < GLP_FR) ) \
+        Rf_error("Invalid variable type '%i'!", Rf_asInteger(v)); \
+} while (0)
+#define checkVarKind(v) do { \
+    int rv = Rf_asInteger(v); \
+    if ( (rv != GLP_CV) && (rv != GLP_IV) && (rv != GLP_BV) ) \
+        Rf_error("Invalid variable kind '%i'!", Rf_asInteger(v)); \
+} while (0)
+#define checkVarStat(v) do { \
+    int rv = Rf_asInteger(v); \
+    if ( (rv != GLP_BS) && (rv != GLP_NL) && (rv != GLP_NU)  && (rv != GLP_NF) && (rv != GLP_NS) ) \
+        Rf_error("Invalid variable status '%i'!", Rf_asInteger(v)); \
+} while (0)
+#define checkSolType(v) do { \
+    int rv = Rf_asInteger(v); \
+    if ( (rv != GLP_SOL) && (rv != GLP_IPT) && (rv != GLP_MIP) ) \
+        Rf_error("Invalid variable status '%i'!", Rf_asInteger(v)); \
+} while (0)
+#define checkScaling(v) do { \
+    int rv = Rf_asInteger(v); \
+    if ( (rv != GLP_SF_GM) && (rv != GLP_SF_EQ) && (rv != GLP_SF_2N) && (rv != GLP_SF_SKIP) && (rv != GLP_SF_AUTO) ) \
+        Rf_error("Invalid scaling option '%i'!", Rf_asInteger(v)); \
+} while (0)
+#define checkVarTypes(v) do { \
+    int y = 0; \
+    const int *rv; \
+    if (TYPEOF(v) == INTSXP) { \
+        rv = INTEGER(v); \
+        while (y < Rf_length(v)) { \
+            if ( ((rv[y]) > GLP_FX) || ((rv[y]) < GLP_FR) ) { \
+                Rf_error("Variable type 'type[%i] = %i' is invalid!", (y+1), rv[y]); \
+            } \
+            y++; \
+        } \
+    } \
+} while (0)
+#define checkVarKinds(v) do { \
+    int y = 0; \
+    const int *rv; \
+    if (TYPEOF(v) == INTSXP) { \
+        rv = INTEGER(v); \
+        while (y < Rf_length(v)) { \
+            if ( ((rv[y]) != GLP_CV) && ((rv[y]) != GLP_IV) && ((rv[y]) != GLP_BV) ) { \
+                Rf_error("Variable kind 'kind[%i] = %i' is invalid!", (y+1), rv[y]); \
+            } \
+            y++; \
+        } \
+    } \
 } while (0)
 #define checkRowIndices(p, r) do { \
-    int i = 0; \
+    int y = 0; \
     int nr = glp_get_num_rows(R_ExternalPtrAddr(p)); \
     const int *rr = INTEGER(r); \
-    while (i < Rf_length(r)) { \
-        if ( ((rr[i]) > nr) || ((rr[i]) < 1) ) { \
-            Rf_error("Row index i[%i] = %i out of range!", (i+1), rr[i]); \
+    while (y < Rf_length(r)) { \
+        if ( ((rr[y]) > nr) || ((rr[y]) < 1) ) { \
+            Rf_error("Row index 'i[%i] = %i' is out of range!", (y+1), rr[y]); \
         } \
-        i++; \
+        y++; \
     } \
 } while (0)
 #define checkColIndices(p, c) do { \
-    int j = 0; \
+    int y = 0; \
     int nc = glp_get_num_cols(R_ExternalPtrAddr(p)); \
     const int *rc = INTEGER(c); \
-    while (j < Rf_length(c)) { \
-        if ( ((rc[j]) > nc) || ((rc[j]) < 1) ) { \
-            Rf_error("Column index j[%i] = %i out of range!", (j+1), rc[j]); \
+    while (y < Rf_length(c)) { \
+        if ( ((rc[y]) > nc) || ((rc[y]) < 1) ) { \
+            Rf_error("Column index 'j[%i] = %i' is out of range!", (y+1), rc[y]); \
         } \
-        j++; \
+        y++; \
     } \
 } while (0)
 #define checkVecLen(l, v) do { \
@@ -88,6 +138,13 @@
 #else
 #define checkRowIndex(p, r)
 #define checkColIndex(p, c)
+#define checkVarType(v)
+#define checkVarKind(v)
+#define checkVarStat(v)
+#define checkSolType(v)
+#define checkScaling(v)
+#define checkVarTypes(v)
+#define checkVarKinds(v)
 #define checkRowIndices(p, r)
 #define checkColIndices(p, c)
 #define checkVecLen(l, v)

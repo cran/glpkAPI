@@ -35,7 +35,8 @@
     Vector of objective coefficients.
   }
   \item{type}{
-    Vector of variable types (default: NULL).
+    Vector of variable types (default: NULL). For possible values, see
+    \code{\link{glpkConstants}}, section \sQuote{LP/MIP problem object}.
   }
 }
 

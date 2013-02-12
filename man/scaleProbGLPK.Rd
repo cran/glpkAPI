@@ -22,7 +22,8 @@
     object.
   }
   \item{opt}{
-    Scaling option.
+    Scaling option, see \code{\link{glpkConstants}}, section
+    \sQuote{LP/MIP problem object} for possible values.
   }
 }
 

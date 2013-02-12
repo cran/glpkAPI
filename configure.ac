@@ -1,4 +1,4 @@
-AC_INIT([glpkAPI], [1.2.5], [geliudie@uni-duesseldorf.de])
+AC_INIT([glpkAPI], [1.2.6], [geliudie@uni-duesseldorf.de])
 
 
 dnl # --------------------------------------------------------------------
@@ -176,6 +176,7 @@ dnl #            fi
     if test [ "${GMP}" != "no" ] ; then
         dnl # AC_CHECK_HEADER([gmp.h], INCL="$INCL -lgmp", AC_MSG_NOTICE([Could not link to gmp.]))
         LINK="-lglpk -lgmp"
+        AC_DEFINE([USE_GMP], [1], [defined, if gnu bignum is used])
     else
         LINK="-lglpk"
     fi
