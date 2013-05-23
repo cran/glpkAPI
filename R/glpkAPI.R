@@ -404,8 +404,30 @@ setRowNameGLPK <- function(lp, i, rname = NULL) {
     invisible(
         .Call("setRowName", PACKAGE = "glpkAPI",
               glpkPointer(lp),
-              i,
+              as.integer(i),
               Crname
+        )
+    )
+
+}
+
+
+#------------------------------------------------------------------------------#
+
+setRowsNamesGLPK <- function(lp, i, rnames = NULL) {
+
+    if (is.null(rnames)) {
+        Crnames <- as.null(rnames)
+    }
+    else {
+        Crnames <- as.character(rnames)
+    }
+
+    invisible(
+        .Call("setRowsNames", PACKAGE = "glpkAPI",
+              glpkPointer(lp),
+              as.integer(i),
+              Crnames
         )
     )
 
@@ -470,6 +492,28 @@ setColNameGLPK <- function(lp, j, cname = NULL) {
               glpkPointer(lp),
               j,
               Ccname
+        )
+    )
+
+}
+
+
+#------------------------------------------------------------------------------#
+
+setColsNamesGLPK <- function(lp, j, cnames = NULL) {
+
+    if (is.null(cnames)) {
+        Ccnames <- as.null(cnames)
+    }
+    else {
+        Ccnames <- as.character(cnames)
+    }
+
+    invisible(
+        .Call("setColsNames", PACKAGE = "glpkAPI",
+              glpkPointer(lp),
+              as.integer(j),
+              Ccnames
         )
     )
 

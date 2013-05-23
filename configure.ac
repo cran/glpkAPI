@@ -1,4 +1,4 @@
-AC_INIT([glpkAPI], [1.2.6], [geliudie@uni-duesseldorf.de])
+AC_INIT([glpkAPI], [1.2.7], [geliudie@uni-duesseldorf.de])
 
 
 dnl # --------------------------------------------------------------------

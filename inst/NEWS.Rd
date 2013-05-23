@@ -6,6 +6,16 @@
 
 
 % ---------------------------------------------------------------------------- %
+\section{Changes in version 1.2.7 2013-05-23}{
+  \itemize{
+    \item a minor change in file \file{Makevars.win} so that the Windows version
+          will be compiled using --enable-chkargs
+    \item added functions \code{setColsNamesGLPK()}, \code{setRowsNamesGLPK()}
+  }
+}
+
+
+% ---------------------------------------------------------------------------- %
 \section{Changes in version 1.2.6 2013-02-12}{
   \itemize{
     \item prints the version number of GLPK on startup

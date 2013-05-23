@@ -118,6 +118,9 @@ SEXP addRows(SEXP lp, SEXP nrows);
 /* set row name i */
 SEXP setRowName(SEXP lp, SEXP i, SEXP rname);
 
+/* set row names */
+SEXP setRowsNames(SEXP lp, SEXP i, SEXP rnames);
+
 /* get row name i */
 SEXP getRowName(SEXP lp, SEXP i);
 
@@ -129,6 +132,9 @@ SEXP addCols(SEXP lp, SEXP ncols);
 
 /* set column name j */
 SEXP setColName(SEXP lp, SEXP j, SEXP cname);
+
+/* set column names */
+SEXP setColsNames(SEXP lp, SEXP j, SEXP cnames);
 
 /* get column name j */
 SEXP getColName(SEXP lp, SEXP j);

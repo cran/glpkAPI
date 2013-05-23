@@ -980,6 +980,38 @@ SEXP setRowName(SEXP lp, SEXP i, SEXP rname) {
 
 
 /* -------------------------------------------------------------------------- */
+/* set row names */
+SEXP setRowsNames(SEXP lp, SEXP i, SEXP rnames) {
+
+    SEXP out = R_NilValue;
+
+    int *ri = INTEGER(i);
+    int k, numrn;
+
+    checkProb(lp);
+    checkRowIndices(lp, i);
+
+    if (rnames == R_NilValue) {
+        numrn = Rf_length(i);
+        for (k = 0; k < numrn; k++) {
+            glp_set_row_name(R_ExternalPtrAddr(lp), ri[k], NULL);
+        }
+    }
+    else {
+        checkVecLen(Rf_ScalarInteger(Rf_length(i)), rnames);
+        numrn = Rf_length(rnames);
+        for (k = 0; k < numrn; k++) {
+            glp_set_row_name(R_ExternalPtrAddr(lp),
+                             ri[k], CHAR(STRING_ELT(rnames, k)));
+        }
+    }
+
+    return out;
+
+}
+
+
+/* -------------------------------------------------------------------------- */
 /* get row name i */
 SEXP getRowName(SEXP lp, SEXP i) {
 
@@ -1066,6 +1098,38 @@ SEXP setColName(SEXP lp, SEXP j, SEXP cname) {
     checkColIndex(lp, j);
 
     glp_set_col_name(R_ExternalPtrAddr(lp), Rf_asInteger(j), rcname);
+
+    return out;
+
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* set column names */
+SEXP setColsNames(SEXP lp, SEXP j, SEXP cnames) {
+
+    SEXP out = R_NilValue;
+
+    int *rj = INTEGER(j);
+    int k, numcn;
+
+    checkProb(lp);
+    checkColIndices(lp, j);
+
+    if (cnames == R_NilValue) {
+        numcn = Rf_length(j);
+        for (k = 0; k < numcn; k++) {
+            glp_set_col_name(R_ExternalPtrAddr(lp), rj[k], NULL);
+        }
+    }
+    else {
+        checkVecLen(Rf_ScalarInteger(Rf_length(j)), cnames);
+        numcn = Rf_length(cnames);
+        for (k = 0; k < numcn; k++) {
+            glp_set_col_name(R_ExternalPtrAddr(lp),
+                             rj[k], CHAR(STRING_ELT(cnames, k)));
+        }
+    }
 
     return out;
 
