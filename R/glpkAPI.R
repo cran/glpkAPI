@@ -899,6 +899,20 @@ getRowTypeGLPK <- function(lp, i) {
 
 #------------------------------------------------------------------------------#
 
+getRowsTypesGLPK <- function(lp, i) {
+
+    type <- .Call("getRowsTypes", PACKAGE = "glpkAPI",
+                  glpkPointer(lp),
+                  as.integer(i)
+        )
+
+    return(type)
+
+}
+
+
+#------------------------------------------------------------------------------#
+
 getColTypeGLPK <- function(lp, j) {
 
     type <- .Call("getColType", PACKAGE = "glpkAPI",

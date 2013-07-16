@@ -1757,6 +1757,31 @@ SEXP getRowType(SEXP lp, SEXP i) {
 
 
 /* -------------------------------------------------------------------------- */
+/* get row types (for more than one row) */
+SEXP getRowsTypes(SEXP lp, SEXP i) {
+
+    SEXP out = R_NilValue;
+
+    int k, ni, type;
+    int *ri = INTEGER(i);
+
+    checkProb(lp);
+    checkRowIndices(lp, i);
+
+    ni = Rf_length(i);
+
+    PROTECT(out = Rf_allocVector(INTSXP, ni));
+    for (k = 0; k < ni; k++) {
+        type = glp_get_row_type(R_ExternalPtrAddr(lp), ri[k]);
+        INTEGER(out)[k] = type;
+    }
+    UNPROTECT(1);
+
+    return out;
+}
+
+
+/* -------------------------------------------------------------------------- */
 /* get col type */
 SEXP getColType(SEXP lp, SEXP j) {
 
@@ -1876,6 +1901,7 @@ SEXP loadMatrix(SEXP lp, SEXP ne, SEXP ia, SEXP ja, SEXP ra) {
     checkVecLen(ne, ra);
     checkRowIndices(lp, ia);
     checkColIndices(lp, ja);
+    checkDupIndices(ia, ja, ne);
 
 /*
     if ( setjmp(jenv) ) {

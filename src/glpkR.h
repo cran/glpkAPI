@@ -135,6 +135,28 @@
         Rf_error("Vector does not have length %i!", Rf_asInteger(l)); \
     } \
 } while (0)
+#define checkDupIndices(m, n, ne) do { \
+    int *oind; \
+    int dupA = 0; \
+    int dupB = 0; \
+    int y = 1; \
+    const int *rm = INTEGER(m); \
+    const int *rn = INTEGER(n); \
+    oind = R_Calloc(Rf_asInteger(ne), int); \
+    R_orderVector(oind, Rf_asInteger(ne), Rf_lang2(m, n), TRUE, FALSE); \
+    while (y < Rf_asInteger(ne)) { \
+        if ( (rm[oind[y-1]] == rm[oind[y]]) && (rn[oind[y-1]] == rn[oind[y]]) ) { \
+            dupA = oind[y-1]; \
+            dupB = oind[y]; \
+            break; \
+        } \
+        y++; \
+    } \
+    R_Free(oind); \
+    if (dupB) { \
+        Rf_error("Duplicate indices 'ia[%i] = ia[%i] = %i' and 'ja[%i] = ja[%i] = %i' not allowed!", dupA+1, dupB+1, rm[dupA], dupA+1, dupB+1, rn[dupB]); \
+    } \
+} while (0)
 #else
 #define checkRowIndex(p, r)
 #define checkColIndex(p, c)
@@ -148,6 +170,7 @@
 #define checkRowIndices(p, r)
 #define checkColIndices(p, c)
 #define checkVecLen(l, v)
+#define checkDupIndices(m, n)
 #endif
 
 

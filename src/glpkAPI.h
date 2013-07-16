@@ -212,6 +212,9 @@ SEXP getRowUppBnd(SEXP lp, SEXP i);
 /* get row type */
 SEXP getRowType(SEXP lp, SEXP i);
 
+/* get row types (for more than one row) */
+SEXP getRowsTypes(SEXP lp, SEXP i);
+
 /* get col type */
 SEXP getColType(SEXP lp, SEXP j);
 

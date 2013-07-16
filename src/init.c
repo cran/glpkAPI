@@ -88,6 +88,7 @@ static const R_CallMethodDef callMethods[] = {
     {"getRowsUppBnds",      (DL_FUNC) &getRowsUppBnds,      2},
     {"getRowUppBnd",        (DL_FUNC) &getRowUppBnd,        2},
     {"getRowType",          (DL_FUNC) &getRowType,          2},
+    {"getRowsTypes",        (DL_FUNC) &getRowsTypes,        2},
     {"getColType",          (DL_FUNC) &getColType,          2},
     {"setObjCoefs",         (DL_FUNC) &setObjCoefs,         3},
     {"setObjCoef",          (DL_FUNC) &setObjCoef,          3},

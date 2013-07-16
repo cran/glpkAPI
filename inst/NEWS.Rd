@@ -6,6 +6,15 @@
 
 
 % ---------------------------------------------------------------------------- %
+\section{Changes in version 1.2.8 2013-07-04}{
+  \itemize{
+    \item duplicate entries in inputs to \code{loadMatrixGLPK} will not longer
+          stop the running R session
+  }
+}
+
+
+% ---------------------------------------------------------------------------- %
 \section{Changes in version 1.2.7 2013-05-23}{
   \itemize{
     \item a minor change in file \file{Makevars.win} so that the Windows version
