@@ -6,10 +6,20 @@
 
 
 % ---------------------------------------------------------------------------- %
-\section{Changes in version 1.2.8 2013-07-04}{
+\section{Changes in version 1.2.9 2013-07-27}{
+  \itemize{
+    \item fixed a bug in \code{loadMatrixGLPK}: symbol \code{R_orderVector} is
+          first available in R version 3.0.0
+  }
+}
+
+
+% ---------------------------------------------------------------------------- %
+\section{Changes in version 1.2.8 2013-07-16}{
   \itemize{
     \item duplicate entries in inputs to \code{loadMatrixGLPK} will not longer
           stop the running R session
+    \item added function \code{getRowsTypesGLPK}
   }
 }
 

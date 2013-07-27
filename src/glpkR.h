@@ -39,6 +39,7 @@
 
 #include <R.h>
 #include <Rinternals.h>
+#include <Rversion.h>
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -135,6 +136,7 @@
         Rf_error("Vector does not have length %i!", Rf_asInteger(l)); \
     } \
 } while (0)
+#if defined(R_VERSION) && R_VERSION >= R_Version(3, 0, 0)
 #define checkDupIndices(m, n, ne) do { \
     int *oind; \
     int dupA = 0; \
@@ -158,6 +160,9 @@
     } \
 } while (0)
 #else
+#define checkDupIndices(m, n, ne)
+#endif
+#else
 #define checkRowIndex(p, r)
 #define checkColIndex(p, c)
 #define checkVarType(v)
@@ -170,7 +175,7 @@
 #define checkRowIndices(p, r)
 #define checkColIndices(p, c)
 #define checkVecLen(l, v)
-#define checkDupIndices(m, n)
+#define checkDupIndices(m, n, ne)
 #endif
 
 
