@@ -440,7 +440,7 @@ getRowNameGLPK <- function(lp, i) {
 
     rname <- .Call("getRowName", PACKAGE = "glpkAPI",
                    glpkPointer(lp),
-                   i
+                   as.integer(i)
              )
 
     return(rname)
@@ -490,7 +490,7 @@ setColNameGLPK <- function(lp, j, cname = NULL) {
     invisible(
         .Call("setColName", PACKAGE = "glpkAPI",
               glpkPointer(lp),
-              j,
+              as.integer(j),
               Ccname
         )
     )
@@ -526,7 +526,7 @@ getColNameGLPK <- function(lp, j) {
 
     cname <- .Call("getColName", PACKAGE = "glpkAPI",
                    glpkPointer(lp),
-                   j
+                   as.integer(j)
              )
 
     return(cname)
@@ -1033,11 +1033,18 @@ sortMatrixGLPK <- function(lp) {
 
 delRowsGLPK <- function(lp, nrows, i) {
 
+    if (i[1] != 0) {
+        Ci <- as.integer(append(i, 0, 0))
+    }
+    else {
+        Ci <- as.integer(i)
+    }
+
     invisible(
         .Call("delRows", PACKAGE = "glpkAPI",
               glpkPointer(lp),
               as.integer(nrows),
-              as.integer(i)
+              Ci
         )
     )
 
@@ -1048,11 +1055,19 @@ delRowsGLPK <- function(lp, nrows, i) {
 
 delColsGLPK <- function(lp, ncols, j) {
 
+
+    if (j[1] != 0) {
+        Cj <- as.integer(append(j, 0, 0))
+    }
+    else {
+        Cj <- as.integer(j)
+   }
+
     invisible(
         .Call("delCols", PACKAGE = "glpkAPI",
               glpkPointer(lp),
               as.integer(ncols),
-              as.integer(j)
+              Cj
         )
     )
 

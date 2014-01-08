@@ -109,24 +109,24 @@
         } \
     } \
 } while (0)
-#define checkRowIndices(p, r) do { \
-    int y = 0; \
+#define checkRowIndices(p, r, s) do { \
+    int y = s ? 1 : 0; \
     int nr = glp_get_num_rows(R_ExternalPtrAddr(p)); \
     const int *rr = INTEGER(r); \
     while (y < Rf_length(r)) { \
         if ( ((rr[y]) > nr) || ((rr[y]) < 1) ) { \
-            Rf_error("Row index 'i[%i] = %i' is out of range!", (y+1), rr[y]); \
+            Rf_error("Row index 'i[%i] = %i' is out of range!", s ? y : (y+1), rr[y]); \
         } \
         y++; \
     } \
 } while (0)
-#define checkColIndices(p, c) do { \
-    int y = 0; \
+#define checkColIndices(p, c, s) do { \
+    int y = s ? 1 : 0; \
     int nc = glp_get_num_cols(R_ExternalPtrAddr(p)); \
     const int *rc = INTEGER(c); \
     while (y < Rf_length(c)) { \
         if ( ((rc[y]) > nc) || ((rc[y]) < 1) ) { \
-            Rf_error("Column index 'j[%i] = %i' is out of range!", (y+1), rc[y]); \
+            Rf_error("Column index 'j[%i] = %i' is out of range!", s ? y : (y+1), rc[y]); \
         } \
         y++; \
     } \

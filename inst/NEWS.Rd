@@ -6,6 +6,16 @@
 
 
 % ---------------------------------------------------------------------------- %
+\section{Changes in version 1.2.10 2014-01-08}{
+  \itemize{
+    \item wring column or row indices to \code{setMatRowGLPK} and
+          \code{setMatColGLPK} will not longer stop the running R session
+    \item fixed a bug in functions \code{delRowsGLPK} and \code{delColsGLPK}
+  }
+}
+
+
+% ---------------------------------------------------------------------------- %
 \section{Changes in version 1.2.9 2013-07-27}{
   \itemize{
     \item fixed a bug in \code{loadMatrixGLPK}: symbol \code{R_orderVector} is

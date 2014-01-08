@@ -989,7 +989,7 @@ SEXP setRowsNames(SEXP lp, SEXP i, SEXP rnames) {
     int k, numrn;
 
     checkProb(lp);
-    checkRowIndices(lp, i);
+    checkRowIndices(lp, i, NULL);
 
     if (rnames == R_NilValue) {
         numrn = Rf_length(i);
@@ -1114,7 +1114,7 @@ SEXP setColsNames(SEXP lp, SEXP j, SEXP cnames) {
     int k, numcn;
 
     checkProb(lp);
-    checkColIndices(lp, j);
+    checkColIndices(lp, j, NULL);
 
     if (cnames == R_NilValue) {
         numcn = Rf_length(j);
@@ -1241,7 +1241,7 @@ SEXP setColsBnds(SEXP lp, SEXP j, SEXP type, SEXP lb, SEXP ub) {
     }
 
     checkProb(lp);
-    checkColIndices(lp, j);
+    checkColIndices(lp, j, NULL);
     checkVarTypes(type);
 
     /* nj = sizeof(j)/sizeof(j[0]) */       /* j is a SEXP,                   */
@@ -1294,7 +1294,7 @@ SEXP setColsBndsObjCoefs(SEXP lp, SEXP j, SEXP type,
     }
 
     checkProb(lp);
-    checkColIndices(lp, j);
+    checkColIndices(lp, j, NULL);
     checkVarTypes(type);
 
     nj = Rf_length(j);
@@ -1357,7 +1357,7 @@ SEXP getColsLowBnds(SEXP lp, SEXP j) {
     int *rj = INTEGER(j);
 
     checkProb(lp);
-    checkColIndices(lp, j);
+    checkColIndices(lp, j, NULL);
 
     nj = Rf_length(j);
 
@@ -1402,7 +1402,7 @@ SEXP getColsUppBnds(SEXP lp, SEXP j) {
     int *rj = INTEGER(j);
 
     checkProb(lp);
-    checkColIndices(lp, j);
+    checkColIndices(lp, j, NULL);
 
     nj = Rf_length(j);
 
@@ -1464,7 +1464,7 @@ SEXP setColsKind(SEXP lp, SEXP j, SEXP kind) {
     int *rkind = INTEGER(kind);
 
     checkProb(lp);
-    checkColIndices(lp, j);
+    checkColIndices(lp, j, NULL);
     checkVarKinds(kind);
 
     nj = Rf_length(j);
@@ -1506,7 +1506,7 @@ SEXP getColsKind(SEXP lp, SEXP j) {
     int *rj = INTEGER(j);
 
     checkProb(lp);
-    checkColIndices(lp, j);
+    checkColIndices(lp, j, NULL);
 
     nj = Rf_length(j);
 
@@ -1575,7 +1575,7 @@ SEXP setRowsBnds(SEXP lp, SEXP i, SEXP type, SEXP lb, SEXP ub) {
     }
 
     checkProb(lp);
-    checkRowIndices(lp, i);
+    checkRowIndices(lp, i, NULL);
     checkVarTypes(type);
 
     ni = Rf_length(i);
@@ -1659,7 +1659,7 @@ SEXP getRowsLowBnds(SEXP lp, SEXP i) {
     int *ri = INTEGER(i);
 
     checkProb(lp);
-    checkRowIndices(lp, i);
+    checkRowIndices(lp, i, NULL);
 
     ni = Rf_length(i);
 
@@ -1704,7 +1704,7 @@ SEXP getRowsUppBnds(SEXP lp, SEXP i) {
     int *ri = INTEGER(i);
 
     checkProb(lp);
-    checkRowIndices(lp, i);
+    checkRowIndices(lp, i, NULL);
 
     ni = Rf_length(i);
 
@@ -1766,7 +1766,7 @@ SEXP getRowsTypes(SEXP lp, SEXP i) {
     int *ri = INTEGER(i);
 
     checkProb(lp);
-    checkRowIndices(lp, i);
+    checkRowIndices(lp, i, NULL);
 
     ni = Rf_length(i);
 
@@ -1810,7 +1810,7 @@ SEXP setObjCoefs(SEXP lp, SEXP j, SEXP obj_coef) {
     double *robj_coef = REAL(obj_coef);
 
     checkProb(lp);
-    checkColIndices(lp, j);
+    checkColIndices(lp, j, NULL);
 
     nj = Rf_length(j);
     for (k = 0; k < nj; k++) {
@@ -1851,7 +1851,7 @@ SEXP getObjCoefs(SEXP lp, SEXP j) {
     int *rj = INTEGER(j);
 
     checkProb(lp);
-    checkColIndices(lp, j);
+    checkColIndices(lp, j, NULL);
 
     nj = Rf_length(j);
 
@@ -1899,8 +1899,8 @@ SEXP loadMatrix(SEXP lp, SEXP ne, SEXP ia, SEXP ja, SEXP ra) {
     checkVecLen(ne, ia);
     checkVecLen(ne, ja);
     checkVecLen(ne, ra);
-    checkRowIndices(lp, ia);
-    checkColIndices(lp, ja);
+    checkRowIndices(lp, ia, NULL);
+    checkColIndices(lp, ja, NULL);
     checkDupIndices(ia, ja, ne);
 
 /*
@@ -1966,8 +1966,8 @@ SEXP delRows(SEXP lp, SEXP nrows, SEXP i) {
     const int *ri = INTEGER(i);
 
     checkProb(lp);
-    checkVecLen(nrows, i);
-    checkRowIndices(lp, i);
+    checkVecLen(Rf_ScalarInteger(Rf_asInteger(nrows) + 1), i);
+    checkRowIndices(lp, i, 1);
 
     glp_del_rows(R_ExternalPtrAddr(lp), Rf_asInteger(nrows), ri);
 
@@ -1984,8 +1984,8 @@ SEXP delCols(SEXP lp, SEXP ncols, SEXP j) {
     const int *rj = INTEGER(j);
 
     checkProb(lp);
-    checkVecLen(ncols, j);
-    checkColIndices(lp, j);
+    checkVecLen(Rf_ScalarInteger(Rf_asInteger(ncols) + 1), j);
+    checkColIndices(lp, j, 1);
 
     glp_del_cols(R_ExternalPtrAddr(lp), Rf_asInteger(ncols), rj);
 
@@ -3026,6 +3026,7 @@ SEXP setMatRow(SEXP lp, SEXP i, SEXP len, SEXP ind, SEXP val) {
 
     checkProb(lp);
     checkRowIndex(lp, i);
+    checkColIndices(lp, ind, 1);
 
     glp_set_mat_row(R_ExternalPtrAddr(lp), Rf_asInteger(i),
                     Rf_asInteger(len), rind, rval
@@ -3106,6 +3107,7 @@ SEXP setMatCol(SEXP lp, SEXP j, SEXP len, SEXP ind, SEXP val) {
 
     checkProb(lp);
     checkColIndex(lp, j);
+    checkRowIndices(lp, ind, 1);
 
     glp_set_mat_col(R_ExternalPtrAddr(lp), Rf_asInteger(j),
                     Rf_asInteger(len), rind, rval
