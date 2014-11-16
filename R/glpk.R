@@ -5,7 +5,7 @@
 #  glpk.R
 #  R interface to GLPK.
 #
-#  Copyright (C) 2011-2013 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
+#  Copyright (C) 2011-2014 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
 #  Institute for Informatics, Heinrich-Heine-University, Duesseldorf, Germany.
 #  All right reserved.
 #  Email: geliudie@uni-duesseldorf.de
@@ -138,10 +138,11 @@ GLP_UNBND  <- 6  # solution is unbounded
 #------------------------------------------------------------------------------#
 # basis factorization control parameters
 # type
-GLP_BF_FT <- 1  # LUF + Forrest-Tomlin
-GLP_BF_BG <- 2  # LUF + Schur compl. + Bartels-Golub
-GLP_BF_GR <- 3  # LUF + Schur compl. + Givens rotation
-
+GLP_BF_FT  <- 0x01  # LUF + Forrest-Tomlin
+GLP_BF_BG  <- 0x02  # LUF + Schur compl. + Bartels-Golub
+GLP_BF_GR  <- 0x03  # LUF + Schur compl. + Givens rotation
+GLP_BF_LUF <- 0x00  # plain LU-factorization
+GLP_BF_BTF <- 0x10  # block triangular LU-factorization
 
 #------------------------------------------------------------------------------#
 # simplex method control parameters

@@ -5,7 +5,7 @@
 #  glpkAPI.R
 #  R interface to GLPK.
 #
-#  Copyright (C) 2011-2013 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
+#  Copyright (C) 2011-2014 Gabriel Gelius-Dietrich, Dpt. for Bioinformatics,
 #  Institute for Informatics, Heinrich-Heine-University, Duesseldorf, Germany.
 #  All right reserved.
 #  Email: geliudie@uni-duesseldorf.de
@@ -1414,7 +1414,7 @@ getRowDualGLPK <- function(lp, i) {
 getRowsDualGLPK <- function(lp) {
 
     rows_dual <- .Call("getRowsDual", PACKAGE = "glpkAPI",
-              lp
+              glpkPointer(lp)
         )
 
     return(rows_dual)

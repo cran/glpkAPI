@@ -76,6 +76,8 @@
 \alias{GLP_BF_FT}
 \alias{GLP_BF_BG}
 \alias{GLP_BF_GR}
+\alias{GLP_BF_LUF}
+\alias{GLP_BF_BTF}
 \alias{GLP_MSG_OFF}
 \alias{GLP_MSG_ERR}
 \alias{GLP_MSG_ON}
@@ -295,9 +297,11 @@
 
   \emph{type}
   \tabular{ll}{
-    \code{GLP_BF_FT <- 1} \tab LUF + Forrest-Tomlin \cr
-    \code{GLP_BF_BG <- 2} \tab LUF + Schur compl. + Bartels-Golub \cr
-    \code{GLP_BF_GR <- 3} \tab LUF + Schur compl. + Givens rotation \cr
+    \code{GLP_BF_FT <-  0x01} \tab LUF + Forrest-Tomlin \cr
+    \code{GLP_BF_BG <-  0x02} \tab LUF + Schur compl. + Bartels-Golub \cr
+    \code{GLP_BF_GR <-  0x03} \tab LUF + Schur compl. + Givens rotation \cr
+    \code{GLP_BF_LUF <- 0x00} \tab plain LU-factorization \cr
+    \code{GLP_BF_BTF <- 0x10} \tab block triangular LU-factorization \cr
   }
 }
 

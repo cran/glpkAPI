@@ -6,6 +6,15 @@
 
 
 % ---------------------------------------------------------------------------- %
+\section{Changes in version 1.2.11 2014-11-16}{
+  \itemize{
+    \item added bsais factorization control parameters: \code{GLP_BF_LUF}
+          and \code{GLP_BF_BTF}
+  }
+}
+
+
+% ---------------------------------------------------------------------------- %
 \section{Changes in version 1.2.10 2014-01-08}{
   \itemize{
     \item wring column or row indices to \code{setMatRowGLPK} and

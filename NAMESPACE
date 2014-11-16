@@ -1,5 +1,7 @@
 useDynLib(glpkAPI)
 
+import(methods)
+
 exportClass("glpkPtr")
 
 export(
