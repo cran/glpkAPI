@@ -1,5 +1,4 @@
 ### R code from vignette source 'glpkAPI.Rnw'
-### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: glpkAPI.Rnw:95-96
