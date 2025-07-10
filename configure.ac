@@ -41,10 +41,10 @@ dnl # --------------------------------------------------------------------
 
 ARGS_OK="FALSE"
 
-if test [ -n "$PKG_CPPFLAGS" -a -n "$PKG_LIBS" ] ; then
+if test -n "$PKG_CPPFLAGS" && test -n "$PKG_LIBS" ; then
     ARGS_OK="TRUE"
 else
-    if test [ -n "$PKG_CPPFLAGS" -o -n "$PKG_LIBS" ] ; then
+    if test -n "$PKG_CPPFLAGS" || test -n "$PKG_LIBS" ; then
         AC_MSG_ERROR([Please set both variables: PKG_CPPFLAGS AND PKG_LIBS])
     fi
 fi
@@ -84,7 +84,7 @@ dnl # --------------------------------------------------------------------
 dnl # include and library directories
 if test [ "$ARGS_OK" = "FALSE" ] ; then
 
-    if test [ -n "$GLPK_INCLUDE" -a -n "$GLPK_LIB" ] ; then
+    if test -n "$GLPK_INCLUDE" && test -n "$GLPK_LIB" ; then
     
         if test [ -d "$GLPK_INCLUDE" ] ; then
             PKG_CPPFLAGS="-I${GLPK_INCLUDE}"
@@ -110,13 +110,13 @@ if test [ "$ARGS_OK" = "FALSE" ] ; then
     
             AC_MSG_NOTICE([No prefix given, trying /usr and /usr/local])
     
-            if test [ -d "/usr/include" -o -d "/usr/local/include" ] ; then
+            if test -d "/usr/include" || test -d "/usr/local/include" ; then
                 PKG_CPPFLAGS="-I/usr/include -I/usr/local/include"
             else
                 AC_MSG_ERROR([directories /usr/include and /usr/local/include do not exist])
             fi
     
-            if test [ -d "/usr/local/lib" -o -d "/usr/local/lib64" -o -d "/usr/lib" -o -d "/usr/lib64"] ; then
+            if test -d "/usr/local/lib" || test -d "/usr/local/lib64" || test -d "/usr/lib" || test -d "/usr/lib64" ; then
                 PKG_LIBS=""
                 if test [ -d "/usr/local/lib" ] ; then
                     PKG_LIBS="$PKG_LIBS -L/usr/local/lib"
@@ -145,7 +145,7 @@ if test [ "$ARGS_OK" = "FALSE" ] ; then
                 AC_MSG_ERROR([directory $prefix/include does not exist])
             fi
     
-            if test [ -d "$prefix/lib" -o -d "$prefix/lib64" ] ; then
+            if test -d "$prefix/lib" || test -d "$prefix/lib64" ; then
                 PKG_LIBS=""
                 if test [ -d "$prefix/lib" ] ; then
                     PKG_LIBS="$PKG_LIBS -L$prefix/lib"
@@ -157,7 +157,7 @@ if test [ "$ARGS_OK" = "FALSE" ] ; then
                 AC_MSG_ERROR([neither $prefix/lib nor $prefix/lib64 exist])
             fi
 
-dnl #            if test [ -d "$prefix/include" -a -d "$prefix/lib" ] ; then
+dnl #            if test -d "$prefix/include" && test -d "$prefix/lib" ; then
 dnl #                PKG_CPPFLAGS="-I$prefix/include"
 dnl #                PKG_LIBS="-L$prefix/lib"
 dnl #                # PKG_LIBS="-L$prefix/lib -Wl,-rpath $prefix/lib"

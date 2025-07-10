@@ -32,7 +32,7 @@
 }
 
 \value{
-  Returns the current scale factor $r_{ii}$ for row \code{i} of the specified
+  Returns the current scale factor \eqn{r_{ii}} for row \code{i} of the specified
   problem object.
 }
 

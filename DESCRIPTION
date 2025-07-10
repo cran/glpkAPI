@@ -1,7 +1,7 @@
 Package: glpkAPI
 Type: Package
 Title: R Interface to C API of GLPK
-Version: 1.3.4
+Version: 1.3.4.1
 Date: 2022-11-10
 Authors@R: c(person("Mihail", "Anton", role = "cre", email = "mihail.anton@chalmers.se"),
              person("Mayo", "Roettger", email = "mayo.roettger@hhu.de", role = "ctb"),
@@ -14,10 +14,10 @@ SystemRequirements: GLPK (>= 4.42)
 License: GPL-3 | file LICENSE
 LazyLoad: yes
 Collate: generics.R glpk_ptrClass.R glpk.R glpkAPI.R zzz.R
-Packaged: 2022-11-10 14:36:27 UTC; mayo
+Packaged: 2025-07-10 16:11:58 UTC; hornik
 NeedsCompilation: yes
 Repository: CRAN
-Date/Publication: 2022-11-10 16:10:12 UTC
+Date/Publication: 2025-07-10 16:31:25 UTC
 Author: Mihail Anton [cre],
   Mayo Roettger [ctb],
   Gabriel Gelius-Dietrich [aut],

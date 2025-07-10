@@ -25,7 +25,7 @@
     Row number i.
   }
   \item{rii}{
-    Scale factor $r_{ii}$.
+    Scale factor \eqn{r_{ii}}.
   }
 }
 

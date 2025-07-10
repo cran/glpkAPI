@@ -1,4 +1,4 @@
-03d65717ff98ea1a34615453e7de3496 *DESCRIPTION
+e2d44ee027908c4f0d5e640a17d9ba58 *DESCRIPTION
 784d7dc7357bd924e8d5642892bf1b6b *LICENSE
 79fed938efeba003b557da131d06e413 *NAMESPACE
 7d7cf480551c5c2e94dfdf8d1fdb27e8 *R/generics.R
@@ -7,10 +7,10 @@
 bf1ec7539340788716135e480c1ac335 *R/glpk_ptrClass.R
 a4a7cd2c3ad5b5f5a5ad9078580e41fc *R/zzz.R
 bb3beb9917dc9af996af8f5c55fbd3b7 *README.md
-5a54688e2503a7f8900b17498fe0ee95 *build/vignette.rds
+ae34659acf67273387db31644d876be4 *build/vignette.rds
 86e2df173d4997329c7f1b0fbc769883 *cleanup
-6fc162d40fdbe6625e50ce12bf3ed05e *configure
-557f573fdfd866c9aa6000ce462e7d0a *configure.ac
+e54b6432e3a0f26fa4b724b9ddc03a5e *configure
+3986ff0db661e41a5505d32dfe43d7a4 *configure.ac
 68b329da9893e34099c7d8ad5cb9c940 *configure.win
 ec37ad1f0f7fa7b3433fc9073e50b75f *inst/INSTALL
 6e7df0c6bf9525475e63ec25d47f766e *inst/NEWS.Rd
@@ -18,10 +18,10 @@ ec37ad1f0f7fa7b3433fc9073e50b75f *inst/INSTALL
 17eb1983c2d47ab02c66b3aa222b1941 *inst/c2r.map
 dcae5a6af0e42086759355d555c5ed68 *inst/doc/glpk-gmpl-intro.R
 7edf4033880693af088ca037a37d159f *inst/doc/glpk-gmpl-intro.Rnw
-b8560d3fbafcfe6084ac5c5fdc8413e2 *inst/doc/glpk-gmpl-intro.pdf
+91a318ef0b8876fadc2f2d93e7549afe *inst/doc/glpk-gmpl-intro.pdf
 815913b044a22ed79fdb9346b9522a1a *inst/doc/glpkAPI.R
 2cca803984cd8667cf5988e81c161751 *inst/doc/glpkAPI.Rnw
-4c605f795994ba58b0e7103b964a1e64 *inst/doc/glpkAPI.pdf
+b98181c48ecff5fbf64320d5c43bfde4 *inst/doc/glpkAPI.pdf
 c50a8f88076cd6f753c83fc65c25e82c *inst/extdata/transport.mod
 873ffb157a13a21dfeac34b4b39fc041 *man/addColsGLPK.Rd
 40d790938dbf0d2c91f65dcc98bcd088 *man/addRowsGLPK.Rd
@@ -80,7 +80,7 @@ c887d357891c216a2da71dcda8a4494d *man/getObjValGLPK.Rd
 4c2ab15f06ba83840231c0e8c4fcd993 *man/getPrimStatGLPK.Rd
 430a4d9b650ec58d5f45b5200f03f24d *man/getProbNameGLPK.Rd
 287aa3ec355404ae8f0bfa470d528b8c *man/getRbindGLPK.Rd
-de47d0c4becbd18dfb53c2436d972425 *man/getRiiGLPK.Rd
+e6d8ccbfcd86c3f33c31c1ec2f66239b *man/getRiiGLPK.Rd
 c068eeedd5262d1fe7ac57df52060128 *man/getRowDualGLPK.Rd
 9149ae1bdd8036a5acdf4ddb1dedf5ea *man/getRowDualIptGLPK.Rd
 cf7c020b6ca1d9f00087fe19f460455d *man/getRowLowBndGLPK.Rd
@@ -99,7 +99,7 @@ db8d9437af6e3ba25f8f5241186e783a *man/getRowsPrimIptGLPK.Rd
 ce77c5dd059918f89dc50be7ca0b51d9 *man/getRowsTypesGLPK.Rd
 aba6f82a2e273d4f0cf7bb2e2fd7047e *man/getRowsUppBndsGLPK.Rd
 12d5d0359c6c37e07e90ca3892a9d5bf *man/getSimplexParmGLPK.Rd
-f2e6bf77a8bc6fbec65c0028b5352519 *man/getSjjGLPK.Rd
+83d16f5c0e2c35f411b2a3d22d82a229 *man/getSjjGLPK.Rd
 e47f6f938e1eeec3feabfe596585e609 *man/getSolStatGLPK.Rd
 12485818db5cc245177563186810cf26 *man/getSolStatIptGLPK.Rd
 898447fe11265d99caa18a755d69cca1 *man/getUnbndRayGLPK.Rd
@@ -155,14 +155,14 @@ bf4b012ac50e0a892bfc85808eb7c0b5 *man/setMIPParmGLPK.Rd
 3b905f8e4c4eccb06421b487bfd775c5 *man/setObjNameGLPK.Rd
 3682816600942816e4b2ee3bcef5bfe5 *man/setProbNameGLPK.Rd
 d3e4f686cdd7641a4b05cd60c4d8b416 *man/setRhsZeroGLPK.Rd
-0c52bafee76b082aed49a87d874da810 *man/setRiiGLPK.Rd
+fb74ad31f6e48bb3018649ce369171a1 *man/setRiiGLPK.Rd
 75ee370ad8f8a82bb99d2c7fa93491c8 *man/setRowBndGLPK.Rd
 12172ab7d38afe31d1ec47a2be06d150 *man/setRowNameGLPK.Rd
 8071a089196c7d302c74a16a4d5d47a4 *man/setRowStatGLPK.Rd
 1ddded83494bd41bf681106db2230597 *man/setRowsBndsGLPK.Rd
 cd5ddf54644edfff9205be7360d33366 *man/setRowsNamesGLPK.Rd
 ca09b9eeeeb4600599316bcfa1bfd514 *man/setSimplexParmGLPK.Rd
-68793e74a8e5149b7d007128d38b9049 *man/setSjjGLPK.Rd
+2dcce7efea3ab44f9d76afb839e450fb *man/setSjjGLPK.Rd
 effb24df5b3a451adb32ba470d7fb071 *man/solveInteriorGLPK.Rd
 73f3ed8d06b4089d25a01ea95210ed7c *man/solveMIPGLPK.Rd
 d3e43826ae572944817aae2639d57b8a *man/solveSimplexExactGLPK.Rd
